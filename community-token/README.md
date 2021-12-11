@@ -6,6 +6,10 @@
 
 https://etherscan.io/token/0xe29797910d413281d2821d5d9a989262c8121cc2
 
+## Uniswap
+
+https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+
 ## Setup Development Environment 👩🏽‍💻
 
 Install Node:
