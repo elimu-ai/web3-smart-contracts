@@ -8,11 +8,13 @@ https://etherscan.io/token/0xe29797910d413281d2821d5d9a989262c8121cc2
 
 ## Uniswap 🦄
 
-https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+ * Swap: https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+ * Pool: https://app.uniswap.org/#/add/v2/ETH/0xe29797910d413281d2821d5d9a989262c8121cc2
 
 ## SushiSwap 🍣
 
-https://app.sushi.com/en/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+ * Swap: https://app.sushi.com/en/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+ * Pool: https://app.sushi.com/add/ETH/0xe29797910d413281d2821d5d9a989262c8121cc2
 
 ## Setup Development Environment 👩🏽‍💻
 
