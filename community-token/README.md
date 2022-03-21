@@ -64,6 +64,8 @@ Configure `INFURA_API_KEY` in `.env`, and then run the following:
 truffle migrate --network rinkeby
 ```
 
+https://rinkeby.etherscan.io/address/0xe29797910d413281d2821d5d9a989262c8121cc2
+
 ## Verify Source Code on Etherscan ✅
 
 See https://github.com/rkalis/truffle-plugin-verify
