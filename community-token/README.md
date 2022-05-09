@@ -16,6 +16,11 @@ https://etherscan.io/token/0xe29797910d413281d2821d5d9a989262c8121cc2
  * Swap: https://app.sushi.com/en/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
  * Pool: https://app.sushi.com/add/ETH/0xe29797910d413281d2821d5d9a989262c8121cc2
 
+## Balancer ⚖️
+
+ * Swap: https://app.balancer.fi/#/trade/ether/0xe29797910d413281d2821d5d9a989262c8121cc2
+ * Pool: https://app.balancer.fi/#/pool/0x517390b2b806cb62f20ad340de6d98b2a8f17f2b0002000000000000000001ba
+
 ## Setup Development Environment 👩🏽‍💻
 
 Install Node:
