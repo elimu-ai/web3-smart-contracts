@@ -9,11 +9,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
 
-contract UniswapPoolRewards is LPTokenWrapper, Ownable {
+contract SushiswapPoolRewards is LPTokenWrapper, Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    string constant public NAME = "UniswapPoolRewards";
+    string constant public NAME = "SushiswapPoolRewards";
 
     IERC20 public elimuToken;
 
