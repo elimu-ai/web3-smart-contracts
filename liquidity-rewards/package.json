@@ -1,5 +1,5 @@
 {
-  "name": "liquidity-reward",
+  "name": "liquidity-rewards",
   "version": "1.0.0",
   "description": "$ELIMU is the governance token used by the elimu.ai Community DAO. Active contributors get rewarded with $ELIMU tokens, and token holders can participate in the community's decision-making.",
   "main": "index.js",

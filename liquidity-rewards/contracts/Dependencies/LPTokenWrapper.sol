@@ -5,6 +5,10 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+
+/* This contract will take care of user stake balances and total user stakes.
+this is a base contract for PoolRewards contracts.
+ */
 contract LPTokenWrapper  {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -22,7 +26,7 @@ contract LPTokenWrapper  {
         return _balances[account];
     }
 
-    function stake(uint256 amount) public virtual {
+    function deposit(uint256 amount) public virtual {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
         lpToken.safeTransferFrom(msg.sender, address(this), amount);
