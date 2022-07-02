@@ -87,7 +87,7 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
         emit Withdrawn(msg.sender, amount);
     }
 
-    // Shortcut to be able to unstake tokens and claim rewards in one transaction
+    // Shortcut to be able to withdraw tokens and claim rewards in one transaction
     function withdrawAndClaim() external {
         withdraw(balanceOf(msg.sender));
         claimReward();
