@@ -1,7 +1,7 @@
 {
   "name": "community-token",
   "version": "1.0.0",
-  "description": "ELIMU is the governance token used by the elimu.ai Community DAO. Active contributors get rewarded with ELIMU tokens, and token holders can participate in the community's decision-making.",
+  "description": "$ELIMU is the governance token used by the elimu.ai Community DAO. Active contributors get rewarded with $ELIMU tokens, and token holders can participate in the community's decision-making.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +23,6 @@
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
     "solc": "^0.8.0",
-    "truffle-plugin-verify": "^0.5.8"
+    "truffle-plugin-verify": "^0.5.26"
   }
 }
