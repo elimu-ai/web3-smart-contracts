@@ -30,4 +30,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: community-token/package-lock.json
     - run: npm install
