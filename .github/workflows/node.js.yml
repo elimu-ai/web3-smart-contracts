@@ -16,7 +16,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: liquidity-rewards
+        working-directory: community-token
 
     strategy:
       matrix:
