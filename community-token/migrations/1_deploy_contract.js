@@ -7,5 +7,5 @@ module.exports = function (deployer) {
   // Save ABI
   const contract = JSON.parse(fs.readFileSync('./build/contracts/ElimuToken.json', 'utf8'));
   console.log('Saving ABI:', './abis/ElimuToken.json.abi')
-  fs.writeFileSync('../abis/ElimuToken.json.abi', JSON.stringify(contract.abi))
+  fs.writeFileSync('./abis/ElimuToken.json.abi', JSON.stringify(contract.abi))
 };
