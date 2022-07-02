@@ -55,7 +55,9 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
             );
     }
 
-    // Returns the amount that an account can claim
+    /**
+     *  @dev Returns the amount that an account can claim
+     */
     function rewardsEarned(address account) public view returns (uint256) {
         return
             balanceOf(account)
