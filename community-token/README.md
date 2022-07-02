@@ -61,7 +61,7 @@ Install and launch [Ganache](https://www.trufflesuite.com/ganache). Then run the
 truffle migrate --network ganache
 ```
 
-## Deploy to Test Network 🚀
+## Deploy to Test Network (Rinkeby) 🚀🚀
 
 Configure `INFURA_API_KEY` in `.env`, and then run the following:
 
@@ -71,7 +71,7 @@ truffle migrate --network rinkeby
 
 https://rinkeby.etherscan.io/address/0xe29797910d413281d2821d5d9a989262c8121cc2
 
-## Verify Source Code on Etherscan ✅
+### Verify Source Code on Etherscan (Rinkeby) ✅
 
 See https://github.com/rkalis/truffle-plugin-verify
 
@@ -79,4 +79,24 @@ Configure `ETHERSCAN_API_KEY` in `.env`, and then run the following:
 
 ```
 truffle run verify ElimuToken --network rinkeby
+```
+
+## Deploy to Test Network (Kovan) 🚀🚀
+
+Configure `INFURA_API_KEY` in `.env`, and then run the following:
+
+```
+truffle migrate --network kovan
+```
+
+https://kovan.etherscan.io/address/0x6d63a5d57148b91805ca9741c00b89b7f81708b3
+
+### Verify Source Code on Etherscan (Kovan) ✅
+
+See https://github.com/rkalis/truffle-plugin-verify
+
+Configure `ETHERSCAN_API_KEY` in `.env`, and then run the following:
+
+```
+truffle run verify ElimuToken --network kovan
 ```

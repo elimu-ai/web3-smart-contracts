@@ -80,6 +80,15 @@ module.exports = {
       timeoutBlocks: 200,  // # of blocks before a deployment times out
       skipDryRun: true     // Skip dry run before migrations?
     },
+    kovan: {
+      provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/v3/${infuraKey}`),
+      network_id: 42,
+      gas: 5_500_000, 
+      gasPrice: 8_000_000_000,  // 8 gwei (in wei)
+      confirmations: 2,    // # of confs to wait between deployments
+      timeoutBlocks: 200,  // # of blocks before a deployment times out
+      skipDryRun: true     // Skip dry run before migrations?
+    },
     mainnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
