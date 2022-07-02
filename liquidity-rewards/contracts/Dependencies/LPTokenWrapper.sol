@@ -35,6 +35,6 @@ contract LPTokenWrapper  {
     function withdraw(uint256 amount) public virtual {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        lpToken.safeTransfer(msg.sender, amount);
+        poolToken.safeTransfer(msg.sender, amount);
     }
 }
