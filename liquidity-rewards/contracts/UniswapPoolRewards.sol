@@ -45,7 +45,9 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
         elimuToken = IERC20(_elimuTokenAddress);
     }
 
-    // Returns the amount of rewards that correspond to each staked token
+    /** 
+     * @dev Returns the amount of rewards that correspond to each deposited token
+     */
     function rewardPerToken() public view returns (uint256) {
         if (totalSupply() == 0) {
             return rewardPerTokenStored;
