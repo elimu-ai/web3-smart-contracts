@@ -35,7 +35,7 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     event RewardClaimed(address indexed user, uint256 reward);
 
     constructor(address _elimuTokenAddress, address _lpTokenAddress) {
-        lpToken = IERC20(_lpTokenAddress);
+        poolToken = IERC20(_poolTokenAddress);
         elimuToken = IERC20(_elimuTokenAddress);
     }
 
