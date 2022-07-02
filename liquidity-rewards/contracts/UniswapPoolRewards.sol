@@ -16,7 +16,10 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     IERC20 public elimuToken;
 
 
-    /* we can set a rewardRate per Ethereum block. Right now the average time per block is ~15 seconds, which is:
+    /**
+     * @dev We can set a reward rate per Ethereum block. 
+     *  Right now the average time per block is ~15 seconds, 
+     *  which is:
      * 4 blocks per minute
      * 240 blocks per hour (60 minutes)
      * 5,760 blocks per day (24 hours)
