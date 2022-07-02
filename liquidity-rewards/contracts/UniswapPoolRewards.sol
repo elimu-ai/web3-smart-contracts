@@ -30,6 +30,7 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     uint256 public rewardRate = 1870000000000000000;
     
     uint256 public lastUpdateTime;
+    
     uint256 public rewardPerTokenStored;
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
