@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-/* This contract will take care of user stake balances and total user stakes.
+/* This contract will take care of user deposit balances and total user deposits.
 this is a base contract for PoolRewards contracts.
  */
 contract LPTokenWrapper  {
