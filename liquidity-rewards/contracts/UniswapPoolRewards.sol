@@ -32,7 +32,8 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     uint256 public lastUpdateTime;
     
     uint256 public rewardPerTokenStored;
-    mapping(address => uint256) public userRewardPerTokenPaid;
+    
+    mapping(address => uint256) public userRewardPerTokenClaimed;
     mapping(address => uint256) public rewards;
 
     event Deposited(address indexed user, uint256 amount);
