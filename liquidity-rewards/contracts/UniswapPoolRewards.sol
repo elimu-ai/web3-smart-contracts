@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./dependencies/LPTokenWrapper.sol";
+import "./dependencies/PoolTokenWrapper.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
 
-contract UniswapPoolRewards is LPTokenWrapper, Ownable {
+contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -68,15 +68,15 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     function rewardsEarned(address account) public view returns (uint256) {
         return
             balanceOf(account)
-                .mul(rewardPerToken().sub(userRewardPerTokenPaid[account]))
+                .mul(rewardPerToken().sub(userRewardPerTokenClaimed[account]))
                 .div(1e18)
                 .add(rewards[account]);
     }
 
-    // deposit visibility is public as overriding LPTokenWrapper's deposit() function
+    // deposit visibility is public as overriding poolTokenWrapper's deposit() function
     function deposit(uint256 amount) public override {
         require(amount > 0, "Cannot stake 0");
-        require(address(lpToken) != address(0), "Liquidity Pool Token has not been set yet");
+        require(address(poolToken) != address(0), "Liquidity Pool Token has not been set yet");
 
         _updateAccountReward(msg.sender);
 
@@ -86,7 +86,7 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
 
     function withdraw(uint256 amount) public override{
         require(amount > 0, "Cannot withdraw 0");
-        require(address(lpToken) != address(0), "Liquidity Pool Token has not been set yet");
+        require(address(poolToken) != address(0), "Liquidity Pool Token has not been set yet");
 
         _updateAccountReward(msg.sender);
 
@@ -101,7 +101,7 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
     }
 
     function claimReward() public {
-        require(address(lpToken) != address(0), "Liquidity Pool Token has not been set yet");
+        require(address(poolToken) != address(0), "Liquidity Pool Token has not been set yet");
 
         _updateAccountReward(msg.sender);
 
@@ -118,7 +118,6 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
         assert(reward > 0);
         elimuToken.transferFrom(msg.sender, address(this), reward);
         
-        uint256 totalReward = elimuToken.balanceOf(address(this));
         _updateReward();
 
         lastUpdateTime = block.timestamp;
@@ -134,6 +133,6 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
         assert(account != address(0));
 
         rewards[account] = rewardsEarned(account);
-        userRewardPerTokenPaid[account] = rewardPerTokenStored;
+        userRewardPerTokenClaimed[account] = rewardPerTokenStored;
     }
 }
