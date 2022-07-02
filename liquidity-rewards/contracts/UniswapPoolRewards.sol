@@ -100,8 +100,8 @@ contract UniswapPoolRewards is LPTokenWrapper, Ownable {
 
         require(reward > 0, "Nothing to claim");
 
-        rewards[msg.sender] = 0;
         elimuToken.transfer(msg.sender, reward);
+        rewards[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
     }
 
