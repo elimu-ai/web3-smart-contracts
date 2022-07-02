@@ -13,7 +13,7 @@ contract LPTokenWrapper  {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public lpToken;
+    IERC20 public poolToken;
 
     uint256 private _totalPoolTokenSupply;
     mapping(address => uint256) private _balances;
