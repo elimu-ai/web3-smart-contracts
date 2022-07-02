@@ -15,7 +15,7 @@ contract LPTokenWrapper  {
 
     IERC20 public lpToken;
 
-    uint256 private _totalSupply;
+    uint256 private _totalPoolTokenSupply;
     mapping(address => uint256) private _balances;
 
     function totalPoolTokenSupply() public view returns (uint256) {
