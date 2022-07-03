@@ -27,11 +27,20 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
      */
     uint256 public rewardRate = 1870000000000000000;
     
+    /**
+     * @dev Take track of last time the amount of deposited pool token changed to 
+     */
     uint256 public lastUpdateTime;
-    
-    uint256 public rewardPerTokenStored;
+    /** 
+     * @dev rewardPerTokenStored is used to find the actual reward distribution 
+     * according to rewardRate and the amount of pool token deposited on the contract.
+     */
+    uint256 public rewardPerTokenDeposited;
     
     mapping(address => uint256) public userRewardPerTokenClaimed;
+    /** 
+     * @dev We save pending account rewards whenever rewardPerTokenDeposited is updated.
+     */
     mapping(address => uint256) public rewards;
 
     event Deposited(address indexed user, uint256 amount);
@@ -44,14 +53,24 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /** 
-     * @dev Returns the amount of rewards that correspond to each deposited token
+     * @dev Deposit the reward token and update the reward.
+     */
+    function depositReward(uint256 reward) external onlyOwner {
+        assert(reward > 0);
+        elimuToken.transferFrom(msg.sender, address(this), reward);
+        
+        _updateReward();
+    }
+
+    /** 
+     * @dev Returns the amount of rewards that correspond to each deposited token.
      */
     function rewardPerToken() public view returns (uint256) {
         if (totalSupply() == 0) {
-            return rewardPerTokenStored;
+            return rewardPerTokenDeposited;
         }
         return
-            rewardPerTokenStored.add(
+            rewardPerTokenDeposited.add(
                 block.timestamp
                     .sub(lastUpdateTime)
                     .mul(rewardRate)
@@ -61,7 +80,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /**
-     *  @dev Returns the amount that an account can claim
+     *  @dev Returns the amount that an account can claim.
      */
     function rewardsEarned(address account) public view returns (uint256) {
         return
@@ -71,7 +90,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
                 .add(rewards[account]);
     }
 
-    // deposit visibility is public as overriding poolTokenWrapper's deposit() function
+    /** 
+     * @dev deposit visibility is public as overriding poolTokenWrapper's deposit() function.
+     */
     function deposit(uint256 amount) public override {
         require(amount > 0, "Cannot stake 0");
         require(address(poolToken) != address(0), "Liquidity Pool Token has not been set yet");
@@ -91,8 +112,10 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
     }
-
-    // Shortcut to be able to withdraw tokens and claim rewards in one transaction
+    
+    /** 
+     * @dev Shortcut to be able to withdraw tokens and claim rewards in one transaction.
+     */
     function withdrawAndClaim() external {
         withdraw(balanceOf(msg.sender));
         claimReward();
@@ -112,25 +135,26 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         emit RewardClaimed(msg.sender, reward);
     }
 
-    function depositReward(uint256 reward) external onlyOwner {
-        assert(reward > 0);
-        elimuToken.transferFrom(msg.sender, address(this), reward);
-        
-        _updateReward();
-
+    /** 
+     * @dev Returns the amount of rewards that correspond to each deposited token.
+     */
+    function _updateReward() internal {
+        rewardPerTokenDeposited = rewardPerToken();
         lastUpdateTime = block.timestamp;
     }
 
-    function _updateReward() internal {
-        rewardPerTokenStored = rewardPerToken();
-    }
 
+    /** 
+     * @dev Update the user pending reward and rewardPerTokenDeposited whenever 
+     * totalPoolTokenSupply() is changed because of a user deposit/withdrawal
+     * of the pool tokens.
+     */
     function _updateAccountReward(address account) internal {
         _updateReward();
 
         assert(account != address(0));
 
         rewards[account] = rewardsEarned(account);
-        userRewardPerTokenClaimed[account] = rewardPerTokenStored;
+        userRewardPerTokenClaimed[account] = rewardPerTokenDeposited;
     }
 }
