@@ -16,8 +16,8 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
 
     /**
      * @dev We can set a reward rate per Ethereum block. 
-     *  Right now the average time per block is ~15 seconds, 
-     *  which is:
+     * Right now the average time per block is ~15 seconds, 
+     * which is:
      * 4 blocks per minute
      * 240 blocks per hour (60 minutes)
      * 5,760 blocks per day (24 hours)
