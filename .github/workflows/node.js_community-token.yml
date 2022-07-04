@@ -29,6 +29,5 @@ jobs:
         cache: 'npm'
         cache-dependency-path: community-token/package-lock.json
     - run: npm ci
-    - run: npm install truffle -g
-    - run: truffle compile
-    - run: truffle test
+    - run: npx truffle compile
+    - run: npx truffle test
