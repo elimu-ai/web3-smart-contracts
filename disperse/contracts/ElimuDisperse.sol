@@ -11,7 +11,7 @@ contract ElimuDisperse {
     /**
      * Disperse ERC-20 tokens to multiple addresses.
      */
-    function disperseToken(IERC20 token, address[] memory recipients, uint256[] memory values) external {
+    function disperseToken(IERC20 token, address[] calldata recipients, uint256[] calldata values) external {
         uint256 total = 0;
         for (uint256 i = 0; i < recipients.length; i++) {
             total += values[i];
