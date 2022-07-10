@@ -19,9 +19,17 @@ module.exports = {
       gasPrice: 4_000_000_000,  // 4 gwei (in wei)
       timeoutBlocks: 240 // 3,600 / 15 = 240
     },
-    live: {
+    kovan: {
+      provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/v3/${infuraKey}`),
+      network_id: 42,
+      gas: 500_000,
+      gasPrice: 4_000_000_000,  // 4 gwei (in wei)
+      timeoutBlocks: 240 // 3,600 / 15 = 240
+    },
+    mainnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
+      gas: 500_000,
       gasPrice: 8_000_000_000, // 8 gwei (in wei)
       timeoutBlocks: 240 // 3,600 / 15 = 240
     }
