@@ -10,19 +10,19 @@ module.exports = {
       host: "127.0.0.1",
       port: 7545,
       network_id: "*",
-      gasPrice: 5_000_000_000, // 5 gwei (in wei)
+      gasPrice: 4_000_000_000, // 4 gwei (in wei)
       timeoutBlocks: 240 // 3,600 / 15 = 240
     },
     rinkeby: {
       provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
       network_id: 4,
-      gasPrice: 5_000_000_000,  // 5 gwei (in wei)
+      gasPrice: 4_000_000_000,  // 4 gwei (in wei)
       timeoutBlocks: 240 // 3,600 / 15 = 240
     },
-    mainnet: {
+    live: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
-      gasPrice: 5_000_000_000, // 5 gwei (in wei)
+      gasPrice: 8_000_000_000, // 8 gwei (in wei)
       timeoutBlocks: 240 // 3,600 / 15 = 240
     }
   },
