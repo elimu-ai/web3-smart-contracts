@@ -18,14 +18,14 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
      * @dev We can set a reward rate per Ethereum block. 
      * Right now the average time per block is ~15 seconds, 
      * which is:
-     * 4 blocks per minute
+     * 4 blocks per minute = 0.0666... blocks/second
      * 240 blocks per hour (60 minutes)
      * 5,760 blocks per day (24 hours)
      * 172,800 blocks per month (30 days)
      * So we can use this to calculate a reward rate of 322,500 $ELIMU / 172,800 blocks/month = 1.87 $ELIMU/block 
-     * => rewardRate = 1.87 x 10e18 (token decimals) = 1870000000000000000
+     * => rewardRate = 1.87 ($ELIMU/block ) X 0.06666... (blocks/second) x 10e18 (token decimals) = 124666666666666666
      */
-    uint256 public rewardRate = 1870000000000000000;
+    uint256 public rewardRate = 124666666666666666;
     
     /**
      * @dev Take track of last time the amount of deposited pool token changed to 
@@ -63,6 +63,14 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /** 
+     * @dev Return the current reward amount.
+     */
+    function rewardBalance() public view returns (uint256)  {
+        return elimuToken.balanceOf(address(this));
+        
+    }
+
+    /** 
      * @dev Returns the amount of rewards that correspond to each deposited token.
      */
     function rewardPerToken() public view returns (uint256) {
@@ -77,6 +85,19 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
                     .mul(1e18)
                     .div(totalSupply())
             );
+    }
+
+    function diff() public view returns (uint256)  {
+        return block.timestamp
+                    .sub(lastUpdateTime);
+    }
+
+    function time() public view returns (uint256)  {
+        return block.timestamp;
+    }
+
+    function last() public view returns (uint256)  {
+        return lastUpdateTime;
     }
 
     /**
