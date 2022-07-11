@@ -1,13 +1,7 @@
 const UniswapPoolRewards = artifacts.require("UniswapPoolRewards");
-const SushiswapPoolRewards = artifacts.require("SushiswapPoolRewards");
-const BalancerPoolRewards = artifacts.require("BalancerPoolRewards");
 
 module.exports = function (deployer) {
-  var ELIMUTokenAddress = process.env.ELIMU_TOKEN_ADDRESS;
-  var UniswapTokenAddress = process.env.UNISWAP_LP_TOKEN_ADDRESS;
-  var SushiswapTokenAddress = process.env.SUSHISWAP_LP_TOKEN_ADDRESS;
-  var BalancerTokenAddress = process.env.BALANCER_LP_TOKEN_ADDRESS;
+  var ELIMUTokenAddress = process.env.ELIMU_TOKEN_ADDRESS || '0xe29797910d413281d2821d5d9a989262c8121cc2';
+  var UniswapTokenAddress = process.env.UNISWAP_LP_TOKEN_ADDRESS || '0xa0d230dca71a813c68c278ef45a7dac0e584ee61';
   deployer.deploy(UniswapPoolRewards, ELIMUTokenAddress, UniswapTokenAddress);
-  deployer.deploy(SushiswapPoolRewards, ELIMUTokenAddress, SushiswapTokenAddress);
-  deployer.deploy(BalancerPoolRewards, ELIMUTokenAddress, BalancerTokenAddress);
 };
