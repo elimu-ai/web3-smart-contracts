@@ -29,5 +29,11 @@ jobs:
         cache: 'npm'
         cache-dependency-path: community-token/package-lock.json
     - run: npm ci
+    - run: npm install truffle
     - run: npx truffle compile
     - run: npx truffle test
+    - run: npx truffle run coverage
+    - uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true
+        verbose: true
