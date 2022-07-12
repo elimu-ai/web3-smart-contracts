@@ -22,7 +22,9 @@
     "@truffle/hdwallet-provider": "^1.4.0",
     "chai": "^4.3.4",
     "dotenv": "^10.0.0",
+    "ganache-cli": "^6.12.2",
     "solc": "^0.8.0",
+    "solidity-coverage": "^0.7.21",
     "truffle-plugin-verify": "^0.5.26"
   }
 }
