@@ -2,3 +2,7 @@ node_modules
 build
 .env
 tmp/
+
+# solidity-coverage
+coverage.json
+coverage

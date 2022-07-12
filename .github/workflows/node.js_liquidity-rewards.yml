@@ -32,3 +32,4 @@ jobs:
     - run: npm install truffle -g
     - run: truffle compile
     - run: truffle test
+    - run: truffle run coverage
