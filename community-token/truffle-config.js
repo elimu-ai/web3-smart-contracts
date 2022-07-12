@@ -136,6 +136,7 @@ module.exports = {
   },
 
   plugins: [
+    'solidity-coverage',
     'truffle-plugin-verify'
   ],
 
