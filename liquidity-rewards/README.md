@@ -26,8 +26,11 @@ truffle migrate
 
 ## Code Coverage
 
+[![](https://codecov.io/gh/elimu-ai/web3-smart-contracts/branch/main/graphs/tree.svg?token=98QZ0IIDDL)](https://codecov.io/gh/elimu-ai/web3-smart-contracts)
+
 ```
 truffle run coverage
+open coverage/index.html
 ```
 
 ## Testnet (Kovan)
