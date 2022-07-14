@@ -23,7 +23,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
      * 5,760 blocks per day (24 hours)
      * 172,800 blocks per month (30 days)
      * So we can use this to calculate a reward rate of 322,500 $ELIMU / 172,800 blocks/month = 1.87 $ELIMU/block 
-     * => rewardRate = 1.87 ($ELIMU/block ) X 0.06666... (blocks/second) x 10e18 (token decimals) = 124666666666666666
+     * => rewardRate = 1.87 ($ELIMU/block ) X 0.06666... (blocks/second) = 0.124666666666666666
      */
     uint256 public rewardRate = 124_666_666_666_666_666;
     

@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/elimu-ai/web3-smart-contracts#readme",
   "devDependencies": {
-    "@openzeppelin/contracts": "^4.1.0",
+    "@openzeppelin/contracts": "^4.7.0",
     "@openzeppelin/test-helpers": "^0.5.11",
     "@truffle/hdwallet-provider": "^1.4.0",
     "chai": "^4.3.6",
