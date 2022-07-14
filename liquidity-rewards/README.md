@@ -26,6 +26,8 @@ truffle migrate
 
 ## Code Coverage
 
+[![codecov](https://codecov.io/gh/elimu-ai/web3-smart-contracts/branch/main/graph/badge.svg?token=98QZ0IIDDL)](https://codecov.io/gh/elimu-ai/web3-smart-contracts)
+
 [![](https://codecov.io/gh/elimu-ai/web3-smart-contracts/branch/main/graphs/tree.svg?token=98QZ0IIDDL)](https://codecov.io/gh/elimu-ai/web3-smart-contracts)
 
 ```
