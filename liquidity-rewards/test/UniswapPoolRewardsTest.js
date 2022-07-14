@@ -55,7 +55,7 @@ require('chai').use(function (chai, utils) {
 contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4, owner]) {
   const deploy = async (that) => {
       that.uni = await ERC20Mock.new('Uniswap V2', 'UNI-V2', owner, 0);
-      that.elimu = await ERC20Mock.new('ELIMU token', 'ELIMU', owner, 0);
+      that.elimu = await ERC20Mock.new('elimu.ai', 'ELIMU', owner, 0);
       that.pool = await UniswapPoolRewards.new(that.elimu.address, that.uni.address, { from: owner });
       
       // TODO: read from contract
