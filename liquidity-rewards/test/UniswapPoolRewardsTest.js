@@ -66,10 +66,10 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       await that.elimu.approve(that.pool.address, new BN(2).pow(new BN(255)), { from: owner });
       await that.pool.depositReward(web3.utils.toWei('10000000'), { from: owner });
 
-      await that.uni.mint(wallet1, web3.utils.toWei('1000'));
-      await that.uni.mint(wallet2, web3.utils.toWei('1000'));
-      await that.uni.mint(wallet3, web3.utils.toWei('1000'));
-      await that.uni.mint(wallet4, web3.utils.toWei('1000'));
+      await that.uni.mint(wallet1, web3.utils.toWei('1_000'));
+      await that.uni.mint(wallet2, web3.utils.toWei('1_000'));
+      await that.uni.mint(wallet3, web3.utils.toWei('1_000'));
+      await that.uni.mint(wallet4, web3.utils.toWei('1_000'));
 
       await that.uni.approve(that.pool.address, new BN(2).pow(new BN(255)), { from: wallet1 });
       await that.uni.approve(that.pool.address, new BN(2).pow(new BN(255)), { from: wallet2 });
