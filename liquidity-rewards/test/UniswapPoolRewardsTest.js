@@ -62,7 +62,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       that.rewardRate = await that.pool.rewardRate();
 
       // Mint and transfer elimu tokens.
-      await that.elimu.mint(owner, web3.utils.toWei('10000000'));
+      await that.elimu.mint(owner, web3.utils.toWei('10_000_000'));
       await that.elimu.approve(that.pool.address, new BN(2).pow(new BN(255)), { from: owner });
       await that.pool.depositReward(web3.utils.toWei('10000000'), { from: owner });
 
