@@ -98,7 +98,6 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       await this.pool.deposit(deposit2, { from: wallet2, gas: 1000000 });
       const depositTime2 = await time.latest();
 
-
       const timeDiff = depositTime2.sub(depositTime1);
       const testTime = depositTime2.add(AMONTH.div(new BN(2))); // Increase time by a month.
       
