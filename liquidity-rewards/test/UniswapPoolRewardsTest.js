@@ -106,7 +106,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       var rewardPerToken = this.rewardRate.mul(timeDiff).mul(_1e18).div(deposit1);
       rewardPerToken = rewardPerToken.add(this.rewardRate.mul(AMONTH.sub(timeDiff)).mul(_1e18).div(deposit1.add(deposit2)));
       const rewardMustPaid = this.rewardRate.mul(AMONTH);
-      const halfRewardMustPaid = rewardMustPaid.div(new BN("2"))
+      const halfRewardMustBePaid = rewardMustBePaid.div(new BN("2"))
       const rewardsEarnedDiff = halfRewardMustPaid.mul(timeDiff).div(AMONTH);
 
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken);
