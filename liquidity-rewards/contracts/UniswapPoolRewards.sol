@@ -67,7 +67,6 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
      */
     function rewardBalance() public view returns (uint256)  {
         return elimuToken.balanceOf(address(this));
-        
     }
 
     /** 
