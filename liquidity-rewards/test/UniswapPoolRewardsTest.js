@@ -6,7 +6,7 @@ const ERC20Mock = artifacts.require('ERC20Mock');
 const UniswapPoolRewards = artifacts.require('UniswapPoolRewards');
 
 const _1e18 = new BN('10').pow(new BN('18'));
-const AMONTH = new BN('2629800'); // 1 month = 2629800 seconds
+const ONE_MONTH = new BN('2629800'); // 1 month = 2629800 seconds
 
 async function assertRevert(txPromise, message = undefined) {
     try {
