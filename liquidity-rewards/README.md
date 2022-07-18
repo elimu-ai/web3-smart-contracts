@@ -53,6 +53,14 @@ open coverage/index.html
 truffle migrate --network rinkeby
 ```
 
+https://rinkeby.etherscan.io/address/0x47776d7216a11d8682ad8c7395d580dd8324f355
+
+```
+truffle run verify UniswapPoolRewards --network rinkeby
+```
+
+https://rinkeby.etherscan.io/address/0x47776d7216a11d8682ad8c7395d580dd8324f355#code
+
 ## Testnet (Kovan)
 
 ### $ELIMU Token 💎
