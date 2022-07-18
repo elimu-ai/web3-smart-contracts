@@ -26,7 +26,7 @@
     "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^1.4.0",
     "chai": "^4.3.6",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.1",
     "ganache-cli": "^6.12.2",
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-dev.23",
