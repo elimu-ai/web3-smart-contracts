@@ -6,3 +6,4 @@ tmp/
 # solidity-coverage
 coverage.json
 coverage
+.coverage_*
