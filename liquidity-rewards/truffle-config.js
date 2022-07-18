@@ -29,7 +29,7 @@ module.exports = {
       gas: 500_000, 
       gasPrice: 5_000_000_000,  // 5 gwei (in wei)
       timeoutBlocks: 200
-    },
+    }
   },
 
   compilers: {
