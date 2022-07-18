@@ -4,7 +4,7 @@ const fs = require('fs');
 module.exports = function (deployer, network) {
   console.log('network:', network);
 
-  let isDryRun = network.endsWith('-fork');
+  let isDryRun = network.endsWith('-fork') || network.endsWith('coverage');
   if (!isDryRun) {
     // Save the contract's ABI
     const contractJson = JSON.parse(fs.readFileSync('./build/contracts/' + UniswapPoolRewards.contractName + '.json', 'utf8'));
