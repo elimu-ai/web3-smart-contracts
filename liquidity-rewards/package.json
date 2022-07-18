@@ -24,10 +24,9 @@
   "devDependencies": {
     "@openzeppelin/contracts": "^4.7.0",
     "@openzeppelin/test-helpers": "^0.5.15",
-    "@truffle/hdwallet-provider": "^2.0.11",
+    "@truffle/hdwallet-provider": "^1.4.0",
     "chai": "^4.3.6",
-    "dotenv": "^16.0.1",
-    "ethereumjs-abi": "^0.6.8",
+    "dotenv": "^10.0.0",
     "ganache-cli": "^6.12.2",
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-dev.23",
@@ -35,6 +34,6 @@
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5",
     "solidity-coverage": "^0.7.21",
-    "truffle-plugin-verify": "^0.5.26"
+    "truffle-plugin-verify": "^0.5.8"
   }
 }
