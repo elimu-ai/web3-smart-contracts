@@ -1,4 +1,4 @@
-# `$ELIMU` Disperse
+# `$ELIMU` Token Disperse
 
 https://rinkeby.etherscan.io/address/0x4ad8f3aa87f93f2b59ab978364c612a8905058ba#writeContract
 https://kovan.etherscan.io/address/0xe8bb7698bed5914ec9fa761450771dac2bb7d36b#writeContract
