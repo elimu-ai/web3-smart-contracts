@@ -26,7 +26,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     uint256 public rewardPerTokenDeposited;
 
     mapping(address => uint256) public userRewardPerTokenClaimed;
-    
+
     /**
      * Pending account rewards are saved whenever rewardPerTokenDeposited is updated.
      */
