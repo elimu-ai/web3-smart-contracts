@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -9,7 +8,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 this is a base contract for PoolRewards contracts.
  */
 contract PoolTokenWrapper {
-    using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
     IERC20 public poolToken;
@@ -26,14 +24,14 @@ contract PoolTokenWrapper {
     }
 
     function depositPoolTokens(uint256 amount) public virtual {
-        _totalSupply = _totalSupply.add(amount);
-        _balances[msg.sender] = _balances[msg.sender].add(amount);
+        _totalSupply = _totalSupply + amount;
+        _balances[msg.sender] = _balances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
     }
 
     function withdrawPoolTokens(uint256 amount) public virtual {
-        _totalSupply = _totalSupply.sub(amount);
-        _balances[msg.sender] = _balances[msg.sender].sub(amount);
+        _totalSupply = _totalSupply - amount;
+        _balances[msg.sender] = _balances[msg.sender] - amount;
         poolToken.safeTransfer(msg.sender, amount);
     }
 }
