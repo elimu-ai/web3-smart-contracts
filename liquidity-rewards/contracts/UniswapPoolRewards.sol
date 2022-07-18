@@ -36,9 +36,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     event Withdrawn(address indexed user, uint256 amount);
     event RewardClaimed(address indexed user, uint256 amount);
 
-    constructor(address _elimuTokenAddress, address _poolTokenAddress) {
-        poolToken = IERC20(_poolTokenAddress);
-        elimuToken = IERC20(_elimuTokenAddress);
+    constructor(address elimuToken_, address poolToken_) {
+        elimuToken = IERC20(elimuToken_);
+        poolToken = IERC20(poolToken_);
     }
 
     /**

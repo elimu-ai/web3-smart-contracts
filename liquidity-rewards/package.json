@@ -1,7 +1,7 @@
 {
   "name": "liquidity-rewards",
   "version": "1.0.0",
-  "description": "$ELIMU is the governance token used by the elimu.ai Community DAO. Active contributors get rewarded with $ELIMU tokens, and token holders can participate in the community's decision-making.",
+  "description": "Rewards for $ELIMU liquidity providers.",
   "main": "index.js",
   "scripts": {
     "build": "truffle compile",
@@ -23,17 +23,17 @@
   "homepage": "https://github.com/elimu-ai/web3-smart-contracts#readme",
   "devDependencies": {
     "@openzeppelin/contracts": "^4.7.0",
-    "@openzeppelin/test-helpers": "^0.5.11",
+    "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^1.4.0",
     "chai": "^4.3.6",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.1",
     "ganache-cli": "^6.12.2",
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-dev.23",
-    "solc": "^0.8.0",
+    "solc": "^0.8.15",
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5",
     "solidity-coverage": "^0.7.21",
-    "truffle-plugin-verify": "^0.5.8"
+    "truffle-plugin-verify": "^0.5.26"
   }
 }
