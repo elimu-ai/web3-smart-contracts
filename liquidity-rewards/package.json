@@ -4,7 +4,11 @@
   "description": "$ELIMU is the governance token used by the elimu.ai Community DAO. Active contributors get rewarded with $ELIMU tokens, and token holders can participate in the community's decision-making.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "truffle compile",
+    "coverage": "truffle run coverage",
+    "deploy": "truffle migrate",
+    "prettier": "prettier --write 'contracts/**/*.sol'",
+    "test": "truffle test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,8 @@
     "chai": "^4.3.6",
     "dotenv": "^10.0.0",
     "ganache-cli": "^6.12.2",
+    "prettier": "^2.7.1",
+    "prettier-plugin-solidity": "^1.0.0-dev.23",
     "solc": "^0.8.0",
     "solidity-coverage": "^0.7.21",
     "truffle-plugin-verify": "^0.5.8"
