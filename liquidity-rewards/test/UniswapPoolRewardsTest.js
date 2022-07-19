@@ -93,14 +93,14 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
       expect(await this.pool.rewardBalance()).to.be.bignumber.equal(web3.utils.toWei(_10_000_000));
       const deposit1 = new BN(web3.utils.toWei('1'));
-      await this.pool.deposit(deposit1, { from: wallet1, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS });
       const depositTime1 = await time.latest();
 
       // Time goes by... so slowly.
       await time.increaseTo(depositTime1.add(ONE_MONTH.div(new BN(2)))); // Increase time by 2 weeks.
 
       const deposit2 = new BN(web3.utils.toWei('1'));
-      await this.pool.deposit(deposit2, { from: wallet2, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit2, { from: wallet2, gas: _1_000_000_GAS });
       const depositTime2 = await time.latest();
 
       const timeDiff = depositTime2.sub(depositTime1);
@@ -139,14 +139,14 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.equal('0');
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
       const deposit1 = new BN(web3.utils.toWei('1'));
-      await this.pool.deposit(deposit1, { from: wallet1, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS });
       const depositTime1 = await time.latest();
 
       // Time goes by... so slowly.
       await time.increaseTo(depositTime1.add(ONE_MONTH.div(new BN(2)))); // Increase time by 2 weeks.
 
       const deposit2 = new BN(web3.utils.toWei('3'));
-      await this.pool.deposit(deposit2, { from: wallet2, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit2, { from: wallet2, gas: _1_000_000_GAS });
       const depositTime2 = await time.latest();
 
       const timeDiff = depositTime2.sub(depositTime1);
@@ -179,13 +179,13 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       //
 
       const deposit1 = new BN(web3.utils.toWei('1'));
-      await this.pool.deposit(deposit1, { from: wallet1 });
+      await this.pool.depositPoolTokens(deposit1, { from: wallet1 });
       const depositTime1 = await time.latest();
 
       await time.increaseTo(depositTime1.add(ONE_MONTH.div(new BN(3))));
 
       const deposit2 = new BN(web3.utils.toWei('3'));
-      await this.pool.deposit(deposit2, { from: wallet2 });
+      await this.pool.depositPoolTokens(deposit2, { from: wallet2 });
       const depositTime2 = await time.latest();
 
       const timeDiff = depositTime2.sub(depositTime1);
@@ -221,18 +221,18 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       //
 
       const deposit1 = new BN(web3.utils.toWei('1'));
-      await this.pool.deposit(deposit1, { from: wallet1, gas: _1_000_000_GAS});
+      await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS});
       const depositTime1 = await time.latest();
 
 
       const deposit2 = new BN(web3.utils.toWei('3'));
-      await this.pool.deposit(deposit2, { from: wallet2, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit2, { from: wallet2, gas: _1_000_000_GAS });
       const depositTime2 = await time.latest();
 
       await time.increaseTo(depositTime1.add(ONE_MONTH.div(new BN(3))));
 
       const deposit3 = new BN(web3.utils.toWei('5'));
-      await this.pool.deposit(deposit3, { from: wallet3, gas: _1_000_000_GAS });
+      await this.pool.depositPoolTokens(deposit3, { from: wallet3, gas: _1_000_000_GAS });
       const depositTime3 = await time.latest();
 
       const timeDiff1 = depositTime2.sub(depositTime1);
@@ -245,7 +245,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
 
       await time.increaseTo(depositTime1.add(ONE_MONTH.mul(new BN(2)).div(new BN(3))));
 
-      await this.pool.withdrawAndClaim({ from: wallet2, gas: _1_000_000_GAS });
+      await this.pool.withdrawPoolTokensAndClaim({ from: wallet2, gas: _1_000_000_GAS });
       const exitTime2 = await time.latest();
 
       const timeDiff3 = exitTime2.sub(depositTime3);
