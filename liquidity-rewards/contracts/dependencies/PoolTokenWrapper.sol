@@ -43,7 +43,7 @@ contract PoolTokenWrapper {
     }
 
     /**
-     * Deposit pool tokens and update _balances and _totalSupply variables. will be called
+     * Deposit pool tokens and update _balances and _totalSupply variables. Will be called
      * by a child contract.
      */
     function depositPoolTokens(uint256 amount) public virtual {
