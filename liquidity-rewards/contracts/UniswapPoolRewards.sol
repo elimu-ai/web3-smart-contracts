@@ -64,7 +64,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         if (totalSupply() == 0) {
             return rewardPerTokenDeposited;
         }
-        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRate * 1e18) / totalSupply();
+        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / totalSupply();
     }
 
     /**
