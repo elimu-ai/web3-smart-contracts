@@ -88,31 +88,31 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /**
-     * Deposit visibility is public as overriding poolTokenWrapper's deposit() function.
+     * depositPoolTokens visibility is public as overriding poolTokenWrapper's depositPoolTokens() function.
      */
-    function deposit(uint256 amount) public override {
+    function depositPoolTokens(uint256 amount) public override {
         require(amount > 0, "Cannot deposit 0");
 
         _updateAccountReward(msg.sender);
 
-        super.deposit(amount);
+        super.depositPoolTokens(amount);
         emit Deposited(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public override {
+    function withdrawPoolTokens(uint256 amount) public override {
         require(amount > 0, "Cannot withdraw 0");
 
         _updateAccountReward(msg.sender);
 
-        super.withdraw(amount);
+        super.withdrawPoolTokens(amount);
         emit Withdrawn(msg.sender, amount);
     }
 
     /**
      * Shortcut to be able to withdraw tokens and claim rewards in one transaction.
      */
-    function withdrawAndClaim() external {
-        withdraw(balanceOf(msg.sender));
+    function withdrawPoolTokensAndClaim() external {
+        withdrawPoolTokens(balanceOf(msg.sender));
         claimReward();
     }
 
@@ -138,7 +138,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
 
     /**
      * Update the user pending reward and rewardPerTokenDeposited whenever
-     * totalPoolTokenSupply() is changed because of a user deposit/withdrawal
+     * totalPoolTokenSupply() is changed because of a user depositPoolTokens/withdrawPoolTokens
      * of the pool tokens.
      */
     function _updateAccountReward(address account) internal {
