@@ -53,7 +53,7 @@ contract PoolTokenWrapper {
     }
 
     /**
-     * Withdraw pool tokens and update _balances and _totalSupply variables. will be called
+     * Withdraw pool tokens and update _balances and _totalSupply variables. Will be called
      * by a child contract.
      */
     function withdrawPoolTokens(uint256 amount) public virtual {
