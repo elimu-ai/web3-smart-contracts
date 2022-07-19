@@ -47,7 +47,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     /**
      * Required inputs while deploying this contract:
      * elimuToken_: $ELIMU token address 
-     * poolToken_: Lquidity pool token address
+     * poolToken_: Liquidity pool token address
      */
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
