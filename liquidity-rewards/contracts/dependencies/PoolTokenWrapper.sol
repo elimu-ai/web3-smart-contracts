@@ -18,8 +18,8 @@ contract PoolTokenWrapper {
     IERC20 public poolToken;
 
     /**
-     * Keep track total supply of the pool token deposited into this contract, this
-     * will reduce amount of calculations vs calling a balanceOf method.
+     * Keeps track of the total supply of the pool token deposited into this contract.
+     * This will reduce the amount of calculations vs calling a balanceOf method.
      */
     uint256 private _totalSupply;
     
