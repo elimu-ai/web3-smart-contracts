@@ -113,7 +113,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /**
-     * withdraw previously deposited pool tokens from this contract.
+     * Withdraw previously deposited pool tokens from this contract.
      */
     function withdrawPoolTokens(uint256 amount) public override {
         require(amount > 0, "Cannot withdraw 0");
