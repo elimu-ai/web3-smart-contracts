@@ -32,8 +32,8 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
      */
     mapping(address => uint256) public rewards;
 
-    event Deposited(address indexed user, uint256 amount);
-    event Withdrawn(address indexed user, uint256 amount);
+    event PoolTokensDeposited(address indexed user, uint256 amount);
+    event PoolTokensWithdrawn(address indexed user, uint256 amount);
     event RewardClaimed(address indexed user, uint256 amount);
 
     constructor(address elimuToken_, address poolToken_) {
@@ -96,7 +96,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         _updateAccountReward(msg.sender);
 
         super.depositPoolTokens(amount);
-        emit Deposited(msg.sender, amount);
+        emit PoolTokensDeposited(msg.sender, amount);
     }
 
     function withdrawPoolTokens(uint256 amount) public override {
@@ -105,7 +105,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         _updateAccountReward(msg.sender);
 
         super.withdrawPoolTokens(amount);
-        emit Withdrawn(msg.sender, amount);
+        emit PoolTokensWithdrawn(msg.sender, amount);
     }
 
     /**
