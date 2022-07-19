@@ -25,13 +25,13 @@ contract PoolTokenWrapper {
         return _balances[account];
     }
 
-    function deposit(uint256 amount) public virtual {
+    function depositPoolTokens(uint256 amount) public virtual {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
     }
 
-    function withdraw(uint256 amount) public virtual {
+    function withdrawPoolTokens(uint256 amount) public virtual {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
         poolToken.safeTransfer(msg.sender, amount);
