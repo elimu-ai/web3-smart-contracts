@@ -3,7 +3,7 @@ pragma solidity ^0.8.15;
 
 import "./dependencies/PoolTokenWrapper.sol";
 
-contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
+contract UniswapPoolRewards is PoolTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -44,7 +44,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     /**
      * Deposit the reward token and update the reward.
      */
-    function depositReward(uint256 reward) external onlyOwner {
+    function depositReward(uint256 reward) external {
         assert(reward > 0);
         elimuToken.transferFrom(msg.sender, address(this), reward);
 
