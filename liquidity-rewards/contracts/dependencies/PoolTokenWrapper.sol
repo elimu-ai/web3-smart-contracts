@@ -36,7 +36,7 @@ contract PoolTokenWrapper {
     }
 
     /**
-     * Returns pool token balance of an input account.
+     * Returns the pool token balance of an account.
      */
     function balanceOf(address account) public view returns (uint256) {
         return _balances[account];
