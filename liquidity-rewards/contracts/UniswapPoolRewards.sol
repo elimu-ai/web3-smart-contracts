@@ -10,9 +10,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     IERC20 public elimuToken;
 
     /**
-     * The reward emission rate per second.
+     * The elimuToken reward emission rate per second.
      */
-    uint256 public rewardRate = 124_666_666_666_666_666;
+    uint256 public rewardRatePerSecond = 0.125 * 1e18;
 
     /**
      * Keeps track of last time the amount of deposited pool tokens changed.
@@ -21,7 +21,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
 
     /**
      * rewardPerTokenStored is used to find the actual reward distribution
-     * according to rewardRate and the amount of pool token deposited on the contract.
+     * according to rewardRatePerSecond and the amount of pool token deposited on the contract.
      */
     uint256 public rewardPerTokenDeposited;
 
@@ -70,7 +70,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
                 block
                     .timestamp
                     .sub(lastUpdateTime)
-                    .mul(rewardRate)
+                    .mul(rewardRatePerSecond)
                     .mul(1e18)
                     .div(totalSupply())
             );

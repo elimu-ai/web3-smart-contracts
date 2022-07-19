@@ -64,7 +64,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       that.uni = await ERC20Mock.new('Uniswap V2', 'UNI-V2', owner, 0);
       that.elimu = await ERC20Mock.new('elimu.ai', 'ELIMU', owner, 0);
       that.pool = await UniswapPoolRewards.new(that.elimu.address, that.uni.address, { from: owner });
-      that.rewardRate = await that.pool.rewardRate();
+      that.rewardRatePerSecond = await that.pool.rewardRatePerSecond();
 
       // Mint and transfer elimu tokens.
       await that.elimu.mint(owner, web3.utils.toWei(_10_000_000));
@@ -108,9 +108,9 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       
       await time.increaseTo(testTime);
       
-      var rewardPerToken = this.rewardRate.mul(timeDiff).mul(_1e18).div(deposit1);
-      rewardPerToken = rewardPerToken.add(this.rewardRate.mul(ONE_MONTH.sub(timeDiff)).mul(_1e18).div(deposit1.add(deposit2)));
-      const rewardMustBePaid = this.rewardRate.mul(ONE_MONTH);
+      var rewardPerToken = this.rewardRatePerSecond.mul(timeDiff).mul(_1e18).div(deposit1);
+      rewardPerToken = rewardPerToken.add(this.rewardRatePerSecond.mul(ONE_MONTH.sub(timeDiff)).mul(_1e18).div(deposit1.add(deposit2)));
+      const rewardMustBePaid = this.rewardRatePerSecond.mul(ONE_MONTH);
       const halfRewardMustBePaid = rewardMustBePaid.div(new BN("2"))
       const rewardsEarnedDiff = halfRewardMustBePaid.mul(timeDiff).div(ONE_MONTH);
 
@@ -119,7 +119,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.almostEqualDiv1e18(halfRewardMustBePaid.sub(rewardsEarnedDiff));
       console.log("------------------------------------------------------------------------");
       console.log("(calculated for a duration of one month)");
-      console.log("rewardRate:", convertToNumber(this.rewardRate));
+      console.log("rewardRatePerSecond:", convertToNumber(this.rewardRatePerSecond));
       console.log("rewardPerToken calc:", convertToNumber(rewardPerToken));
       console.log("rewardPerToken actual:",convertToNumber(await this.pool.rewardPerToken()));
       console.log("------------------------------------------------------------------------"); 
@@ -154,8 +154,8 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       
       await time.increaseTo(testTime);
       
-      const rewardPerToken1 = this.rewardRate.mul(timeDiff).mul(_1e18).div(deposit1);
-      const rewardPerToken2 = this.rewardRate.mul(testTime.sub(depositTime2)).mul(_1e18).div(deposit1.add(deposit2));
+      const rewardPerToken1 = this.rewardRatePerSecond.mul(timeDiff).mul(_1e18).div(deposit1);
+      const rewardPerToken2 = this.rewardRatePerSecond.mul(testTime.sub(depositTime2)).mul(_1e18).div(deposit1.add(deposit2));
       const rewardPerToken = rewardPerToken1.add(rewardPerToken2);
 
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken);
@@ -163,7 +163,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken2.mul(deposit2).div(_1e18));
       console.log("------------------------------------------------------------------------");
       console.log("(calculated for a duration of one month)");
-      console.log("rewardRate:", convertToNumber(this.rewardRate));
+      console.log("rewardRatePerSecond:", convertToNumber(this.rewardRatePerSecond));
       console.log("rewardPerToken calc:", convertToNumber(rewardPerToken));
       console.log("rewardPerToken actual:",convertToNumber(await this.pool.rewardPerToken()));
       console.log("------------------------------------------------------------------------"); 
@@ -189,7 +189,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       const depositTime2 = await time.latest();
 
       const timeDiff = depositTime2.sub(depositTime1);
-      const rewardPerToken1 = this.rewardRate.mul(timeDiff).mul(_1e18).div(deposit1);
+      const rewardPerToken1 = this.rewardRatePerSecond.mul(timeDiff).mul(_1e18).div(deposit1);
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1);
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.mul(deposit1).div(_1e18));
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
@@ -197,14 +197,14 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       // Forward to week 3 and notifyReward weekly
       await time.increase(ONE_MONTH.mul(new BN(2)).div(new BN(3)));
 
-      const rewardPerToken2 = this.rewardRate.mul(ONE_MONTH.sub(timeDiff)).mul(_1e18).div(deposit1.add(deposit2));
+      const rewardPerToken2 = this.rewardRatePerSecond.mul(ONE_MONTH.sub(timeDiff)).mul(_1e18).div(deposit1.add(deposit2));
       const rewardPerToken = rewardPerToken1.add(rewardPerToken2);
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken);
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2).mul(deposit1).div(_1e18));
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken2.mul(deposit2).div(_1e18));
       console.log("------------------------------------------------------------------------");
       console.log("(calculated for a duration of one month)");
-      console.log("rewardRate:", convertToNumber(this.rewardRate));
+      console.log("rewardRatePerSecond:", convertToNumber(this.rewardRatePerSecond));
       console.log("rewardPerToken calc:", convertToNumber(rewardPerToken));
       console.log("rewardPerToken actual:",convertToNumber(await this.pool.rewardPerToken()));
       console.log("------------------------------------------------------------------------"); 
@@ -237,8 +237,8 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
 
       const timeDiff1 = depositTime2.sub(depositTime1);
       const timeDiff2 = depositTime3.sub(depositTime2);
-      const rewardPerToken1 = this.rewardRate.mul(timeDiff1).mul(_1e18).div(deposit1);
-      const rewardPerToken2 = this.rewardRate.mul(timeDiff2).mul(_1e18).div(deposit1.add(deposit2));
+      const rewardPerToken1 = this.rewardRatePerSecond.mul(timeDiff1).mul(_1e18).div(deposit1);
+      const rewardPerToken2 = this.rewardRatePerSecond.mul(timeDiff2).mul(_1e18).div(deposit1.add(deposit2));
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2));
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2).mul(deposit1).div(_1e18));
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken2.mul(deposit2).div(_1e18));
@@ -249,7 +249,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       const exitTime2 = await time.latest();
 
       const timeDiff3 = exitTime2.sub(depositTime3);
-      const rewardPerToken3 = this.rewardRate.mul(timeDiff3).mul(_1e18).div(deposit1.add(deposit2).add(deposit3));
+      const rewardPerToken3 = this.rewardRatePerSecond.mul(timeDiff3).mul(_1e18).div(deposit1.add(deposit2).add(deposit3));
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2).add(rewardPerToken3));
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2).add(rewardPerToken3).mul(deposit1).div(_1e18));
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
@@ -259,7 +259,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       await time.increaseTo(depositTime1.add(ONE_MONTH));
 
       const timeDiff4 = ONE_MONTH.sub(exitTime2.sub(depositTime1));
-      const rewardPerToken4 = this.rewardRate.mul(timeDiff4).mul(_1e18).div(deposit1.add(deposit3));
+      const rewardPerToken4 = this.rewardRatePerSecond.mul(timeDiff4).mul(_1e18).div(deposit1.add(deposit3));
       const rewardPerToken = rewardPerToken1.add(rewardPerToken2).add(rewardPerToken3).add(rewardPerToken4)
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken);
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken.mul(deposit1).div(_1e18));
@@ -267,7 +267,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardsEarned(wallet3)).to.be.bignumber.almostEqualDiv1e18(rewardPerToken3.add(rewardPerToken4).mul(deposit3).div(_1e18));
       console.log("------------------------------------------------------------------------");
       console.log("(calculated for a duration of one month)");
-      console.log("rewardRate:", convertToNumber(this.rewardRate));
+      console.log("rewardRatePerSecond:", convertToNumber(this.rewardRatePerSecond));
       console.log("rewardPerToken calc:", convertToNumber(rewardPerToken));
       console.log("rewardPerToken actual:",convertToNumber(await this.pool.rewardPerToken()));
       console.log("------------------------------------------------------------------------"); 
