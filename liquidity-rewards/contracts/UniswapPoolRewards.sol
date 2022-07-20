@@ -4,7 +4,6 @@ pragma solidity ^0.8.15;
 import "./dependencies/PoolTokenWrapper.sol";
 
 contract UniswapPoolRewards is PoolTokenWrapper {
-    using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
     /**
@@ -68,26 +67,14 @@ contract UniswapPoolRewards is PoolTokenWrapper {
         if (totalSupply() == 0) {
             return rewardPerTokenDeposited;
         }
-        return
-            rewardPerTokenDeposited.add(
-                block
-                    .timestamp
-                    .sub(lastUpdateTime)
-                    .mul(rewardRatePerSecond)
-                    .mul(1e18)
-                    .div(totalSupply())
-            );
+        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / totalSupply();
     }
 
     /**
      * Returns the reward amount that an account can claim.
      */
     function rewardsEarned(address account) public view returns (uint256) {
-        return
-            balanceOf(account)
-                .mul(rewardPerToken().sub(userRewardPerTokenClaimed[account]))
-                .div(1e18)
-                .add(rewards[account]);
+        return rewards[account] + (balanceOf(account) * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
     }
 
     /**
