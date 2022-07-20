@@ -6,6 +6,9 @@ import "./dependencies/PoolTokenWrapper.sol";
 contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     using SafeERC20 for IERC20;
 
+    /**
+     * `$ELIMU` ERC20 token interface.
+     */
     IERC20 public elimuToken;
 
     /**
@@ -19,11 +22,16 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     uint256 public lastUpdateTime;
 
     /**
-     * rewardPerTokenStored is used to find the actual reward distribution
+     * rewardPerTokenDeposited is used to find the actual reward distribution
      * according to rewardRatePerSecond and the amount of pool token deposited on the contract.
      */
     uint256 public rewardPerTokenDeposited;
 
+
+    /**
+     * userRewardPerTokenClaimed is used to indicate the value of affected reward distribution
+     * when an account claimed his/her rewards previously.
+     */
     mapping(address => uint256) public userRewardPerTokenClaimed;
 
     /**
@@ -35,6 +43,11 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     event PoolTokensWithdrawn(address indexed user, uint256 amount);
     event RewardClaimed(address indexed user, uint256 amount);
 
+    /**
+     * Required inputs while deploying this contract:
+     * elimuToken_: $ELIMU token address 
+     * poolToken_: Liquidity pool token address
+     */
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
         poolToken = IERC20(poolToken_);
@@ -75,7 +88,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
     }
 
     /**
-     * depositPoolTokens visibility is public as overriding poolTokenWrapper's depositPoolTokens() function.
+     * Deposit pool tokens into this contract and start earning rewards.
      */
     function depositPoolTokens(uint256 amount) public override {
         require(amount > 0, "Cannot deposit 0");
@@ -86,6 +99,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
+    /**
+     * Withdraw previously deposited pool tokens from this contract.
+     */
     function withdrawPoolTokens(uint256 amount) public override {
         require(amount > 0, "Cannot withdraw 0");
 
@@ -103,6 +119,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, Ownable {
         claimReward();
     }
 
+    /**
+     * Claim remaining earned rewards if there is any.
+     */
     function claimReward() public {
         _updateAccountReward(msg.sender);
 
