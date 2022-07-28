@@ -2,8 +2,9 @@
 pragma solidity ^0.8.15;
 
 import "./dependencies/PoolTokenWrapper.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract UniswapPoolRewards is PoolTokenWrapper {
+contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
     using SafeERC20 for IERC20;
 
     /**
@@ -51,6 +52,7 @@ contract UniswapPoolRewards is PoolTokenWrapper {
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
         poolToken = IERC20(poolToken_);
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     /**
