@@ -55,8 +55,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender));
+    function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
         rewardRatePerSecond = rewardRatePerSecond_;
     }
 
