@@ -1,6 +1,6 @@
 {
   "name": "liquidity-rewards",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Rewards for $ELIMU liquidity providers.",
   "main": "index.js",
   "scripts": {

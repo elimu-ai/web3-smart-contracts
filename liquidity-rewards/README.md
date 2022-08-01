@@ -53,13 +53,13 @@ open coverage/index.html
 truffle migrate --network rinkeby
 ```
 
-https://rinkeby.etherscan.io/address/0x47776d7216a11d8682ad8c7395d580dd8324f355
+https://rinkeby.etherscan.io/address/0xb8b6430b58a4fbc57bd5cd7715d318065f2dcd81
 
 ```
 truffle run verify UniswapPoolRewards --network rinkeby
 ```
 
-https://rinkeby.etherscan.io/address/0x47776d7216a11d8682ad8c7395d580dd8324f355#code
+https://rinkeby.etherscan.io/address/0xb8b6430b58a4fbc57bd5cd7715d318065f2dcd81#code
 
 ## Testnet (Kovan)
 

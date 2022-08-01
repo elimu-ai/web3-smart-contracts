@@ -19,14 +19,14 @@ module.exports = {
     rinkeby: {
       provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
       network_id: 4,
-      gas: 2_000_000,
+      gas: 2_500_000,
       gasPrice: 4_000_000_000, // 4 gwei (in wei)
       timeoutBlocks: 200
     },
     mainnet: {
       provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
       network_id: 1,
-      gas: 2_000_000,
+      gas: 2_500_000,
       gasPrice: 5_000_000_000, // 5 gwei (in wei)
       timeoutBlocks: 200
     }
