@@ -44,7 +44,7 @@ open coverage/index.html
 ### Uniswap Pool 🦄
 
 - Pool token: https://rinkeby.etherscan.io/token/0x9936bdcd16e8c709c4cb8d7b871f0011b4cc65de
-- UI (swap): https://app.uniswap.org/#/swap?chain=rinkeby&inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+- UI (swap): https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2&chain=rinkeby
 - UI (pool): https://app.uniswap.org/#/add/v2/ETH/0xe29797910D413281d2821D5d9a989262c8121CC2?chain=rinkeby
 
 ### Rewards Contract 💸 
