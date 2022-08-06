@@ -60,13 +60,6 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
     }
 
     /**
-     * Return the current reward amount.
-     */
-    function rewardBalance() public view returns (uint256) {
-        return elimuToken.balanceOf(address(this));
-    }
-
-    /**
      * Returns the amount of rewards that correspond to each deposited token.
      */
     function rewardPerToken() public view returns (uint256) {
