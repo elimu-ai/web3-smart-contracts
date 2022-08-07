@@ -8,7 +8,7 @@ const UniswapPoolRewards = artifacts.require('UniswapPoolRewards');
 const _1e18 = new BN('10').pow(new BN('18'));
 const ONE_MONTH = new BN('2629800'); // 1 month = 2629800 seconds
 const ONE_DAY = new BN('86400'); // 1 day = 86400 seconds
-const _1_000 = '10000';
+const _1_000 = '1000';
 const _10_000_000 = '10000000';
 const _1_000_000_GAS = 1000000;
 
