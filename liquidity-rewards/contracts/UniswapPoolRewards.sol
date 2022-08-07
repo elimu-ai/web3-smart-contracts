@@ -56,6 +56,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
     }
 
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
+        // End the reward program if the rewardRatePerSecond variable is set to the 0 value.
         _updateReward();
         rewardRatePerSecond = rewardRatePerSecond_;
     }
