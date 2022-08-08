@@ -1,8 +1,6 @@
 const UniswapPoolRewards = artifacts.require("UniswapPoolRewards")
 
 contract("UniswapPoolRewards", (accounts) => {
-    
-    console.log('accounts:', accounts)
 
     beforeEach(async () => {
         this.contract = await UniswapPoolRewards.deployed()
@@ -16,8 +14,19 @@ contract("UniswapPoolRewards", (accounts) => {
         assert.notEqual(address, null)
         assert.notEqual(address, undefined)
 
-        // TODO: assert elimuToken
-        // TODO: assert poolToken
+        const elimuTokenAddress = await this.contract.elimuToken()
+        console.log('elimuTokenAddress:', elimuTokenAddress)
+        assert.notEqual(elimuTokenAddress, 0x0)
+        assert.notEqual(elimuTokenAddress, "")
+        assert.notEqual(elimuTokenAddress, null)
+        assert.notEqual(elimuTokenAddress, undefined)
+
+        const poolTokenAddress = await this.contract.poolToken()
+        console.log('poolTokenAddress:', poolTokenAddress)
+        assert.notEqual(poolTokenAddress, 0x0)
+        assert.notEqual(poolTokenAddress, "")
+        assert.notEqual(poolTokenAddress, null)
+        assert.notEqual(poolTokenAddress, undefined)
     })
 
     describe('\nReward Rate', () => {
