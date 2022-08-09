@@ -154,6 +154,7 @@ contract("UniswapPoolRewards", (accounts) => {
             const lastUpdateTimeDiff = lastUpdateTime - lastUpdateTimeBeforeSimulation
             console.log('lastUpdateTimeDiff:', lastUpdateTimeDiff)
             assert.isAtLeast(lastUpdateTimeDiff, 3_600) // 60 seconds X 60 minutes
+            assert.isAtMost(lastUpdateTimeDiff, 3_700)
 
             // Verify that rewardPerToken() no longer returns zero
             const rewardPerToken = await this.rewardsContract.rewardPerToken()
@@ -181,7 +182,77 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 1 hour after first deposit', async () => {
-            // TODO
+            const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
+            console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 900) // 0.250 $ELIMU/second X 3,600 seconds = 900 $ELIMU
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 910)
+        })
+
+        it('rewardsEarned() - 1 hour after first deposit, account2 deposits another 20 pool tokens', async () => {
+            await this.poolTokenContract.transfer(accounts[2], web3.utils.toWei('100'), { from: accounts[0] })
+            await this.poolTokenContract.approve(this.rewardsContract.address, web3.utils.toWei('100'), { from: accounts[2] })
+            await this.rewardsContract.depositPoolTokens(web3.utils.toWei('20'), { from: accounts[2] })
+            const totalDeposited = await this.rewardsContract.totalSupply()
+            console.log('totalDeposited:', web3.utils.fromWei(totalDeposited))
+            assert.equal(totalDeposited, web3.utils.toWei('40')) // 20 + 20 = 40
+            
+            const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
+            console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 900)
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 910)
+
+            const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
+            console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
+            assert.equal(rewardsEarnedAccount2, web3.utils.toWei('0'))
+        })
+
+        it('rewardsEarned() - 2 hours after first deposit', async () => {
+            // Expected rewards per account:
+            //  0 hours     (0/0):     account1    0 $ELIMU,
+            //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2   0 $ELIMU
+            //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2 450 $ELIMUs
+            
+            // Simulate an increase of block.timestamp by 1 hour
+            time.increase(60 * 60)
+
+            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
+            const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
+            console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1350) // 900 + 450
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1360)
+
+            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
+            const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
+            console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 450) // 450
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 460)
+        })
+
+        it('rewardsEarned() - 3 hours after first deposit', async () => {
+            // Expected rewards per account:
+            //  0 hours     (0/0):     account1    0 $ELIMU,
+            //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2   0 $ELIMU
+            //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2 450 $ELIMUs
+            //  2→4 hours (20/20):     account1 1800 $ELIMU,    account2 900 $ELIMUs
+            
+            // Simulate an increase of block.timestamp by 1 hour
+            time.increase(60 * 60)
+
+            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
+            const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
+            console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1800) // 900 + 450 + 450
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1810)
+
+            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
+            const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
+            console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 900) // 450 + 450
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 910)
         })
     })
 })
