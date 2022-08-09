@@ -7,7 +7,8 @@ const UniswapPoolRewards = artifacts.require('UniswapPoolRewards');
 
 const _1e18 = new BN('10').pow(new BN('18'));
 const ONE_MONTH = new BN('2629800'); // 1 month = 2629800 seconds
-const _1_000 = '10000';
+const ONE_DAY = new BN('86400'); // 1 day = 86400 seconds
+const _1_000 = '1000';
 const _10_000_000 = '10000000';
 const _1_000_000_GAS = 1000000;
 
@@ -275,6 +276,83 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       console.log("rewardsEarned wallet2:", convertToNumber(await this.pool.rewardsEarned(wallet2)));
       console.log("rewardsEarned wallet3:", convertToNumber(await this.pool.rewardsEarned(wallet3)));
       console.log("------------------------------------------------------------------------");
+    });
+
+    it('Adjusting the reward rate for two depositor with the different (1:3) deposits', async function () {
+      expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18('0');
+      expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.equal('0');
+      expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
+
+      // Setting rewardRatePerSecond to 1 token per second (86,400 tokens per day).
+      await this.pool.setRewardRatePerSecond(web3.utils.toWei("1") ,{from: owner})
+
+      const deposit1 = new BN(web3.utils.toWei('1'));
+      await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS });
+      const depositTime1 = await time.latest();
+
+      const deposit2 = new BN(web3.utils.toWei('3'));
+      await this.pool.depositPoolTokens(deposit2, { from: wallet2, gas: _1_000_000_GAS });
+      const depositTime2 = await time.latest();
+
+      // Time goes by... so slowly.
+      await time.increaseTo(depositTime1.add(ONE_DAY)); // Increase time by 2 weeks.
+      const rewardRatePerSecondBefore = await this.pool.rewardRatePerSecond();
+
+      console.log("------------------------------------------------------------------------"); 
+      console.log("rewardRatePerSecond (after 1 day):", convertToNumber(rewardRatePerSecondBefore));
+      console.log("rewardPerToken:",convertToNumber(await this.pool.rewardPerToken()));
+
+      // Set rewardRatePerSecond to 0.5 token per second (86,400 tokens per day).
+      await this.pool.setRewardRatePerSecond(web3.utils.toWei("0.5") ,{from: owner})
+      const adjustTime = await time.latest();
+      const rewardEarnedWallet1Before = await this.pool.rewardsEarned(wallet1);
+      const rewardEarnedWallet2Before = await this.pool.rewardsEarned(wallet2);
+      console.log("rewardsEarned wallet1:", convertToNumber(rewardEarnedWallet1Before));
+      console.log("rewardsEarned wallet2:", convertToNumber(rewardEarnedWallet2Before));
+
+      const deposit3 = new BN(web3.utils.toWei('1'));
+      await this.pool.depositPoolTokens(deposit3, { from: wallet1, gas: _1_000_000_GAS });
+      const depositTime3 = await time.latest();
+
+      const deposit4 = new BN(web3.utils.toWei('3'));
+      await this.pool.depositPoolTokens(deposit4, { from: wallet2, gas: _1_000_000_GAS });
+      const depositTime4 = await time.latest();
+      console.log("------------------------------------------------------------------------"); 
+      console.log("rewardPerToken (after the second deposits):", convertToNumber(await this.pool.rewardPerToken()));
+      console.log("rewardsEarned wallet1:", convertToNumber(await this.pool.rewardsEarned(wallet1)));
+      console.log("rewardsEarned wallet2:", convertToNumber(await this.pool.rewardsEarned(wallet2)));
+
+      // Increase time by a day.
+      const testTime = depositTime1.add(ONE_DAY.mul(new BN("2"))); 
+      await time.increaseTo(testTime);
+      const rewardEarnedWallet1After = await this.pool.rewardsEarned(wallet1);
+      const rewardEarnedWallet2After = await this.pool.rewardsEarned(wallet2);
+      const rewardRatePerSecondAfter = await this.pool.rewardRatePerSecond();
+      console.log("------------------------------------------------------------------------"); 
+      console.log("rewardRatePerSecond (after one 2):", convertToNumber(rewardRatePerSecondAfter));
+      console.log("rewardPerToken:",convertToNumber(await this.pool.rewardPerToken()));
+      console.log("rewardsEarned wallet1:", convertToNumber(rewardEarnedWallet1After));
+      console.log("rewardsEarned wallet2:", convertToNumber(rewardEarnedWallet2After));
+
+      
+      const rewardPerToken1 = rewardRatePerSecondBefore.mul(depositTime2.sub(depositTime1)).mul(_1e18).div(deposit1);
+      const rewardPerToken2 = rewardRatePerSecondBefore.mul(adjustTime.sub(depositTime2)).mul(_1e18).div(deposit1.add(deposit2));
+      const rewardPerToken3 = rewardRatePerSecondBefore.mul(depositTime3.sub(adjustTime)).mul(_1e18).div(deposit1.add(deposit2));
+      const rewardPerToken4 = rewardRatePerSecondBefore.mul(depositTime4.sub(depositTime3)).mul(_1e18).div(deposit1.add(deposit2).add(deposit3));
+      const rewardPerToken5 = rewardRatePerSecondAfter.mul(testTime.sub(depositTime4)).mul(_1e18).div(deposit1.add(deposit2).add(deposit3).add(deposit4));
+      const rewardPerToken = rewardPerToken1.add(rewardPerToken2).add(rewardPerToken3).add(rewardPerToken4).add(rewardPerToken5);
+
+      expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18(rewardPerToken);
+      expect(rewardEarnedWallet1Before).to.be.bignumber.almostEqualDiv1e18(rewardPerToken1.add(rewardPerToken2).mul(deposit1).div(_1e18));
+      expect(rewardEarnedWallet2Before).to.be.bignumber.almostEqualDiv1e18(rewardPerToken2.mul(deposit2).div(_1e18));
+      expect(rewardEarnedWallet1After).to.be.bignumber.almostEqualDiv1e18(rewardEarnedWallet1Before.add(rewardPerToken3.add(rewardPerToken4).add(rewardPerToken5).mul(deposit1.add(deposit3)).div(_1e18)));
+      expect(rewardEarnedWallet2After).to.be.bignumber.almostEqualDiv1e18(rewardEarnedWallet2Before.add(rewardPerToken3.add(rewardPerToken4).add(rewardPerToken5).mul(deposit2.add(deposit4)).div(_1e18)));
+
+      console.log("------------------------------------------------------------------------");
+      console.log("(calculated for a duration of one day)");
+      console.log("rewardPerToken calc:", convertToNumber(rewardPerToken));
+      console.log("rewardPerToken actual:",convertToNumber(await this.pool.rewardPerToken()));
+      console.log("------------------------------------------------------------------------"); 
     });
 });
 });
