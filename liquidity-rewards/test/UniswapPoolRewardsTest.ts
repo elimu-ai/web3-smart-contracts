@@ -25,26 +25,32 @@ contract("UniswapPoolRewards", (accounts) => {
             const rewardPerTokenDeposited = await this.rewardsContract.rewardPerTokenDeposited()
             console.log(' ├── rewardPerTokenDeposited:', web3.utils.fromWei(rewardPerTokenDeposited))
 
-            const rewardBalance = await this.rewardsContract.rewardBalance()
-            console.log(' ├── rewardBalance:', web3.utils.fromWei(rewardBalance))
+            const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
+            console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
 
-            console.log(' ├── _balances:')
+            console.log(' ├── balanceOf(account):')
             for (let i = 1; i < 3; i++) {
                 const balance = await this.rewardsContract.balanceOf(accounts[i])
                 const percentageOfTotalSupply = balance * 100 / totalSupply
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(balance) + ' (' + percentageOfTotalSupply + '%)')
             }
 
-            console.log(' ├── userRewardPerTokenClaimed:')
+            console.log(' ├── userRewardPerTokenClaimed(account):')
             for (let i = 1; i < 3; i++) {
                 const userRewardPerTokenClaimed = await this.rewardsContract.userRewardPerTokenClaimed(accounts[i])
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(userRewardPerTokenClaimed))
             }
 
-            console.log(' └── rewards:')
+            console.log(' ├── rewards(account):')
             for (let i = 1; i < 3; i++) {
                 const reward = await this.rewardsContract.rewards(accounts[i])
-                console.log('     ├── account' + i + ': ' + web3.utils.fromWei(reward))
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(reward))
+            }
+
+            console.log(' └── rewardsEarned(address account):')
+            for (let i = 1; i < 3; i++) {
+                const rewardsEarned = await this.rewardsContract.rewardsEarned(accounts[i])
+                console.log('     ├── account' + i + ': ' + web3.utils.fromWei(rewardsEarned))
             }
         }
     })
@@ -215,7 +221,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 2 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2   0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2 450 $ELIMUs
@@ -239,7 +245,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 3 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2   0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2 450 $ELIMUs
@@ -276,7 +282,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 4 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2    0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2  450 $ELIMUs
@@ -312,7 +318,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 5 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2    0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2  450 $ELIMUs
@@ -349,7 +355,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 6 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2    0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2  450 $ELIMUs
@@ -397,10 +403,24 @@ contract("UniswapPoolRewards", (accounts) => {
             const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
 
+            const elimuTokenBalanceBeforeClaiming = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('elimuTokenBalanceBeforeClaiming:', web3.utils.fromWei(elimuTokenBalanceBeforeClaiming))
+
+            const elimuTokenBalanceAccount1BeforeClaiming = await this.elimuTokenContract.balanceOf(accounts[1])
+            console.log('elimuTokenBalanceAccount1BeforeClaiming:', web3.utils.fromWei(elimuTokenBalanceAccount1BeforeClaiming))
+            assert.equal(elimuTokenBalanceAccount1BeforeClaiming, web3.utils.toWei('0'))
+
             const claimRewardResult = await this.rewardsContract.claimReward({ from: accounts[1] })
             console.log('claimRewardResult:\n', claimRewardResult)
 
-            // Expected rewards per account:
+            const elimuTokenBalanceAfterClaiming = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('elimuTokenBalanceAfterClaiming:', web3.utils.fromWei(elimuTokenBalanceAfterClaiming))
+            assert.isAtMost(Number(web3.utils.fromWei(elimuTokenBalanceAfterClaiming)), elimuTokenBalanceBeforeClaiming - elimuTokenBalanceAccount1BeforeClaiming)
+
+            const elimuTokenBalanceAccount1AfterClaiming = await this.elimuTokenContract.balanceOf(accounts[1])
+            console.log('elimuTokenBalanceAccount1AfterClaiming:', web3.utils.fromWei(elimuTokenBalanceAccount1AfterClaiming))
+
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2    0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2  450 $ELIMUs
@@ -415,10 +435,10 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(rewardsEarnedAccount1AfterClaiming, web3.utils.toWei('0')) // (900 + 450 + 450 + 900 + 0 + 1800) - 4500
 
             // Verify that account2's earned rewards remains the same
-            const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
-            console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3_600) // (0 + 450 + 450 + 900 + 0) + 1800
-            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3_600 * 1.01)
+            const rewardsEarnedAccount2AfterClaiming = await this.rewardsContract.rewardsEarned(accounts[2])
+            console.log('rewardsEarnedAccount2AfterClaiming:', web3.utils.fromWei(rewardsEarnedAccount2AfterClaiming))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2AfterClaiming)), 3_600) // (0 + 450 + 450 + 900 + 0) + 1800
+            assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2AfterClaiming)), 3_600 * 1.01)
         })
 
         it('claimReward() - account1, Nothing to claim', async () => {
@@ -448,7 +468,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('rewardsEarned() - 7 hours after first deposit', async () => {
-            // Expected rewards per account:
+            // Expected earned (claimable) rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
             //  0→1 hour   (10/0):     account1  900 $ELIMU,    account2    0 $ELIMU
             //  1→2 hours (20/20):     account1 1350 $ELIMU,    account2  450 $ELIMUs
