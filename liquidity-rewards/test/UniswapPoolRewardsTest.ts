@@ -428,6 +428,19 @@ contract("UniswapPoolRewards", (accounts) => {
             }
         })
 
+        it('claimReward() - account without rewards cannot claim', async () => {
+            const rewardsEarnedAccount3 = await this.rewardsContract.rewardsEarned(accounts[3])
+            console.log('rewardsEarnedAccount3:', web3.utils.fromWei(rewardsEarnedAccount3))
+
+            // Expect the transaction to be reverted with a "Nothing to claim" error
+            try {
+                await this.rewardsContract.claimReward({ from: accounts[3] })
+            } catch (error) {
+                console.log('error:\n', error)
+                assert.equal(error.reason, "Nothing to claim")
+            }
+        })
+
         it('rewardsEarned() - 7 hours after first deposit', async () => {
             // Expected rewards per account:
             //  0 hours     (0/0):     account1    0 $ELIMU,
@@ -480,5 +493,22 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('account2PoolTokenBalance:', web3.utils.fromWei(account2PoolTokenBalance))
             assert.equal(account2PoolTokenBalance, web3.utils.toWei('90')) // 100 - 10
         })
-    })    
+
+        it('withdrawPoolTokens() - account without deposits cannot withdraw', async () => {
+            const totalDepositedByAccount3 = await this.rewardsContract.balanceOf(accounts[3])
+            console.log('totalDepositedByAccount3:', web3.utils.fromWei(totalDepositedByAccount3))
+            assert.equal(totalDepositedByAccount3, web3.utils.toWei('0'))
+
+            const totalSupply = await this.rewardsContract.totalSupply()
+            console.log('totalSupply:', web3.utils.fromWei(totalSupply))
+
+            // Expect the transaction to be reverted with an error
+            try {
+                await this.rewardsContract.withdrawPoolTokens(web3.utils.toWei('10'), { from: accounts[3] })
+            } catch (error) {
+                console.log('error:\n', error)
+                assert.equal(error.reason, "Panic: Arithmetic overflow")
+            }
+        })
+    })
 })
