@@ -246,14 +246,14 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1800) // 900 + 450 + 450
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1800) // (900 + 450) + 450
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1800 * 1.01)
 
             const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 900) // 0 + 450 + 450
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 900) // (0 + 450) + 450
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 900 * 1.01)
         })
     })
@@ -284,14 +284,14 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700) // 900 + 450 + 450 + 900
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700) // (900 + 450 + 450) + 900
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700 * 1.01)
 
             const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800) // 0 + 450 + 450 + 900
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800) // (0 + 450 + 450) + 900
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800 * 1.01)
         })
     })
@@ -321,14 +321,14 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700) // 900 + 450 + 450 + 900 + 0
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700) // (900 + 450 + 450 + 900) + 0
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2700 * 1.01)
 
             const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800) // 0 + 450 + 450 + 900 + 0
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800) // (0 + 450 + 450 + 900) + 0
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 1800 * 1.01)
         })
     })
@@ -359,14 +359,14 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.rewardsEarned(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 4500) // 900 + 450 + 450 + 900 + 0 + 1800
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 4500) // (900 + 450 + 450 + 900 + 0) + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 4500 * 1.01)
 
             const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600) // 0 + 450 + 450 + 900 + 0 + 1800
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600) // (0 + 450 + 450 + 900 + 0) + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600 * 1.01)
         })
     })
@@ -411,7 +411,7 @@ contract("UniswapPoolRewards", (accounts) => {
             // Verify that account2's earned rewards remains the same
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600) // 0 + 450 + 450 + 900 + 0 + 1800
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600) // (0 + 450 + 450 + 900 + 0) + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 3600 * 1.01)
         })
 
@@ -424,8 +424,7 @@ contract("UniswapPoolRewards", (accounts) => {
                 await this.rewardsContract.claimReward({ from: accounts[1] })
             } catch (error) {
                 console.log('error:\n', error)
-                assert.equal(error.data.message, "revert")
-                assert.equal(error.data.reason, "Nothing to claim")
+                assert.equal(error.reason, "Nothing to claim")
             }
         })
 
@@ -454,8 +453,32 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.rewardsEarned(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
-            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 5400) // 0 + 450 + 450 + 900 + 0 + 1800 + 1800
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 5400) // (0 + 450 + 450 + 900 + 0 + 1800) + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount2)), 5400 * 1.01)
         })
     })
+
+
+    describe('\n💸 Withdraw Pool Tokens - 7 hours after first deposit', () => {
+        it('withdrawPoolTokens() - account2 withdraws 10 pool tokens', async () => {
+            // Verify that account2 has deposited a total of 20 pool tokens
+            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
+            assert.equal(totalDepositedByAccount2, web3.utils.toWei('20'))
+            
+            // account2 withdraws 10 of the 20 pool tokens
+            const withdrawPoolTokensResult = await this.rewardsContract.withdrawPoolTokens(web3.utils.toWei('10'), { from: accounts[2] })
+            console.log('withdrawPoolTokensResult:\n', withdrawPoolTokensResult)
+
+            // Verify that account2 has deposited a total of 10 pool tokens
+            const totalDepositedByAccount2AfterWithdrawal = await this.rewardsContract.balanceOf(accounts[2])
+            console.log('totalDepositedByAccount2AfterWithdrawal:', web3.utils.fromWei(totalDepositedByAccount2AfterWithdrawal))
+            assert.equal(totalDepositedByAccount2AfterWithdrawal, web3.utils.toWei('10')) // 20 - 10
+
+            // Verify that account2 holds 90 pool tokens
+            const account2PoolTokenBalance = await this.poolTokenContract.balanceOf(accounts[2])
+            console.log('account2PoolTokenBalance:', web3.utils.fromWei(account2PoolTokenBalance))
+            assert.equal(account2PoolTokenBalance, web3.utils.toWei('90')) // 100 - 10
+        })
+    })    
 })
