@@ -12,10 +12,10 @@ contract("UniswapPoolRewards", (accounts) => {
             // Print the current state of the contract's variables
 
             const totalSupply = await this.rewardsContract.totalSupply()
-            console.log(' ├── totalSupply:', web3.utils.fromWei(totalSupply))
+            console.log(' ├── totalSupply():', web3.utils.fromWei(totalSupply))
 
             const rewardRatePerSecond = await this.rewardsContract.rewardRatePerSecond()
-            console.log(' ├── rewardRatePerSecond:', web3.utils.fromWei(rewardRatePerSecond))
+            console.log(' ├── rewardRatePerSecond():', web3.utils.fromWei(rewardRatePerSecond))
 
             const lastUpdateTime = await this.rewardsContract.lastUpdateTime()
             console.log(' ├── lastUpdateTime.toNumber():', lastUpdateTime.toNumber())
@@ -23,7 +23,10 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log(' ├── lastUpdateTimeAsDate:', lastUpdateTimeAsDate)
 
             const rewardPerTokenDeposited = await this.rewardsContract.rewardPerTokenDeposited()
-            console.log(' ├── rewardPerTokenDeposited:', web3.utils.fromWei(rewardPerTokenDeposited))
+            console.log(' ├── rewardPerTokenDeposited():', web3.utils.fromWei(rewardPerTokenDeposited))
+
+            const rewardPerToken = await this.rewardsContract.rewardPerToken()
+            console.log(' ├── rewardPerToken():', web3.utils.fromWei(rewardPerToken))
 
             const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
             console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
