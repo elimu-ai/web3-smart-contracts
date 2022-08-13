@@ -30,7 +30,7 @@
     "ganache-cli": "^6.12.2",
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-dev.23",
-    "solc": "^0.8.15",
+    "solc": "^0.8.16",
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5",
     "solidity-coverage": "^0.7.21",
