@@ -92,7 +92,6 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       expect(await this.pool.rewardPerToken()).to.be.bignumber.almostEqualDiv1e18('0');
       expect(await this.pool.rewardsEarned(wallet1)).to.be.bignumber.equal('0');
       expect(await this.pool.rewardsEarned(wallet2)).to.be.bignumber.equal('0');
-      expect(await this.pool.rewardBalance()).to.be.bignumber.equal(web3.utils.toWei(_10_000_000));
       const deposit1 = new BN(web3.utils.toWei('1'));
       await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS });
       const depositTime1 = await time.latest();
