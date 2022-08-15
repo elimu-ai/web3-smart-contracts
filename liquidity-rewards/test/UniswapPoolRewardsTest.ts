@@ -44,9 +44,9 @@ contract("UniswapPoolRewards", (accounts) => {
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(userRewardPerTokenClaimed))
             }
 
-            console.log(' ├── rewards(account):')
+            console.log(' ├── rewardBalances(account):')
             for (let i = 1; i < 3; i++) {
-                const reward = await this.rewardsContract.rewards(accounts[i])
+                const reward = await this.rewardsContract.rewardBalances(accounts[i])
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(reward))
             }
 

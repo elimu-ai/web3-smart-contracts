@@ -16,7 +16,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     uint256 public lastUpdateTimestamp;
 
     mapping(address => uint256) public poolTokenBalances;
-    mapping(address => uint256) public rewards;
+    mapping(address => uint256) public rewardBalances;
     mapping(address => uint256) public userRewardPerTokenClaimed;
 
     event PoolTokensDeposited(address indexed user, uint256 amount);
@@ -44,13 +44,13 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     function claimableReward(address account) public view returns (uint256) {
         uint256 poolTokenBalance = poolTokenBalances[account];
-        return rewards[account] + (poolTokenBalance * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
+        return rewardBalances[account] + (poolTokenBalance * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
     }
 
     function depositPoolTokens(uint256 amount) public {
         require(amount > 0, "Cannot deposit 0");
 
-        _updateAccountReward();
+        _updateRewardBalances();
 
         poolTokenBalances[msg.sender] = poolTokenBalances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
@@ -62,7 +62,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         uint256 poolTokenBalance = poolTokenBalances[msg.sender];
         require(poolTokenBalance > 0, "Cannot withdraw 0");
 
-        _updateAccountReward();
+        _updateRewardBalances();
 
         poolTokenBalances[msg.sender] = 0;
         poolToken.safeTransfer(msg.sender, poolTokenBalance);
@@ -71,14 +71,14 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function claimReward() public {
-        _updateAccountReward();
+        _updateRewardBalances();
 
         uint256 reward = claimableReward(msg.sender);
 
         require(reward > 0, "Nothing to claim");
 
         elimuToken.transfer(msg.sender, reward);
-        rewards[msg.sender] = 0;
+        rewardBalances[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
     }
 
@@ -92,9 +92,9 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         lastUpdateTimestamp = block.timestamp;
     }
 
-    function _updateAccountReward() internal {
+    function _updateRewardBalances() internal {
         _updateReward();
-        rewards[msg.sender] = claimableReward(msg.sender);
+        rewardBalances[msg.sender] = claimableReward(msg.sender);
         userRewardPerTokenClaimed[msg.sender] = rewardPerTokenDeposited;
     }
 }
