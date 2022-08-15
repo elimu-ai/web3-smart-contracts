@@ -65,10 +65,11 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
      * Returns the amount of rewards that correspond to each deposited token.
      */
     function rewardPerToken() public view returns (uint256) {
-        if (totalSupply() == 0) {
+        uint256 poolTokenBalance = poolToken.balanceOf(address(this));
+        if (poolTokenBalance == 0) {
             return rewardPerTokenDeposited;
         }
-        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / totalSupply();
+        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / poolTokenBalance;
     }
 
     /**
@@ -135,7 +136,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
 
     /**
      * Update the user pending reward and rewardPerTokenDeposited whenever
-     * totalPoolTokenSupply() is changed because of a user depositPoolTokens/withdrawPoolTokens
+     * the pool token balance is changed because of a user depositPoolTokens/withdrawPoolTokens
      * of the pool tokens.
      */
     function _updateAccountReward(address account) internal {
