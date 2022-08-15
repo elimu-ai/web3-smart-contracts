@@ -9,23 +9,15 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     using SafeERC20 for IERC20;
 
     IERC20 public elimuToken;
-
     IERC20 public poolToken;
 
-    mapping(address => uint256) private _poolTokenBalances;
-
-    /**
-     * The `elimuToken` reward emission rate per second.
-     */
     uint256 public rewardRatePerSecond = 0.125 * 1e18;
-
+    uint256 public rewardPerTokenDeposited;
     uint256 public lastUpdateTime;
 
-    uint256 public rewardPerTokenDeposited;
-
-    mapping(address => uint256) public userRewardPerTokenClaimed;
-
+    mapping(address => uint256) private _poolTokenBalances;
     mapping(address => uint256) public rewards;
+    mapping(address => uint256) public userRewardPerTokenClaimed;
 
     event PoolTokensDeposited(address indexed user, uint256 amount);
     event PoolTokensWithdrawn(address indexed user, uint256 amount);
