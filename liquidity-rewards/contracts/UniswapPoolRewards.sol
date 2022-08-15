@@ -74,7 +74,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
     /**
      * Returns the reward amount that an account can claim.
      */
-    function rewardsEarned(address account) public view returns (uint256) {
+    function claimableReward(address account) public view returns (uint256) {
         return rewards[account] + (balanceOf(account) * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
     }
 
@@ -103,26 +103,26 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
     }
 
     /**
-     * Shortcut to be able to withdraw tokens and claim rewards in one transaction.
-     */
-    function withdrawPoolTokensAndClaim() external {
-        withdrawPoolTokens(balanceOf(msg.sender));
-        claimReward();
-    }
-
-    /**
      * Claim remaining earned rewards if there is any.
      */
     function claimReward() public {
         _updateAccountReward(msg.sender);
 
-        uint256 reward = rewardsEarned(msg.sender);
+        uint256 reward = claimableReward(msg.sender);
 
         require(reward > 0, "Nothing to claim");
 
         elimuToken.transfer(msg.sender, reward);
         rewards[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
+    }
+
+    /**
+     * Shortcut to be able to withdraw tokens and claim rewards in one transaction.
+     */
+    function withdrawPoolTokensAndClaimReward() external {
+        withdrawPoolTokens(balanceOf(msg.sender));
+        claimReward();
     }
 
     /**
@@ -143,7 +143,7 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
 
         assert(account != address(0));
 
-        rewards[account] = rewardsEarned(account);
+        rewards[account] = claimableReward(account);
         userRewardPerTokenClaimed[account] = rewardPerTokenDeposited;
     }
 }
