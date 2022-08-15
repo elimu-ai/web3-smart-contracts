@@ -15,7 +15,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     uint256 public rewardPerTokenDeposited;
     uint256 public lastUpdateTime;
 
-    mapping(address => uint256) private _poolTokenBalances;
+    mapping(address => uint256) public poolTokenBalances;
     mapping(address => uint256) public rewards;
     mapping(address => uint256) public userRewardPerTokenClaimed;
 
@@ -27,10 +27,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         elimuToken = IERC20(elimuToken_);
         poolToken = IERC20(poolToken_);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-    }
-
-    function poolTokenBalance(address account) public view returns (uint256) {
-        return _poolTokenBalances[account];
     }
 
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
@@ -47,7 +43,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function claimableReward(address account) public view returns (uint256) {
-        uint256 poolTokenBalance = poolTokenBalance(account);
+        uint256 poolTokenBalance = poolTokenBalances[account];
         return rewards[account] + (poolTokenBalance * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
     }
 
@@ -56,19 +52,19 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
         _updateAccountReward(msg.sender);
 
-        _poolTokenBalances[msg.sender] = _poolTokenBalances[msg.sender] + amount;
+        poolTokenBalances[msg.sender] = poolTokenBalances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
 
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
     function withdrawPoolTokens() public {
-        uint256 poolTokenBalance = poolTokenBalance(msg.sender);
+        uint256 poolTokenBalance = poolTokenBalances[msg.sender];
         require(poolTokenBalance > 0, "Cannot withdraw 0");
 
         _updateAccountReward(msg.sender);
 
-        _poolTokenBalances[msg.sender] = 0;
+        poolTokenBalances[msg.sender] = 0;
         poolToken.safeTransfer(msg.sender, poolTokenBalance);
 
         emit PoolTokensWithdrawn(msg.sender, poolTokenBalance);
