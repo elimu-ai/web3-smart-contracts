@@ -9,27 +9,19 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     using SafeERC20 for IERC20;
 
     IERC20 public elimuToken;
-
     IERC20 public poolToken;
 
-    mapping(address => uint256) private _poolTokenBalances;
-
-    /**
-     * The `elimuToken` reward emission rate per second.
-     */
     uint256 public rewardRatePerSecond = 0.125 * 1e18;
+    uint256 public lastRewardPerPoolToken;
+    uint256 public lastUpdateTimestamp;
 
-    uint256 public lastUpdateTime;
+    mapping(address => uint256) public poolTokenBalances;
+    mapping(address => uint256) public rewardBalances;
+    mapping(address => uint256) public rewardPerPoolTokenClaimed;
 
-    uint256 public rewardPerTokenDeposited;
-
-    mapping(address => uint256) public userRewardPerTokenClaimed;
-
-    mapping(address => uint256) public rewards;
-
-    event PoolTokensDeposited(address indexed user, uint256 amount);
-    event PoolTokensWithdrawn(address indexed user, uint256 amount);
-    event RewardClaimed(address indexed user, uint256 amount);
+    event PoolTokensDeposited(address indexed account, uint256 amount);
+    event PoolTokensWithdrawn(address indexed account, uint256 amount);
+    event RewardClaimed(address indexed account, uint256 amount);
 
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
@@ -37,60 +29,59 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    function poolTokenBalance(address account) public view returns (uint256) {
-        return _poolTokenBalances[account];
-    }
-
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        _updateReward();
+        _updateLastRewardPerPoolToken();
         rewardRatePerSecond = rewardRatePerSecond_;
     }
 
-    function rewardPerToken() public view returns (uint256) {
+    function rewardPerPoolToken() public view returns (uint256) {
         uint256 poolTokenBalance = poolToken.balanceOf(address(this));
         if (poolTokenBalance == 0) {
-            return rewardPerTokenDeposited;
+            return lastRewardPerPoolToken;
         }
-        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / poolTokenBalance;
+        uint256 timePassedSinceLastUpdate = block.timestamp - lastUpdateTimestamp;
+        uint256 rewardEarnedSinceLastUpdate = timePassedSinceLastUpdate * rewardRatePerSecond * 1e18;
+        uint256 rewardPerPoolTokenSinceLastUpdate = rewardEarnedSinceLastUpdate / poolTokenBalance;
+        return lastRewardPerPoolToken + rewardPerPoolTokenSinceLastUpdate;
     }
 
     function claimableReward(address account) public view returns (uint256) {
-        uint256 poolTokenBalance = poolTokenBalance(account);
-        return rewards[account] + (poolTokenBalance * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
+        uint256 poolTokenBalance = poolTokenBalances[account];
+        uint256 rewardPerPoolTokenClaimedSinceLastUpdate = rewardPerPoolTokenClaimed[account];
+        uint256 rewardPerPoolTokenSinceLastUpdate = rewardPerPoolToken() - rewardPerPoolTokenClaimedSinceLastUpdate;
+        uint256 rewardEarnedSinceLastUpdate = poolTokenBalance * rewardPerPoolTokenSinceLastUpdate / 1e18;
+        return rewardBalances[account] + rewardEarnedSinceLastUpdate;
     }
 
     function depositPoolTokens(uint256 amount) public {
         require(amount > 0, "Cannot deposit 0");
 
-        _updateAccountReward(msg.sender);
+        _updateRewardBalances();
 
-        _poolTokenBalances[msg.sender] = _poolTokenBalances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
-
+        poolTokenBalances[msg.sender] = poolTokenBalances[msg.sender] + amount;
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
     function withdrawPoolTokens() public {
-        uint256 poolTokenBalance = poolTokenBalance(msg.sender);
+        uint256 poolTokenBalance = poolTokenBalances[msg.sender];
         require(poolTokenBalance > 0, "Cannot withdraw 0");
 
-        _updateAccountReward(msg.sender);
+        _updateRewardBalances();
 
-        _poolTokenBalances[msg.sender] = 0;
         poolToken.safeTransfer(msg.sender, poolTokenBalance);
-
+        poolTokenBalances[msg.sender] = 0;
         emit PoolTokensWithdrawn(msg.sender, poolTokenBalance);
     }
 
     function claimReward() public {
-        _updateAccountReward(msg.sender);
+        _updateRewardBalances();
 
         uint256 reward = claimableReward(msg.sender);
-
         require(reward > 0, "Nothing to claim");
 
         elimuToken.transfer(msg.sender, reward);
-        rewards[msg.sender] = 0;
+        rewardBalances[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
     }
 
@@ -99,14 +90,14 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         claimReward();
     }
 
-    function _updateReward() internal {
-        rewardPerTokenDeposited = rewardPerToken();
-        lastUpdateTime = block.timestamp;
+    function _updateLastRewardPerPoolToken() internal {
+        lastRewardPerPoolToken = rewardPerPoolToken();
+        lastUpdateTimestamp = block.timestamp;
     }
 
-    function _updateAccountReward(address account) internal {
-        _updateReward();
-        rewards[account] = claimableReward(account);
-        userRewardPerTokenClaimed[account] = rewardPerTokenDeposited;
+    function _updateRewardBalances() internal {
+        _updateLastRewardPerPoolToken();
+        rewardBalances[msg.sender] = claimableReward(msg.sender);
+        rewardPerPoolTokenClaimed[msg.sender] = lastRewardPerPoolToken;
     }
 }
