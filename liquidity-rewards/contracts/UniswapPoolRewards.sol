@@ -50,7 +50,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     function depositPoolTokens(uint256 amount) public {
         require(amount > 0, "Cannot deposit 0");
 
-        _updateAccountReward(msg.sender);
+        _updateAccountReward();
 
         poolTokenBalances[msg.sender] = poolTokenBalances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
@@ -62,7 +62,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         uint256 poolTokenBalance = poolTokenBalances[msg.sender];
         require(poolTokenBalance > 0, "Cannot withdraw 0");
 
-        _updateAccountReward(msg.sender);
+        _updateAccountReward();
 
         poolTokenBalances[msg.sender] = 0;
         poolToken.safeTransfer(msg.sender, poolTokenBalance);
@@ -71,7 +71,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function claimReward() public {
-        _updateAccountReward(msg.sender);
+        _updateAccountReward();
 
         uint256 reward = claimableReward(msg.sender);
 
@@ -92,9 +92,9 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         lastUpdateTime = block.timestamp;
     }
 
-    function _updateAccountReward(address account) internal {
+    function _updateAccountReward() internal {
         _updateReward();
-        rewards[account] = claimableReward(account);
-        userRewardPerTokenClaimed[account] = rewardPerTokenDeposited;
+        rewards[msg.sender] = claimableReward(msg.sender);
+        userRewardPerTokenClaimed[msg.sender] = rewardPerTokenDeposited;
     }
 }
