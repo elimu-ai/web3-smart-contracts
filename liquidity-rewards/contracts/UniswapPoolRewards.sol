@@ -39,12 +39,18 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         if (poolTokenBalance == 0) {
             return lastRewardPerPoolToken;
         }
-        return lastRewardPerPoolToken + ((block.timestamp - lastUpdateTimestamp) * rewardRatePerSecond * 1e18) / poolTokenBalance;
+        uint256 timePassedSinceLastUpdate = block.timestamp - lastUpdateTimestamp;
+        uint256 rewardEarnedSinceLastUpdate = timePassedSinceLastUpdate * rewardRatePerSecond * 1e18;
+        uint256 rewardPerPoolTokenSinceLastUpdate = rewardEarnedSinceLastUpdate / poolTokenBalance;
+        return lastRewardPerPoolToken + rewardPerPoolTokenSinceLastUpdate;
     }
 
     function claimableReward(address account) public view returns (uint256) {
         uint256 poolTokenBalance = poolTokenBalances[account];
-        return rewardBalances[account] + (poolTokenBalance * (rewardPerPoolToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
+        uint256 rewardPerPoolTokenClaimedSinceLastUpdate = rewardPerPoolTokenClaimed[account];
+        uint256 rewardPerPoolTokenSinceLastUpdate = rewardPerPoolToken() - rewardPerPoolTokenClaimedSinceLastUpdate;
+        uint256 rewardEarnedSinceLastUpdate = poolTokenBalance * rewardPerPoolTokenSinceLastUpdate / 1e18;
+        return rewardBalances[account] + rewardEarnedSinceLastUpdate;
     }
 
     function depositPoolTokens(uint256 amount) public {
