@@ -502,25 +502,25 @@ contract("UniswapPoolRewards", (accounts) => {
 
 
     describe('\n💸 Withdraw Pool Tokens - 7 hours after first deposit', () => {
-        it('withdrawPoolTokens() - account2 withdraws 10 pool tokens', async () => {
+        it('withdrawPoolTokens() - account2 withdraws 20 pool tokens', async () => {
             // Verify that account2 has deposited a total of 20 pool tokens
             const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             assert.equal(totalDepositedByAccount2, web3.utils.toWei('20'))
             
-            // account2 withdraws 10 of the 20 pool tokens
-            const withdrawPoolTokensResult = await this.rewardsContract.withdrawPoolTokens(web3.utils.toWei('10'), { from: accounts[2] })
+            // account2 withdraws the 20 pool tokens
+            const withdrawPoolTokensResult = await this.rewardsContract.withdrawPoolTokens({ from: accounts[2] })
             console.log('withdrawPoolTokensResult:\n', withdrawPoolTokensResult)
 
-            // Verify that account2 has deposited a total of 10 pool tokens
+            // Verify that account2 has deposited a total of 00 pool tokens
             const totalDepositedByAccount2AfterWithdrawal = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2AfterWithdrawal:', web3.utils.fromWei(totalDepositedByAccount2AfterWithdrawal))
-            assert.equal(totalDepositedByAccount2AfterWithdrawal, web3.utils.toWei('10')) // 20 - 10
+            assert.equal(totalDepositedByAccount2AfterWithdrawal, web3.utils.toWei('0')) // 20 - 20
 
-            // Verify that account2 holds 90 pool tokens
+            // Verify that account2 holds 100 pool tokens
             const account2PoolTokenBalance = await this.poolTokenContract.balanceOf(accounts[2])
             console.log('account2PoolTokenBalance:', web3.utils.fromWei(account2PoolTokenBalance))
-            assert.equal(account2PoolTokenBalance, web3.utils.toWei('90')) // 100 - 10
+            assert.equal(account2PoolTokenBalance, web3.utils.toWei('100')) // 100 - 20 + 20
         })
 
         it('withdrawPoolTokens() - account without deposits cannot withdraw', async () => {
@@ -530,10 +530,10 @@ contract("UniswapPoolRewards", (accounts) => {
 
             // Expect the transaction to be reverted with an error
             try {
-                await this.rewardsContract.withdrawPoolTokens(web3.utils.toWei('10'), { from: accounts[3] })
+                await this.rewardsContract.withdrawPoolTokens({ from: accounts[3] })
             } catch (error) {
                 console.log('error:\n', error)
-                assert.equal(error.reason, "Panic: Arithmetic overflow")
+                assert.equal(error.reason, "Cannot withdraw 0")
             }
         })
     })

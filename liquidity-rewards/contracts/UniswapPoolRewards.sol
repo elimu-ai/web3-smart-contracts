@@ -70,15 +70,16 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
-    function withdrawPoolTokens(uint256 amount) public {
-        require(amount > 0, "Cannot withdraw 0");
+    function withdrawPoolTokens() public {
+        uint256 poolTokenBalance = poolTokenBalance(msg.sender);
+        require(poolTokenBalance > 0, "Cannot withdraw 0");
 
         _updateAccountReward(msg.sender);
 
-        _poolTokenBalances[msg.sender] = _poolTokenBalances[msg.sender] - amount;
-        poolToken.safeTransfer(msg.sender, amount);
+        _poolTokenBalances[msg.sender] = 0;
+        poolToken.safeTransfer(msg.sender, poolTokenBalance);
 
-        emit PoolTokensWithdrawn(msg.sender, amount);
+        emit PoolTokensWithdrawn(msg.sender, poolTokenBalance);
     }
 
     function claimReward() public {
@@ -94,8 +95,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function withdrawPoolTokensAndClaimReward() public {
-        uint256 poolTokenBalance = poolTokenBalance(msg.sender);
-        withdrawPoolTokens(poolTokenBalance);
+        withdrawPoolTokens();
         claimReward();
     }
 

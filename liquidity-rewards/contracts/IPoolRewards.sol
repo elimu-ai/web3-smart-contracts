@@ -5,7 +5,7 @@ interface IPoolRewards {
 
     function depositPoolTokens(uint256 amount) external;
 
-    function withdrawPoolTokens(uint256 amount) external;
+    function withdrawPoolTokens() external;
 
     function claimableReward(address account) external returns (uint256);
 
