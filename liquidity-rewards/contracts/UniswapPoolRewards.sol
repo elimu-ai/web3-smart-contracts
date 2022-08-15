@@ -17,7 +17,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     mapping(address => uint256) public poolTokenBalances;
     mapping(address => uint256) public rewardBalances;
-    mapping(address => uint256) public rewardPerTokenClaimed;
+    mapping(address => uint256) public rewardPerPoolTokenClaimed;
 
     event PoolTokensDeposited(address indexed user, uint256 amount);
     event PoolTokensWithdrawn(address indexed user, uint256 amount);
@@ -44,7 +44,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     function claimableReward(address account) public view returns (uint256) {
         uint256 poolTokenBalance = poolTokenBalances[account];
-        return rewardBalances[account] + (poolTokenBalance * (rewardPerToken() - rewardPerTokenClaimed[account])) / 1e18;
+        return rewardBalances[account] + (poolTokenBalance * (rewardPerToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
     }
 
     function depositPoolTokens(uint256 amount) public {
@@ -95,6 +95,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     function _updateRewardBalances() internal {
         _updateLastRewardPerPoolToken();
         rewardBalances[msg.sender] = claimableReward(msg.sender);
-        rewardPerTokenClaimed[msg.sender] = lastRewardPerPoolToken;
+        rewardPerPoolTokenClaimed[msg.sender] = lastRewardPerPoolToken;
     }
 }

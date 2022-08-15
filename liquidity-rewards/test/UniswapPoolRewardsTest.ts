@@ -11,6 +11,9 @@ contract("UniswapPoolRewards", (accounts) => {
         if (this.rewardsContract) {
             // Print the current state of the contract's variables
 
+            const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
+            console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
+
             const poolTokenBalance = await this.poolTokenContract.balanceOf(this.rewardsContract.address)
             console.log(' ├── poolTokenBalance:', web3.utils.fromWei(poolTokenBalance))
 
@@ -28,30 +31,27 @@ contract("UniswapPoolRewards", (accounts) => {
             const rewardPerToken = await this.rewardsContract.rewardPerToken()
             console.log(' ├── rewardPerToken():', web3.utils.fromWei(rewardPerToken))
 
-            const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
-            console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
-
-            console.log(' ├── poolTokenBalances(account):')
-            for (let i = 1; i < 3; i++) {
+            console.log(' ├── poolTokenBalances:')
+            for (let i = 1; i <= 3; i++) {
                 const accountPoolTokenBalance = await this.rewardsContract.poolTokenBalances(accounts[i])
                 const percentageOfContractPoolTokenBalance = accountPoolTokenBalance * 100 / poolTokenBalance
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountPoolTokenBalance) + ' (' + percentageOfContractPoolTokenBalance + '%)')
             }
 
-            console.log(' ├── rewardPerTokenClaimed(account):')
-            for (let i = 1; i < 3; i++) {
-                const rewardPerTokenClaimed = await this.rewardsContract.rewardPerTokenClaimed(accounts[i])
-                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(rewardPerTokenClaimed))
+            console.log(' ├── rewardPerPoolTokenClaimed:')
+            for (let i = 1; i <= 3; i++) {
+                const rewardPerPoolTokenClaimed = await this.rewardsContract.rewardPerPoolTokenClaimed(accounts[i])
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(rewardPerPoolTokenClaimed))
             }
 
-            console.log(' ├── rewardBalances(account):')
-            for (let i = 1; i < 3; i++) {
+            console.log(' ├── rewardBalances:')
+            for (let i = 1; i <= 3; i++) {
                 const reward = await this.rewardsContract.rewardBalances(accounts[i])
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(reward))
             }
 
-            console.log(' └── claimableReward(address account):')
-            for (let i = 1; i < 3; i++) {
+            console.log(' └── claimableReward(account):')
+            for (let i = 1; i <= 3; i++) {
                 const rewardsEarned = await this.rewardsContract.claimableReward(accounts[i])
                 console.log('     ├── account' + i + ': ' + web3.utils.fromWei(rewardsEarned))
             }
