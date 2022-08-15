@@ -140,9 +140,6 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
      */
     function _updateAccountReward(address account) internal {
         _updateReward();
-
-        assert(account != address(0));
-
         rewards[account] = claimableReward(account);
         userRewardPerTokenClaimed[account] = rewardPerTokenDeposited;
     }
