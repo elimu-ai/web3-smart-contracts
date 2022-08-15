@@ -18,10 +18,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
      */
     IERC20 public poolToken;
 
-    /**
-     * User balances of the pool token.
-     */
-    mapping(address => uint256) private _balances;
+    mapping(address => uint256) private _poolTokenBalances;
 
     /**
      * The elimuToken reward emission rate per second.
@@ -67,7 +64,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function poolTokenBalance(address account) public view returns (uint256) {
-        return _balances[account];
+        return _poolTokenBalances[account];
     }
 
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
@@ -103,7 +100,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
         _updateAccountReward(msg.sender);
 
-        _balances[msg.sender] = _balances[msg.sender] + amount;
+        _poolTokenBalances[msg.sender] = _poolTokenBalances[msg.sender] + amount;
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
 
         emit PoolTokensDeposited(msg.sender, amount);
@@ -117,7 +114,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
         _updateAccountReward(msg.sender);
 
-        _balances[msg.sender] = _balances[msg.sender] - amount;
+        _poolTokenBalances[msg.sender] = _poolTokenBalances[msg.sender] - amount;
         poolToken.safeTransfer(msg.sender, amount);
 
         emit PoolTokensWithdrawn(msg.sender, amount);
