@@ -12,7 +12,7 @@ contract("UniswapPoolRewards", (accounts) => {
             // Print the current state of the contract's variables
 
             const poolTokenBalance = await this.poolTokenContract.balanceOf(this.rewardsContract.address)
-            console.log(' ├── poolTokenBalance():', web3.utils.fromWei(poolTokenBalance))
+            console.log(' ├── poolTokenBalance:', web3.utils.fromWei(poolTokenBalance))
 
             const rewardRatePerSecond = await this.rewardsContract.rewardRatePerSecond()
             console.log(' ├── rewardRatePerSecond():', web3.utils.fromWei(rewardRatePerSecond))
@@ -31,11 +31,11 @@ contract("UniswapPoolRewards", (accounts) => {
             const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
             console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
 
-            console.log(' ├── balanceOf(account):')
+            console.log(' ├── poolTokenBalance(account):')
             for (let i = 1; i < 3; i++) {
-                const accountBalance = await this.rewardsContract.balanceOf(accounts[i])
-                const percentageOfPoolTokenBalance = accountBalance * 100 / poolTokenBalance
-                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountBalance) + ' (' + percentageOfPoolTokenBalance + '%)')
+                const accountPoolTokenBalance = await this.rewardsContract.poolTokenBalance(accounts[i])
+                const percentageOfContractPoolTokenBalance = accountPoolTokenBalance * 100 / poolTokenBalance
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountPoolTokenBalance) + ' (' + percentageOfContractPoolTokenBalance + '%)')
             }
 
             console.log(' ├── userRewardPerTokenClaimed(account):')
@@ -232,14 +232,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
 
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_350) // 900 + 450
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_350 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -257,14 +257,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
 
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_800) // (900 + 450) + 450
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_800 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -295,14 +295,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
 
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2_700) // (900 + 450 + 450) + 900
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2_700 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -332,14 +332,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
             
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2_700) // (900 + 450 + 450 + 900) + 0
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 2_700 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -370,14 +370,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
             
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 4_500) // (900 + 450 + 450 + 900 + 0) + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 4_500 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -484,14 +484,14 @@ contract("UniswapPoolRewards", (accounts) => {
             // Simulate an increase of block.timestamp by 1 hour
             time.increase(60 * 60)
             
-            const totalDepositedByAccount1 = await this.rewardsContract.balanceOf(accounts[1])
+            const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalance(accounts[1])
             console.log('totalDepositedByAccount1:', web3.utils.fromWei(totalDepositedByAccount1))
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
             assert.isAtLeast(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_800) // 0 + 1800
             assert.isAtMost(Number(web3.utils.fromWei(rewardsEarnedAccount1)), 1_800 * 1.01)
 
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             const rewardsEarnedAccount2 = await this.rewardsContract.claimableReward(accounts[2])
             console.log('rewardsEarnedAccount2:', web3.utils.fromWei(rewardsEarnedAccount2))
@@ -504,7 +504,7 @@ contract("UniswapPoolRewards", (accounts) => {
     describe('\n💸 Withdraw Pool Tokens - 7 hours after first deposit', () => {
         it('withdrawPoolTokens() - account2 withdraws 10 pool tokens', async () => {
             // Verify that account2 has deposited a total of 20 pool tokens
-            const totalDepositedByAccount2 = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2 = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2:', web3.utils.fromWei(totalDepositedByAccount2))
             assert.equal(totalDepositedByAccount2, web3.utils.toWei('20'))
             
@@ -513,7 +513,7 @@ contract("UniswapPoolRewards", (accounts) => {
             console.log('withdrawPoolTokensResult:\n', withdrawPoolTokensResult)
 
             // Verify that account2 has deposited a total of 10 pool tokens
-            const totalDepositedByAccount2AfterWithdrawal = await this.rewardsContract.balanceOf(accounts[2])
+            const totalDepositedByAccount2AfterWithdrawal = await this.rewardsContract.poolTokenBalance(accounts[2])
             console.log('totalDepositedByAccount2AfterWithdrawal:', web3.utils.fromWei(totalDepositedByAccount2AfterWithdrawal))
             assert.equal(totalDepositedByAccount2AfterWithdrawal, web3.utils.toWei('10')) // 20 - 10
 
@@ -524,7 +524,7 @@ contract("UniswapPoolRewards", (accounts) => {
         })
 
         it('withdrawPoolTokens() - account without deposits cannot withdraw', async () => {
-            const totalDepositedByAccount3 = await this.rewardsContract.balanceOf(accounts[3])
+            const totalDepositedByAccount3 = await this.rewardsContract.poolTokenBalance(accounts[3])
             console.log('totalDepositedByAccount3:', web3.utils.fromWei(totalDepositedByAccount3))
             assert.equal(totalDepositedByAccount3, web3.utils.toWei('0'))
 

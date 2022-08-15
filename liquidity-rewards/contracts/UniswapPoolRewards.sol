@@ -66,10 +66,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    /**
-     * Returns the pool token balance of an account.
-     */
-    function balanceOf(address account) public view returns (uint256) {
+    function poolTokenBalance(address account) public view returns (uint256) {
         return _balances[account];
     }
 
@@ -94,7 +91,8 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
      * Returns the reward amount that an account can claim.
      */
     function claimableReward(address account) public view returns (uint256) {
-        return rewards[account] + (balanceOf(account) * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
+        uint256 poolTokenBalance = poolTokenBalance(account);
+        return rewards[account] + (poolTokenBalance * (rewardPerToken() - userRewardPerTokenClaimed[account])) / 1e18;
     }
 
     /**
@@ -144,7 +142,8 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
      * Shortcut to be able to withdraw tokens and claim rewards in one transaction.
      */
     function withdrawPoolTokensAndClaimReward() public {
-        withdrawPoolTokens(balanceOf(msg.sender));
+        uint256 poolTokenBalance = poolTokenBalance(msg.sender);
+        withdrawPoolTokens(poolTokenBalance);
         claimReward();
     }
 
