@@ -19,9 +19,9 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     mapping(address => uint256) public rewardBalances;
     mapping(address => uint256) public rewardPerPoolTokenClaimed;
 
-    event PoolTokensDeposited(address indexed user, uint256 amount);
-    event PoolTokensWithdrawn(address indexed user, uint256 amount);
-    event RewardClaimed(address indexed user, uint256 amount);
+    event PoolTokensDeposited(address indexed account, uint256 amount);
+    event PoolTokensWithdrawn(address indexed account, uint256 amount);
+    event RewardClaimed(address indexed account, uint256 amount);
 
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
