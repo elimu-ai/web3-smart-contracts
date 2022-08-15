@@ -22,8 +22,8 @@ contract("UniswapPoolRewards", (accounts) => {
             const lastUpdateTimestampAsDate = new Date(lastUpdateTimestamp.toNumber() * 1_000)
             console.log(' ├── lastUpdateTimestampAsDate:', lastUpdateTimestampAsDate)
 
-            const rewardPerTokenDeposited = await this.rewardsContract.rewardPerTokenDeposited()
-            console.log(' ├── rewardPerTokenDeposited():', web3.utils.fromWei(rewardPerTokenDeposited))
+            const lastRewardPerPoolToken = await this.rewardsContract.lastRewardPerPoolToken()
+            console.log(' ├── lastRewardPerPoolToken():', web3.utils.fromWei(lastRewardPerPoolToken))
 
             const rewardPerToken = await this.rewardsContract.rewardPerToken()
             console.log(' ├── rewardPerToken():', web3.utils.fromWei(rewardPerToken))
@@ -38,10 +38,10 @@ contract("UniswapPoolRewards", (accounts) => {
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountPoolTokenBalance) + ' (' + percentageOfContractPoolTokenBalance + '%)')
             }
 
-            console.log(' ├── userRewardPerTokenClaimed(account):')
+            console.log(' ├── rewardPerTokenClaimed(account):')
             for (let i = 1; i < 3; i++) {
-                const userRewardPerTokenClaimed = await this.rewardsContract.userRewardPerTokenClaimed(accounts[i])
-                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(userRewardPerTokenClaimed))
+                const rewardPerTokenClaimed = await this.rewardsContract.rewardPerTokenClaimed(accounts[i])
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(rewardPerTokenClaimed))
             }
 
             console.log(' ├── rewardBalances(account):')
