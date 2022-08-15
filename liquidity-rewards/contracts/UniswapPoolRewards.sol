@@ -1,16 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
-import "./dependencies/PoolTokenWrapper.sol";
+import "./IPoolRewards.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
+contract UniswapPoolRewards is IPoolRewards, AccessControl {
     using SafeERC20 for IERC20;
 
     /**
      * `$ELIMU` ERC20 token interface.
      */
     IERC20 public elimuToken;
+
+    /**
+     * Pool token ERC20 token interface.
+     */
+    IERC20 public poolToken;
+
+    /**
+     * User balances of the pool token.
+     */
+    mapping(address => uint256) private _balances;
 
     /**
      * The elimuToken reward emission rate per second.
@@ -55,6 +66,13 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
+    /**
+     * Returns the pool token balance of an account.
+     */
+    function balanceOf(address account) public view returns (uint256) {
+        return _balances[account];
+    }
+
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
         // End the reward program if the rewardRatePerSecond variable is set to the 0 value.
         _updateReward();
@@ -87,7 +105,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
 
         _updateAccountReward(msg.sender);
 
-        super.depositPoolTokens(amount);
+        _balances[msg.sender] = _balances[msg.sender] + amount;
+        poolToken.safeTransferFrom(msg.sender, address(this), amount);
+
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
@@ -99,7 +119,9 @@ contract UniswapPoolRewards is PoolTokenWrapper, AccessControl {
 
         _updateAccountReward(msg.sender);
 
-        super.withdrawPoolTokens(amount);
+        _balances[msg.sender] = _balances[msg.sender] - amount;
+        poolToken.safeTransfer(msg.sender, amount);
+
         emit PoolTokensWithdrawn(msg.sender, amount);
     }
 
