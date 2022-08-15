@@ -60,7 +60,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
         poolToken.safeTransferFrom(msg.sender, address(this), amount);
         poolTokenBalances[msg.sender] = poolTokenBalances[msg.sender] + amount;
-
         emit PoolTokensDeposited(msg.sender, amount);
     }
 
@@ -72,7 +71,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
         poolToken.safeTransfer(msg.sender, poolTokenBalance);
         poolTokenBalances[msg.sender] = 0;
-
         emit PoolTokensWithdrawn(msg.sender, poolTokenBalance);
     }
 
@@ -80,7 +78,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         _updateRewardBalances();
 
         uint256 reward = claimableReward(msg.sender);
-
         require(reward > 0, "Nothing to claim");
 
         elimuToken.transfer(msg.sender, reward);
