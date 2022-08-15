@@ -100,7 +100,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     /**
      * Deposit pool tokens into this contract and start earning rewards.
      */
-    function depositPoolTokens(uint256 amount) public override {
+    function depositPoolTokens(uint256 amount) public {
         require(amount > 0, "Cannot deposit 0");
 
         _updateAccountReward(msg.sender);
@@ -114,7 +114,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     /**
      * Withdraw previously deposited pool tokens from this contract.
      */
-    function withdrawPoolTokens(uint256 amount) public override {
+    function withdrawPoolTokens(uint256 amount) public {
         require(amount > 0, "Cannot withdraw 0");
 
         _updateAccountReward(msg.sender);
@@ -143,7 +143,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     /**
      * Shortcut to be able to withdraw tokens and claim rewards in one transaction.
      */
-    function withdrawPoolTokensAndClaimReward() external {
+    function withdrawPoolTokensAndClaimReward() public {
         withdrawPoolTokens(balanceOf(msg.sender));
         claimReward();
     }
