@@ -13,7 +13,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     uint256 public rewardRatePerSecond = 0.125 * 1e18;
     uint256 public rewardPerTokenDeposited;
-    uint256 public lastUpdateTime;
+    uint256 public lastUpdateTimestamp;
 
     mapping(address => uint256) public poolTokenBalances;
     mapping(address => uint256) public rewards;
@@ -39,7 +39,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         if (poolTokenBalance == 0) {
             return rewardPerTokenDeposited;
         }
-        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTime) * rewardRatePerSecond * 1e18) / poolTokenBalance;
+        return rewardPerTokenDeposited + ((block.timestamp - lastUpdateTimestamp) * rewardRatePerSecond * 1e18) / poolTokenBalance;
     }
 
     function claimableReward(address account) public view returns (uint256) {
@@ -89,7 +89,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     function _updateReward() internal {
         rewardPerTokenDeposited = rewardPerToken();
-        lastUpdateTime = block.timestamp;
+        lastUpdateTimestamp = block.timestamp;
     }
 
     function _updateAccountReward() internal {

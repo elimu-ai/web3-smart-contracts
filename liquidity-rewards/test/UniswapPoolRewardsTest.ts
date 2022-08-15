@@ -17,10 +17,10 @@ contract("UniswapPoolRewards", (accounts) => {
             const rewardRatePerSecond = await this.rewardsContract.rewardRatePerSecond()
             console.log(' ├── rewardRatePerSecond():', web3.utils.fromWei(rewardRatePerSecond))
 
-            const lastUpdateTime = await this.rewardsContract.lastUpdateTime()
-            console.log(' ├── lastUpdateTime.toNumber():', lastUpdateTime.toNumber())
-            const lastUpdateTimeAsDate = new Date(lastUpdateTime.toNumber() * 1_000)
-            console.log(' ├── lastUpdateTimeAsDate:', lastUpdateTimeAsDate)
+            const lastUpdateTimestamp = await this.rewardsContract.lastUpdateTimestamp()
+            console.log(' ├── lastUpdateTimestamp.toNumber():', lastUpdateTimestamp.toNumber())
+            const lastUpdateTimestampAsDate = new Date(lastUpdateTimestamp.toNumber() * 1_000)
+            console.log(' ├── lastUpdateTimestampAsDate:', lastUpdateTimestampAsDate)
 
             const rewardPerTokenDeposited = await this.rewardsContract.rewardPerTokenDeposited()
             console.log(' ├── rewardPerTokenDeposited():', web3.utils.fromWei(rewardPerTokenDeposited))
@@ -168,10 +168,10 @@ contract("UniswapPoolRewards", (accounts) => {
 
         it('rewardPerToken() - 1 hour after first deposit', async () => {
             // Simulate an increase of block.timestamp by 1 hour
-            const lastUpdateTimeBeforeSimulation = await this.rewardsContract.lastUpdateTime()
-            console.log('lastUpdateTimeBeforeSimulation.toNumber():', lastUpdateTimeBeforeSimulation.toNumber())
-            const lastUpdateTimeBeforeSimulationAsDate = new Date(lastUpdateTimeBeforeSimulation.toNumber() * 1_000)
-            console.log('lastUpdateTimeBeforeSimulationAsDate:', lastUpdateTimeBeforeSimulationAsDate)
+            const lastUpdateTimestampBeforeSimulation = await this.rewardsContract.lastUpdateTimestamp()
+            console.log('lastUpdateTimestampBeforeSimulation.toNumber():', lastUpdateTimestampBeforeSimulation.toNumber())
+            const lastUpdateTimestampBeforeSimulationAsDate = new Date(lastUpdateTimestampBeforeSimulation.toNumber() * 1_000)
+            console.log('lastUpdateTimestampBeforeSimulationAsDate:', lastUpdateTimestampBeforeSimulationAsDate)
             const oneHourInSeconds = 60 * 60
             time.increase(oneHourInSeconds)
 
@@ -183,14 +183,14 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(account1PoolTokenBalanceAfterDeposit, web3.utils.toWei('80'))
 
             // Verify that the timestamp increased by 1 hour
-            const lastUpdateTime = await this.rewardsContract.lastUpdateTime()
-            console.log('lastUpdateTime.toNumber():', lastUpdateTime.toNumber())
-            const lastUpdateTimeAsDate = new Date(lastUpdateTime.toNumber() * 1_000)
-            console.log('lastUpdateTimeAsDate:', lastUpdateTimeAsDate)
-            const lastUpdateTimeDiff = lastUpdateTime - lastUpdateTimeBeforeSimulation
-            console.log('lastUpdateTimeDiff:', lastUpdateTimeDiff)
-            assert.isAtLeast(lastUpdateTimeDiff, 3_600) // 60 seconds X 60 minutes
-            assert.isAtMost(lastUpdateTimeDiff, 3_600 * 1.01)
+            const lastUpdateTimestamp = await this.rewardsContract.lastUpdateTimestamp()
+            console.log('lastUpdateTimestamp.toNumber():', lastUpdateTimestamp.toNumber())
+            const lastUpdateTimestampAsDate = new Date(lastUpdateTimestamp.toNumber() * 1_000)
+            console.log('lastUpdateTimestampAsDate:', lastUpdateTimestampAsDate)
+            const lastUpdateTimestampDiff = lastUpdateTimestamp - lastUpdateTimestampBeforeSimulation
+            console.log('lastUpdateTimestampDiff:', lastUpdateTimestampDiff)
+            assert.isAtLeast(lastUpdateTimestampDiff, 3_600) // 60 seconds X 60 minutes
+            assert.isAtMost(lastUpdateTimestampDiff, 3_600 * 1.01)
 
             // Verify that rewardPerToken() no longer returns zero
             const rewardPerToken = await this.rewardsContract.rewardPerToken()
