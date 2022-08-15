@@ -11,8 +11,8 @@ contract("UniswapPoolRewards", (accounts) => {
         if (this.rewardsContract) {
             // Print the current state of the contract's variables
 
-            const totalSupply = await this.rewardsContract.totalSupply()
-            console.log(' ├── totalSupply():', web3.utils.fromWei(totalSupply))
+            const poolTokenBalance = await this.poolTokenContract.balanceOf(this.rewardsContract.address)
+            console.log(' ├── poolTokenBalance():', web3.utils.fromWei(poolTokenBalance))
 
             const rewardRatePerSecond = await this.rewardsContract.rewardRatePerSecond()
             console.log(' ├── rewardRatePerSecond():', web3.utils.fromWei(rewardRatePerSecond))
@@ -33,9 +33,9 @@ contract("UniswapPoolRewards", (accounts) => {
 
             console.log(' ├── balanceOf(account):')
             for (let i = 1; i < 3; i++) {
-                const balance = await this.rewardsContract.balanceOf(accounts[i])
-                const percentageOfTotalSupply = balance * 100 / totalSupply
-                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(balance) + ' (' + percentageOfTotalSupply + '%)')
+                const accountBalance = await this.rewardsContract.balanceOf(accounts[i])
+                const percentageOfPoolTokenBalance = accountBalance * 100 / poolTokenBalance
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountBalance) + ' (' + percentageOfPoolTokenBalance + '%)')
             }
 
             console.log(' ├── userRewardPerTokenClaimed(account):')
@@ -209,9 +209,9 @@ contract("UniswapPoolRewards", (accounts) => {
             await this.poolTokenContract.transfer(accounts[2], web3.utils.toWei('100'), { from: accounts[0] })
             await this.poolTokenContract.approve(this.rewardsContract.address, web3.utils.toWei('100'), { from: accounts[2] })
             await this.rewardsContract.depositPoolTokens(web3.utils.toWei('20'), { from: accounts[2] })
-            const totalDeposited = await this.rewardsContract.totalSupply()
-            console.log('totalDeposited:', web3.utils.fromWei(totalDeposited))
-            assert.equal(totalDeposited, web3.utils.toWei('40')) // 20 + 20 = 40
+            const poolTokenBalance = await this.poolTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('poolTokenBalance:', web3.utils.fromWei(poolTokenBalance))
+            assert.equal(poolTokenBalance, web3.utils.toWei('40')) // 20 + 20 = 40
             
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
