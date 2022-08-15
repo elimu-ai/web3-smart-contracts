@@ -24,7 +24,7 @@
   "devDependencies": {
     "@openzeppelin/contracts": "^4.7.3",
     "@openzeppelin/test-helpers": "^0.5.15",
-    "@truffle/hdwallet-provider": "^1.4.0",
+    "@truffle/hdwallet-provider": "^1.7.0",
     "chai": "^4.3.6",
     "dotenv": "^16.0.1",
     "ganache-cli": "^6.12.2",
