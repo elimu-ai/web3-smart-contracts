@@ -34,7 +34,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         rewardRatePerSecond = rewardRatePerSecond_;
     }
 
-    function rewardPerToken() public view returns (uint256) {
+    function rewardPerPoolToken() public view returns (uint256) {
         uint256 poolTokenBalance = poolToken.balanceOf(address(this));
         if (poolTokenBalance == 0) {
             return lastRewardPerPoolToken;
@@ -44,7 +44,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
 
     function claimableReward(address account) public view returns (uint256) {
         uint256 poolTokenBalance = poolTokenBalances[account];
-        return rewardBalances[account] + (poolTokenBalance * (rewardPerToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
+        return rewardBalances[account] + (poolTokenBalance * (rewardPerPoolToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
     }
 
     function depositPoolTokens(uint256 amount) public {
@@ -88,7 +88,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function _updateLastRewardPerPoolToken() internal {
-        lastRewardPerPoolToken = rewardPerToken();
+        lastRewardPerPoolToken = rewardPerPoolToken();
         lastUpdateTimestamp = block.timestamp;
     }
 

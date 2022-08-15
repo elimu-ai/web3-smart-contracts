@@ -28,8 +28,8 @@ contract("UniswapPoolRewards", (accounts) => {
             const lastRewardPerPoolToken = await this.rewardsContract.lastRewardPerPoolToken()
             console.log(' ├── lastRewardPerPoolToken():', web3.utils.fromWei(lastRewardPerPoolToken))
 
-            const rewardPerToken = await this.rewardsContract.rewardPerToken()
-            console.log(' ├── rewardPerToken():', web3.utils.fromWei(rewardPerToken))
+            const rewardPerPoolToken = await this.rewardsContract.rewardPerPoolToken()
+            console.log(' ├── rewardPerPoolToken():', web3.utils.fromWei(rewardPerPoolToken))
 
             console.log(' ├── poolTokenBalances:')
             for (let i = 1; i <= 3; i++) {
@@ -152,11 +152,11 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(poolTokenBalanceAfterDeposit, web3.utils.toWei('10'))
         })
 
-        it('rewardPerToken() - at the time of first deposit', async () => {
+        it('rewardPerPoolToken() - at the time of first deposit', async () => {
             // Verify zero rewards per token immediately after the deposit was made
-            const rewardPerToken = await this.rewardsContract.rewardPerToken()
-            console.log('rewardPerToken:', web3.utils.fromWei(rewardPerToken))
-            assert.equal(rewardPerToken, web3.utils.toWei('0'))
+            const rewardPerPoolToken = await this.rewardsContract.rewardPerPoolToken()
+            console.log('rewardPerPoolToken:', web3.utils.fromWei(rewardPerPoolToken))
+            assert.equal(rewardPerPoolToken, web3.utils.toWei('0'))
         })
 
         it('claimableReward() - at the time of first deposit', async () => {
@@ -166,7 +166,7 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(rewardsEarnedAccount1, web3.utils.toWei('0'))
         })
 
-        it('rewardPerToken() - 1 hour after first deposit', async () => {
+        it('rewardPerPoolToken() - 1 hour after first deposit', async () => {
             // Simulate an increase of block.timestamp by 1 hour
             const lastUpdateTimestampBeforeSimulation = await this.rewardsContract.lastUpdateTimestamp()
             console.log('lastUpdateTimestampBeforeSimulation.toNumber():', lastUpdateTimestampBeforeSimulation.toNumber())
@@ -192,9 +192,9 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.isAtLeast(lastUpdateTimestampDiff, 3_600) // 60 seconds X 60 minutes
             assert.isAtMost(lastUpdateTimestampDiff, 3_600 * 1.01)
 
-            // Verify that rewardPerToken() no longer returns zero
-            const rewardPerToken = await this.rewardsContract.rewardPerToken()
-            console.log('rewardPerToken:', web3.utils.fromWei(rewardPerToken))
+            // Verify that rewardPerPoolToken() no longer returns zero
+            const rewardPerPoolToken = await this.rewardsContract.rewardPerPoolToken()
+            console.log('rewardPerPoolToken:', web3.utils.fromWei(rewardPerPoolToken))
             // TODO
         })
 
