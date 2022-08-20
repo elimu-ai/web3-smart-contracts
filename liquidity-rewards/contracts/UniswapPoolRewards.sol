@@ -23,6 +23,11 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     event PoolTokensWithdrawn(address indexed account, uint256 amount);
     event RewardClaimed(address indexed account, uint256 amount);
 
+    modifier rewardProgramNotEnded {
+        require(rewardRatePerSecond != 0, "the reward program is currently ended");
+        _;
+    }
+
     constructor(address elimuToken_, address poolToken_) {
         elimuToken = IERC20(elimuToken_);
         poolToken = IERC20(poolToken_);
@@ -46,7 +51,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         return rewardBalances[account] + (poolTokenBalances[account] * (rewardPerPoolToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
     }
 
-    function depositPoolTokens(uint256 amount) public {
+    function depositPoolTokens(uint256 amount) public  rewardProgramNotEnded {
         require(amount > 0, "Cannot deposit 0");
 
         _updateRewardBalances();
