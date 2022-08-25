@@ -338,7 +338,7 @@ contract("UniswapPoolRewards", (accounts) => {
         it('depositPoolTokens() - cannot deposit when reward rate zero', async () => {
             // Expect the transaction to be reverted with an error
             try {
-                this.rewardsContract.depositPoolTokens(web3.utils.toWei('10'), { from: accounts[1] })
+                await this.rewardsContract.depositPoolTokens(web3.utils.toWei('10'), { from: accounts[1] })
             } catch (error) {
                 console.log('error:\n', error)
                 assert.equal(error.reason, "This reward contract is not active")
