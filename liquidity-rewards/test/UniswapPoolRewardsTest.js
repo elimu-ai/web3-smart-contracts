@@ -378,7 +378,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
         const deposit2 = new BN(web3.utils.toWei('1'));
         await this.pool.depositPoolTokens(deposit1, { from: wallet1, gas: _1_000_000_GAS });
       } catch(e) {
-        expect(e.reason).to.be.equal("the reward program is currently ended");
+        expect(e.reason).to.be.equal("This reward contract is not active");
       }
 
       const timeDiff = endTime.sub(depositTime1);

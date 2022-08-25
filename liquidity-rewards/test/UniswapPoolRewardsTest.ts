@@ -335,6 +335,16 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(rewardRatePerSecond, web3.utils.toWei('0'))
         })
 
+        it('depositPoolTokens() - cannot deposit when reward rate zero', async () => {
+            // Expect the transaction to be reverted with an error
+            try {
+                this.rewardsContract.depositPoolTokens(web3.utils.toWei('10'), { from: accounts[1] })
+            } catch (error) {
+                console.log('error:\n', error)
+                assert.equal(error.reason, "This reward contract is not active")
+            }
+        })
+
         it('claimableReward() - 5 hours after first deposit', async () => {
             // Reward rate per hour: 1.0 X 0 = 0
             // Expected earned (claimable) rewards per account:
