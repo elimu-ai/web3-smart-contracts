@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 contract UniswapPoolRewards is IPoolRewards, AccessControl {
     using SafeERC20 for IERC20;
 
-    IERC20 public elimuToken;
+    IERC20 public rewardToken;
     IERC20 public poolToken;
 
     uint256 public rewardRatePerSecond = 0.125 * 1e18;
@@ -28,8 +28,8 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         _;
     }
 
-    constructor(address elimuToken_, address poolToken_) {
-        elimuToken = IERC20(elimuToken_);
+    constructor(address rewardToken_, address poolToken_) {
+        rewardToken = IERC20(rewardToken_);
         poolToken = IERC20(poolToken_);
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
@@ -78,7 +78,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         uint256 reward = claimableReward(msg.sender);
         require(reward > 0, "Nothing to claim");
 
-        elimuToken.transfer(msg.sender, reward);
+        rewardToken.transfer(msg.sender, reward);
         rewardBalances[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
     }

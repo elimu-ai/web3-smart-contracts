@@ -1,5 +1,5 @@
 const UniswapPoolRewards = artifacts.require("UniswapPoolRewards")
-const ElimuTokenMock = artifacts.require("ERC20Mock")
+const RewardTokenMock = artifacts.require("ERC20Mock")
 const PoolTokenMock = artifacts.require("ERC20Mock")
 const { time } = require('@openzeppelin/test-helpers')
 
@@ -11,8 +11,8 @@ contract("UniswapPoolRewards", (accounts) => {
         if (this.rewardsContract) {
             // Print the current state of the contract's variables
 
-            const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
-            console.log(' ├── elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
+            const rewardTokenBalance = await this.rewardTokenContract.balanceOf(this.rewardsContract.address)
+            console.log(' ├── rewardTokenBalance:', web3.utils.fromWei(rewardTokenBalance))
 
             const poolTokenBalance = await this.poolTokenContract.balanceOf(this.rewardsContract.address)
             console.log(' ├── poolTokenBalance:', web3.utils.fromWei(poolTokenBalance))
@@ -56,10 +56,10 @@ contract("UniswapPoolRewards", (accounts) => {
                 console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(rewardsEarned))
             }
 
-            console.log(' ├── elimuTokenContract.balanceOf(account):')
+            console.log(' ├── rewardTokenContract.balanceOf(account):')
             for (let i = 1; i <= 3; i++) {
-                const accountElimuTokenBalance = await this.elimuTokenContract.balanceOf(accounts[i])
-                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountElimuTokenBalance))
+                const accountRewardTokenBalance = await this.rewardTokenContract.balanceOf(accounts[i])
+                console.log(' │   ├── account' + i + ': ' + web3.utils.fromWei(accountRewardTokenBalance))
             }
 
             console.log(' └── poolTokenContract.balanceOf(account):')
@@ -79,13 +79,13 @@ contract("UniswapPoolRewards", (accounts) => {
         assert.notEqual(rewardsContractAddress, null)
         assert.notEqual(rewardsContractAddress, undefined)
 
-        const elimuTokenAddress = await this.rewardsContract.elimuToken()
-        this.elimuTokenContract = await ElimuTokenMock.at(elimuTokenAddress)
-        console.log('elimuTokenAddress:', elimuTokenAddress)
-        assert.notEqual(elimuTokenAddress, 0x0)
-        assert.notEqual(elimuTokenAddress, "")
-        assert.notEqual(elimuTokenAddress, null)
-        assert.notEqual(elimuTokenAddress, undefined)
+        const rewardTokenAddress = await this.rewardsContract.rewardToken()
+        this.rewardTokenContract = await RewardTokenMock.at(rewardTokenAddress)
+        console.log('rewardTokenAddress:', rewardTokenAddress)
+        assert.notEqual(rewardTokenAddress, 0x0)
+        assert.notEqual(rewardTokenAddress, "")
+        assert.notEqual(rewardTokenAddress, null)
+        assert.notEqual(rewardTokenAddress, undefined)
 
         const poolTokenAddress = await this.rewardsContract.poolToken()
         this.poolTokenContract = await PoolTokenMock.at(poolTokenAddress)
@@ -407,38 +407,38 @@ contract("UniswapPoolRewards", (accounts) => {
     describe('\n💸 Claim Reward - 6 hours after first deposit', () => {
         it('deployer account funds rewards contract', async () => {
             // Expect the deployer account to hold the total supply of 38,700,000 $ELIMU tokens
-            const account0ElimuTokenBalance = await this.elimuTokenContract.balanceOf(accounts[0])
-            console.log('account0ElimuTokenBalance:', web3.utils.fromWei(account0ElimuTokenBalance))
-            assert.equal(account0ElimuTokenBalance, web3.utils.toWei('38700000'))
+            const account0RewardTokenBalance = await this.rewardTokenContract.balanceOf(accounts[0])
+            console.log('account0RewardTokenBalance:', web3.utils.fromWei(account0RewardTokenBalance))
+            assert.equal(account0RewardTokenBalance, web3.utils.toWei('38700000'))
 
             // Transfer 322,500 $ELIMU tokens from the deployer account to the rewards contract
-            const transferResult = await this.elimuTokenContract.transfer(this.rewardsContract.address, web3.utils.toWei('322500'), { from: accounts[0] })
+            const transferResult = await this.rewardTokenContract.transfer(this.rewardsContract.address, web3.utils.toWei('322500'), { from: accounts[0] })
             console.log('transferResult:', transferResult)
-            const elimuTokenBalance = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
-            console.log('elimuTokenBalance:', web3.utils.fromWei(elimuTokenBalance))
-            assert.equal(elimuTokenBalance, web3.utils.toWei('322500'))
+            const rewardTokenBalance = await this.rewardTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('rewardTokenBalance:', web3.utils.fromWei(rewardTokenBalance))
+            assert.equal(rewardTokenBalance, web3.utils.toWei('322500'))
         })
         
         it('claimReward() - account1', async () => {
             const rewardsEarnedAccount1 = await this.rewardsContract.claimableReward(accounts[1])
             console.log('rewardsEarnedAccount1:', web3.utils.fromWei(rewardsEarnedAccount1))
 
-            const elimuTokenBalanceBeforeClaiming = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
-            console.log('elimuTokenBalanceBeforeClaiming:', web3.utils.fromWei(elimuTokenBalanceBeforeClaiming))
+            const rewardTokenBalanceBeforeClaiming = await this.rewardTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('rewardTokenBalanceBeforeClaiming:', web3.utils.fromWei(rewardTokenBalanceBeforeClaiming))
 
-            const elimuTokenBalanceAccount1BeforeClaiming = await this.elimuTokenContract.balanceOf(accounts[1])
-            console.log('elimuTokenBalanceAccount1BeforeClaiming:', web3.utils.fromWei(elimuTokenBalanceAccount1BeforeClaiming))
-            assert.equal(elimuTokenBalanceAccount1BeforeClaiming, web3.utils.toWei('0'))
+            const rewardTokenBalanceAccount1BeforeClaiming = await this.rewardTokenContract.balanceOf(accounts[1])
+            console.log('rewardTokenBalanceAccount1BeforeClaiming:', web3.utils.fromWei(rewardTokenBalanceAccount1BeforeClaiming))
+            assert.equal(rewardTokenBalanceAccount1BeforeClaiming, web3.utils.toWei('0'))
 
             const claimRewardResult = await this.rewardsContract.claimReward({ from: accounts[1] })
             console.log('claimRewardResult:\n', claimRewardResult)
 
-            const elimuTokenBalanceAfterClaiming = await this.elimuTokenContract.balanceOf(this.rewardsContract.address)
-            console.log('elimuTokenBalanceAfterClaiming:', web3.utils.fromWei(elimuTokenBalanceAfterClaiming))
-            assert.isAtMost(Number(web3.utils.fromWei(elimuTokenBalanceAfterClaiming)), elimuTokenBalanceBeforeClaiming - elimuTokenBalanceAccount1BeforeClaiming)
+            const rewardTokenBalanceAfterClaiming = await this.rewardTokenContract.balanceOf(this.rewardsContract.address)
+            console.log('rewardTokenBalanceAfterClaiming:', web3.utils.fromWei(rewardTokenBalanceAfterClaiming))
+            assert.isAtMost(Number(web3.utils.fromWei(rewardTokenBalanceAfterClaiming)), rewardTokenBalanceBeforeClaiming - rewardTokenBalanceAccount1BeforeClaiming)
 
-            const elimuTokenBalanceAccount1AfterClaiming = await this.elimuTokenContract.balanceOf(accounts[1])
-            console.log('elimuTokenBalanceAccount1AfterClaiming:', web3.utils.fromWei(elimuTokenBalanceAccount1AfterClaiming))
+            const rewardTokenBalanceAccount1AfterClaiming = await this.rewardTokenContract.balanceOf(accounts[1])
+            console.log('rewardTokenBalanceAccount1AfterClaiming:', web3.utils.fromWei(rewardTokenBalanceAccount1AfterClaiming))
 
             // Reward rate per hour: 1.0 X 3,600 = 3,600
             // Expected earned (claimable) rewards per account:
@@ -665,10 +665,10 @@ contract("UniswapPoolRewards", (accounts) => {
 
         it('withdrawPoolTokensAndClaimReward() - account1 withdraws 20 pool tokens, and claims 14,400 reward tokens', async () => {
             // Verify that account1 holds 4,500 $ELIMU tokens
-            const elimuTokenBalanceAccount1BeforeWithdrawAndClaim = await this.elimuTokenContract.balanceOf(accounts[1])
-            console.log('elimuTokenBalanceAccount1BeforeWithdrawAndClaim:', web3.utils.fromWei(elimuTokenBalanceAccount1BeforeWithdrawAndClaim))
-            assert.isAtLeast(Number(web3.utils.fromWei(elimuTokenBalanceAccount1BeforeWithdrawAndClaim)), 4_500)
-            assert.isAtMost(Number(web3.utils.fromWei(elimuTokenBalanceAccount1BeforeWithdrawAndClaim)), 4_500 * 1.01)
+            const rewardTokenBalanceAccount1BeforeWithdrawAndClaim = await this.rewardTokenContract.balanceOf(accounts[1])
+            console.log('rewardTokenBalanceAccount1BeforeWithdrawAndClaim:', web3.utils.fromWei(rewardTokenBalanceAccount1BeforeWithdrawAndClaim))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardTokenBalanceAccount1BeforeWithdrawAndClaim)), 4_500)
+            assert.isAtMost(Number(web3.utils.fromWei(rewardTokenBalanceAccount1BeforeWithdrawAndClaim)), 4_500 * 1.01)
 
             // Verify that account1 has deposited a total of 20 pool tokens
             const totalDepositedByAccount1 = await this.rewardsContract.poolTokenBalances(accounts[1])
@@ -701,10 +701,10 @@ contract("UniswapPoolRewards", (accounts) => {
             assert.equal(account1PoolTokenBalance, web3.utils.toWei('100')) // 100 - 20 + 20
 
             // Verify that account1 holds 18,900 $ELIMU tokens
-            const elimuTokenBalanceAccount1 = await this.elimuTokenContract.balanceOf(accounts[1])
-            console.log('elimuTokenBalanceAccount1:', web3.utils.fromWei(elimuTokenBalanceAccount1))
-            assert.isAtLeast(Number(web3.utils.fromWei(elimuTokenBalanceAccount1)), 18_900) // 4500 + 14400
-            assert.isAtMost(Number(web3.utils.fromWei(elimuTokenBalanceAccount1)), 18_900 * 1.01)
+            const rewardTokenBalanceAccount1 = await this.rewardTokenContract.balanceOf(accounts[1])
+            console.log('rewardTokenBalanceAccount1:', web3.utils.fromWei(rewardTokenBalanceAccount1))
+            assert.isAtLeast(Number(web3.utils.fromWei(rewardTokenBalanceAccount1)), 18_900) // 4500 + 14400
+            assert.isAtMost(Number(web3.utils.fromWei(rewardTokenBalanceAccount1)), 18_900 * 1.01)
         })
     })
 })
