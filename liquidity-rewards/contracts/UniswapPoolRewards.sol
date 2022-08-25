@@ -11,7 +11,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     IERC20 public rewardToken;
     IERC20 public poolToken;
 
-    uint256 public rewardRatePerSecond = 0.125 * 1e18;
+    uint256 public rewardRatePerSecond = 0.125 * 1e18; // ~324,000 per month
     uint256 public lastRewardPerPoolToken;
     uint256 public lastUpdateTimestamp;
 
@@ -22,11 +22,6 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
     event PoolTokensDeposited(address indexed account, uint256 amount);
     event PoolTokensWithdrawn(address indexed account, uint256 amount);
     event RewardClaimed(address indexed account, uint256 amount);
-
-    modifier rewardProgramNotEnded {
-        require(rewardRatePerSecond != 0, "the reward program is currently ended");
-        _;
-    }
 
     constructor(address rewardToken_, address poolToken_) {
         rewardToken = IERC20(rewardToken_);
@@ -51,7 +46,8 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         return rewardBalances[account] + (poolTokenBalances[account] * (rewardPerPoolToken() - rewardPerPoolTokenClaimed[account])) / 1e18;
     }
 
-    function depositPoolTokens(uint256 amount) public  rewardProgramNotEnded {
+    function depositPoolTokens(uint256 amount) public {
+        require(rewardRatePerSecond > 0, "This reward contract is not active");
         require(amount > 0, "Cannot deposit 0");
 
         _updateRewardBalances();
