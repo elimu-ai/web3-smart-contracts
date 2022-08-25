@@ -355,7 +355,7 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
     });
 
 
-    it.only('Reward program is ended by the owner', async function () {
+    it('Reward program is ended by the owner', async function () {
       expect(await this.pool.rewardPerPoolToken()).to.be.bignumber.almostEqualDiv1e18('0');
       expect(await this.pool.claimableReward(wallet1)).to.be.bignumber.equal('0');
       const deposit1 = new BN(web3.utils.toWei('1'));
@@ -403,5 +403,5 @@ contract('UniswapPoolRewards', function ([_, wallet1, wallet2, wallet3, wallet4,
       console.log("claimableReward 2 weeks after ending the program:", convertToNumber(rewardEarned2));
       console.log("------------------------------------------------------------------------");
     });
-});
+  });
 });
