@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.16;
+pragma solidity ^0.8.17;
 
 import "./IPoolRewards.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -74,7 +74,7 @@ contract UniswapPoolRewards is IPoolRewards, AccessControl {
         uint256 reward = claimableReward(msg.sender);
         require(reward > 0, "Nothing to claim");
 
-        rewardToken.transfer(msg.sender, reward);
+        rewardToken.safeTransfer(msg.sender, reward);
         rewardBalances[msg.sender] = 0;
         emit RewardClaimed(msg.sender, reward);
     }

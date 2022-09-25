@@ -29,7 +29,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: liquidity-rewards/package-lock.json
     - run: npm ci
-    - run: npm install truffle -g
+    - run: npm install truffle@5.5.24 -g
     - run: truffle compile
     - run: truffle test
     - run: truffle run coverage
