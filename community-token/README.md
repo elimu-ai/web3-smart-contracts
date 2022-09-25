@@ -32,7 +32,7 @@ brew install node
 Install Truffle:
 
 ```
-npm install truffle -g
+npm install truffle@5.5.24 -g
 ```
 
 ## Download Dependencies ⬇️
