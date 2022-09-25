@@ -88,4 +88,4 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 
 ## UI
 
-https://github.com/elimu-ai/web3-liquidity-rewards-ui
+See https://github.com/elimu-ai/web3-liquidity-rewards-ui
