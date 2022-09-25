@@ -23,7 +23,7 @@
   "homepage": "https://github.com/elimu-ai/web3-smart-contracts#readme",
   "devDependencies": {
     "@openzeppelin/contracts": "^4.7.3",
-    "@openzeppelin/test-helpers": "^0.5.15",
+    "@openzeppelin/test-helpers": "^0.5.16",
     "@truffle/hdwallet-provider": "^1.7.0",
     "chai": "^4.3.6",
     "dotenv": "^16.0.2",
@@ -33,7 +33,7 @@
     "solc": "^0.8.17",
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5",
-    "solidity-coverage": "^0.7.21",
+    "solidity-coverage": "^0.8.2",
     "truffle-plugin-verify": "^0.5.28"
   }
 }
