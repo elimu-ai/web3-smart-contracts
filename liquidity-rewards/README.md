@@ -1,6 +1,12 @@
 # Liquidity Provider Rewards 💸
 
-## Install
+## Install Truffle
+
+```
+npm install truffle@5.5.24 -g
+```
+
+## Install Dependencies
 
 ```
 npm install
