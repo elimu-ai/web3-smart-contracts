@@ -1,6 +1,12 @@
 # Liquidity Provider Rewards 💸
 
-## Install
+## Install Truffle
+
+```
+npm install truffle@5.5.24 -g
+```
+
+## Install Dependencies
 
 ```
 npm install
@@ -85,3 +91,7 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 ## Mainnet
 
 `// TODO`
+
+## UI
+
+See https://github.com/elimu-ai/web3-liquidity-rewards-ui
