@@ -53,7 +53,7 @@ open coverage/index.html
 - UI (swap): https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2&chain=rinkeby
 - UI (pool): https://app.uniswap.org/#/add/v2/ETH/0xe29797910D413281d2821D5d9a989262c8121CC2?chain=rinkeby
 
-### Rewards Contract 💸 
+#### Rewards Contract 💸 
 
 ```
 truffle migrate --network rinkeby
@@ -90,7 +90,29 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 
 ## Mainnet
 
-`// TODO`
+### $ELIMU Token 💎
+
+- Token address: https://etherscan.io/token/0xe29797910d413281d2821d5d9a989262c8121cc2
+
+### Uniswap Pool 🦄
+
+- Pool token: https://etherscan.io/token/0xa0d230dca71a813c68c278ef45a7dac0e584ee61
+- UI (swap): https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
+- UI (pool): https://app.uniswap.org/#/add/v2/ETH/0xe29797910d413281d2821d5d9a989262c8121cc2
+
+#### Rewards Contract 💸
+
+```
+truffle migrate --network mainnet
+```
+
+https://etherscan.io/address/0x6ba828e01713cef8ab59b64198d963d0e42e0aea
+
+```
+truffle run verify UniswapPoolRewards --network mainnet
+```
+
+https://etherscan.io/address/0x6ba828e01713cef8ab59b64198d963d0e42e0aea#code
 
 ## UI
 
