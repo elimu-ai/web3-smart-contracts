@@ -38,5 +38,11 @@ module.exports = function (deployer, network, accounts) {
     const poolTokenAddress = '0x9936bdcd16e8c709c4cb8d7b871f0011b4cc65de';
     console.log('poolTokenAddress:', poolTokenAddress);
     deployer.deploy(UniswapPoolRewards, rewardTokenAddress, poolTokenAddress);
+  } else if (network == 'mainnet') {
+    const rewardTokenAddress = '0xe29797910d413281d2821d5d9a989262c8121cc2';
+    console.log('rewardTokenAddress:', rewardTokenAddress);
+    const poolTokenAddress = '0xa0d230dca71a813c68c278ef45a7dac0e584ee61';
+    console.log('poolTokenAddress:', poolTokenAddress);
+    deployer.deploy(UniswapPoolRewards, rewardTokenAddress, poolTokenAddress);
   }
 };
