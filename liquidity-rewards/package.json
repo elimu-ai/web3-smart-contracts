@@ -1,6 +1,6 @@
 {
   "name": "liquidity-rewards",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Rewards for $ELIMU liquidity providers.",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/elimu-ai/web3-smart-contracts.git"
   },
-  "author": "elimu.ai Community DAO",
+  "author": "elimu.ai",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/elimu-ai/web3-smart-contracts/issues"

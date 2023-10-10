@@ -11,7 +11,7 @@ contract SushiSwapPoolRewards is IPoolRewards, AccessControl {
     IERC20 public rewardToken;
     IERC20 public poolToken;
 
-    uint256 public rewardRatePerSecond = 0.125 * 1e18; // ~324,000 per month
+    uint256 public rewardRatePerSecond = 0.199 * 1e18; // ~516,000 per month
     uint256 public lastRewardPerPoolToken;
     uint256 public lastUpdateTimestamp;
 
