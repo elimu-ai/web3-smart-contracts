@@ -26,6 +26,7 @@ module.exports = {
     goerli: {
       provider: () => new HDWalletProvider(mnemonic, 'https://rpc.ankr.com/eth_goerli'),
       network_id: 5,
+      networkCheckTimeout: 60_000,
       gas: 2_500_000,
       gasPrice: 4_000_000_000, // 4 gwei (in wei)
       timeoutBlocks: 200
