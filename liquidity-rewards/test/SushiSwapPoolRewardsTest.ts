@@ -107,9 +107,9 @@ contract("SushiSwapPoolRewards", (accounts) => {
         it('rewardRatePerSecond() - contract deployer should be able to adjust the rate', async () => {
             const deployerAccount = accounts[0]
             console.log('deployerAccount:', deployerAccount)
-            const doubleRewardRatePerSecond = web3.utils.toWei('0.250')
-            console.log('doubleRewardRatePerSecond:', web3.utils.fromWei(doubleRewardRatePerSecond))
-            await this.rewardsContract.setRewardRatePerSecond(doubleRewardRatePerSecond)
+            const newRewardRatePerSecond = web3.utils.toWei('0.250')
+            console.log('newRewardRatePerSecond:', web3.utils.fromWei(newRewardRatePerSecond))
+            await this.rewardsContract.setRewardRatePerSecond(newRewardRatePerSecond)
             const rewardRatePerSecond = await this.rewardsContract.rewardRatePerSecond()
             console.log('rewardRatePerSecond:', web3.utils.fromWei(rewardRatePerSecond))
             assert.equal(rewardRatePerSecond, web3.utils.toWei('0.250'))
