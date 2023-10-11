@@ -22,6 +22,7 @@ contract SushiSwapPoolRewards is IPoolRewards, AccessControl {
     event PoolTokensDeposited(address indexed account, uint256 amount);
     event PoolTokensWithdrawn(address indexed account, uint256 amount);
     event RewardClaimed(address indexed account, uint256 amount);
+    event RewardRateAdjusted(uint256 newRate);
 
     constructor(address rewardToken_, address poolToken_) {
         rewardToken = IERC20(rewardToken_);
@@ -32,6 +33,7 @@ contract SushiSwapPoolRewards is IPoolRewards, AccessControl {
     function setRewardRatePerSecond(uint256 rewardRatePerSecond_) public onlyRole(DEFAULT_ADMIN_ROLE) {
         _updateLastRewardPerPoolToken();
         rewardRatePerSecond = rewardRatePerSecond_;
+        emit RewardRateAdjusted(rewardRatePerSecond);
     }
 
     function rewardPerPoolToken() public view returns (uint256) {
