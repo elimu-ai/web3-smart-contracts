@@ -108,6 +108,8 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 
 #### Rewards Contract 💸
 
+##### Uniswap 🦄
+
 ```
 truffle migrate --network mainnet
 ```
@@ -119,6 +121,22 @@ truffle run verify UniswapPoolRewards --network mainnet
 ```
 
 https://etherscan.io/address/0x6ba828e01713cef8ab59b64198d963d0e42e0aea#code
+
+##### SushiSwap 🍣
+
+https://github.com/trufflesuite/truffle-migrate/issues/23#issuecomment-401290273
+
+```
+truffle migrate -f 2 --to 2 --network mainnet 
+```
+
+https://etherscan.io/address/0x92bc866ff845a5050b3c642dec94e5572305872f
+
+```
+truffle run verify SushiSwapPoolRewards --network mainnet
+```
+
+https://etherscan.io/address/0x92bc866ff845a5050b3c642dec94e5572305872f#code
 
 ## UI
 

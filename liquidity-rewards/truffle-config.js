@@ -26,16 +26,17 @@ module.exports = {
     goerli: {
       provider: () => new HDWalletProvider(mnemonic, 'https://rpc.ankr.com/eth_goerli'),
       network_id: 5,
-      networkCheckTimeout: 60_000,
+      networkCheckTimeout: 60_000, // 1 minute
       gas: 2_500_000,
       gasPrice: 4_000_000_000, // 4 gwei (in wei)
       timeoutBlocks: 200
     },
     mainnet: {
-      provider: () => new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${infuraKey}`),
+      provider: () => new HDWalletProvider(mnemonic, 'https://rpc.ankr.com/eth'),
       network_id: 1,
+      networkCheckTimeout: 60_000, // 1 minute
       gas: 2_500_000,
-      gasPrice: 10_000_000_000, // 10 gwei (in wei)
+      gasPrice: 8_000_000_000, // 8 gwei (in wei)
       timeoutBlocks: 200
     }
   },
