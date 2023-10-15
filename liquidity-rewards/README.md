@@ -100,15 +100,15 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 - UI (swap): https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xe29797910d413281d2821d5d9a989262c8121cc2
 - UI (pool): https://app.uniswap.org/#/add/v2/ETH/0xe29797910d413281d2821d5d9a989262c8121cc2
 
-### SushiSWap Pool 🍣
+### SushiSwap Pool 🍣
 
 - Pool token: https://etherscan.io/token/0x0E2a3d127EDf3BF328616E02F1DE47F981Cf496A
 - UI (swap): https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xe29797910D413281d2821D5d9a989262c8121CC2
 - UI (pool): https://app.sushi.com/add/ETH/0xe29797910D413281d2821D5d9a989262c8121CC2
 
-#### Rewards Contract 💸
+### Rewards Contract 💸
 
-##### Uniswap 🦄
+#### Uniswap 🦄
 
 ```
 truffle migrate --network mainnet
@@ -122,7 +122,7 @@ truffle run verify UniswapPoolRewards --network mainnet
 
 https://etherscan.io/address/0x6ba828e01713cef8ab59b64198d963d0e42e0aea#code
 
-##### SushiSwap 🍣
+#### SushiSwap 🍣
 
 https://github.com/trufflesuite/truffle-migrate/issues/23#issuecomment-401290273
 
