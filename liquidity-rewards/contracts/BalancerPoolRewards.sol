@@ -49,7 +49,7 @@ contract BalancerPoolRewards is IPoolRewards, AccessControl {
     }
 
     function depositPoolTokens(uint256 amount) public {
-        require(rewardRatePerSecond > 0, "This reward contract is not active");
+        require(rewardRatePerSecond > 0, "Reward contract not active");
         require(amount > 0, "Cannot deposit 0");
 
         _updateRewardBalances();

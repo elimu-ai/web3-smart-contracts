@@ -341,7 +341,7 @@ contract("BalancerPoolRewards", (accounts) => {
                 await this.rewardsContract.depositPoolTokens(web3.utils.toWei('10'), { from: accounts[1] })
             } catch (error) {
                 console.log('error:\n', error)
-                assert.equal(error.reason, "This reward contract is not active")
+                assert.equal(error.reason, "Reward contract not active")
             }
         })
 
