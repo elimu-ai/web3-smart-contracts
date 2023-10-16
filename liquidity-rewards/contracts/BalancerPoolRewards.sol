@@ -5,13 +5,13 @@ import "./IPoolRewards.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract SushiSwapPoolRewards is IPoolRewards, AccessControl {
+contract BalancerPoolRewards is IPoolRewards, AccessControl {
     using SafeERC20 for IERC20;
 
     IERC20 public rewardToken;
     IERC20 public poolToken;
 
-    uint256 public rewardRatePerSecond = 0.199 * 1e18; // ~516,000 per month
+    uint256 public rewardRatePerSecond = 0.249 * 1e18; // ~645,000 per month
     uint256 public lastRewardPerPoolToken;
     uint256 public lastUpdateTimestamp;
 
@@ -49,7 +49,7 @@ contract SushiSwapPoolRewards is IPoolRewards, AccessControl {
     }
 
     function depositPoolTokens(uint256 amount) public {
-        require(rewardRatePerSecond > 0, "This reward contract is not active");
+        require(rewardRatePerSecond > 0, "Reward contract not active");
         require(amount > 0, "Cannot deposit 0");
 
         _updateRewardBalances();

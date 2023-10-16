@@ -1,4 +1,8 @@
 {
   "extends": "solhint:recommended",
+  "rules": {
+    "compiler-version": ["error","^0.8.19"],
+    "func-visibility": ["warn",{"ignoreConstructors":true}]
+  },
   "plugins": ["prettier"]
 }
