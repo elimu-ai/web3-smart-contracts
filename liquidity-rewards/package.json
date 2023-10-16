@@ -1,6 +1,6 @@
 {
   "name": "liquidity-rewards",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Rewards for $ELIMU liquidity providers.",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-solidity": "^1.0.0-beta.24",
     "solc": "^0.8.17",
-    "solhint": "^3.3.7",
+    "solhint": "^3.6.2",
     "solhint-plugin-prettier": "^0.0.5",
     "solidity-coverage": "^0.7.21",
     "truffle-plugin-verify": "^0.5.28"
