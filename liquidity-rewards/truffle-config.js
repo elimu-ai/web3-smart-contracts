@@ -36,7 +36,7 @@ module.exports = {
       network_id: 1,
       networkCheckTimeout: 60_000, // 1 minute
       gas: 2_500_000,
-      gasPrice: 8_000_000_000, // 8 gwei (in wei)
+      gasPrice: 5_000_000_000, // 5 gwei (in wei)
       timeoutBlocks: 200
     }
   },

@@ -133,7 +133,7 @@ https://etherscan.io/address/0x6ba828e01713cef8ab59b64198d963d0e42e0aea#code
 https://github.com/trufflesuite/truffle-migrate/issues/23#issuecomment-401290273
 
 ```
-truffle migrate -f 2 --to 2 --network mainnet 
+truffle migrate -f 2 --to 2 --network mainnet
 ```
 
 https://etherscan.io/address/0x92bc866ff845a5050b3c642dec94e5572305872f
@@ -143,6 +143,22 @@ truffle run verify SushiSwapPoolRewards --network mainnet
 ```
 
 https://etherscan.io/address/0x92bc866ff845a5050b3c642dec94e5572305872f#code
+
+#### Balancer ⚖️
+
+https://github.com/trufflesuite/truffle-migrate/issues/23#issuecomment-401290273
+
+```
+truffle migrate -f 3 --to 3 --network mainnet
+```
+
+https://etherscan.io/address/0x8a1d0924bb0d9b4aab6508263828ca26ca0dc235
+
+```
+truffle run verify BalancerPoolRewards@0x8A1d0924Bb0d9b4Aab6508263828cA26ca0dC235 --network mainnet
+```
+
+https://etherscan.io/address/0x8a1d0924bb0d9b4aab6508263828ca26ca0dc235#code
 
 ## UI
 
