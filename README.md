@@ -12,3 +12,9 @@ See [community-token/](community-token)
 ## Liquidity Provider Rewards 💸
 
 See [liquidity-rewards/](liquidity-rewards)
+
+---
+
+elimu.ai - Free open source learning software for out-of-school children ✨🚀
+
+[Website 🌐](https://elimu.ai) &nbsp; [Wiki 📃](https://github.com/elimu-ai/wiki#readme) &nbsp; [Projects 👩🏽‍💻](https://github.com/orgs/elimu-ai/projects?query=is%3Aopen) &nbsp; [Milestones 🎯](https://github.com/elimu-ai/wiki/milestones) &nbsp; [Community 👋🏽](https://github.com/elimu-ai/wiki#open-source-community)
