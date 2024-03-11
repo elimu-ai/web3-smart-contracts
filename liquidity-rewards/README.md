@@ -106,7 +106,7 @@ https://rinkeby.etherscan.io/address/0xdD4b811DD62A1DE482f0D3863DAe55A672a461b2#
 - UI (swap): https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xe29797910D413281d2821D5d9a989262c8121CC2
 - UI (pool): https://app.sushi.com/add/ETH/0xe29797910D413281d2821D5d9a989262c8121CC2
 
-### Balancer ⚖️
+### Balancer Pool ⚖️
 
 - Pool token: https://etherscan.io/token/0x517390b2b806cb62f20ad340de6d98b2a8f17f2b
 - UI (swap): https://app.balancer.fi/#/ethereum/swap/ether/0xe29797910D413281d2821D5d9a989262c8121CC2
