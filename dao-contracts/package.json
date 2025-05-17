@@ -1,0 +1,11 @@
+{
+  "name": "dao-contracts",
+  "version": "1.0.0",
+  "description": "Utility smart contracts for the Ξlimu DAO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ξlimu DAO",
+  "license": "MIT"
+}
