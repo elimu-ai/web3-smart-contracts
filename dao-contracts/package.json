@@ -9,6 +9,7 @@
   "author": "Ξlimu DAO",
   "license": "MIT",
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.24.0"
   }
 }
