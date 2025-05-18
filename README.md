@@ -5,13 +5,17 @@
 
 Ethereum smart contracts
 
+## DAO Contracts 📦
+
+See [dao-contracts/](./dao-contracts)
+
 ## Community Token 💎
 
-See [community-token/](community-token)
+See [community-token/](./community-token)
 
 ## Liquidity Provider Rewards 💸
 
-See [liquidity-rewards/](liquidity-rewards)
+See [liquidity-rewards/](./liquidity-rewards)
 
 ---
 
