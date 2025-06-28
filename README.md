@@ -16,7 +16,7 @@ See [liquidity-rewards/](liquidity-rewards)
 ---
 
 > [!NOTE]
-> The smart contracts for the Sponsors 🫶🏽 Dapp can be found in a separate repo: https://github.com/elimu-ai/web3-sponsors
+> The smart contracts for the Sponsors🫶🏽 Dapp can be found in a separate repo: https://github.com/elimu-ai/web3-sponsors
 
 ---
 
