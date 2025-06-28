@@ -13,7 +13,8 @@ See [community-token/](community-token)
 
 See [liquidity-rewards/](liquidity-rewards)
 
-## Sponsors 🫶🏽
+> [!NOTE]
+> The smart contracts for the Sponsors 🫶🏽 Dapp can be found in a separate repo: https://github.com/elimu-ai/web3-sponsors/tree/main/backend
 
 See https://github.com/elimu-ai/web3-sponsors
 
