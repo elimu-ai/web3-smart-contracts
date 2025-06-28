@@ -13,6 +13,10 @@ See [community-token/](community-token)
 
 See [liquidity-rewards/](liquidity-rewards)
 
+## Sponsors 🫶🏽
+
+See https://github.com/elimu-ai/web3-sponsors
+
 ---
 
 <p align="center">
