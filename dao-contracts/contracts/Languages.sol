@@ -16,7 +16,7 @@ contract Languages is ILanguages {
         languageCodes[languageCode] = false;
     }
 
-    function isSupportedLanguage(string calldata languageCode) public view override returns (bool) {
+    function isSupportedLanguage(string calldata languageCode) public view returns (bool) {
         return languageCodes[languageCode];
     }
 }
