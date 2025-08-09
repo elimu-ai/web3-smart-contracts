@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.29;
+pragma solidity ^0.8.28;
 
 interface ILanguages {
     function getSupportedLanguages() external view returns (string[] calldata languageCodes);
