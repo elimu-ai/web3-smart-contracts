@@ -39,4 +39,16 @@ describe("Languages", function () {
       expect(await languages.isSupportedLanguage("ENG")).to.equal(true);
     });
   });
+
+  describe("Remove supported language", function () {
+    it("Newly removed supported language should return `false`", async function () {
+      const { languages } = await loadFixture(deployFixture);
+
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(false);
+      await languages.addSupportedLanguage("ENG");
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(true);
+      await languages.removeSupportedLanguage("ENG");
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(false);
+    });
+  });
 });
