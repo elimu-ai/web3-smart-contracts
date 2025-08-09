@@ -1,0 +1,15 @@
+{
+  "name": "dao-contracts",
+  "version": "1.0.0",
+  "description": "Utility smart contracts for the Ξlimu DAO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ξlimu DAO",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.24.0"
+  }
+}

@@ -1,4 +1,4 @@
-name: Node.js CI (liquidity-rewards/)
+name: Liquidity Rewards 💸
 
 on:
   push:
