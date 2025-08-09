@@ -29,4 +29,14 @@ describe("Languages", function () {
       expect(await languages.isSupportedLanguage("VIE")).to.equal(false);
     });
   });
+
+  describe("Add supported language", function () {
+    it("Newly set supported language should return `true`", async function () {
+      const { languages } = await loadFixture(deployFixture);
+
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(false);
+      await languages.addSupportedLanguage("ENG");
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(true);
+    });
+  });
 });
