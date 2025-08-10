@@ -9,15 +9,15 @@ https://www.npmjs.com/package/@elimu-ai/dao-contracts
 ```shell
 npm install
 npx hardhat clean
-hardhat compile
+npx hardhat compile
 ```
 
 ## Testing
 
 ```shell
-hardhat test
-hardhat coverage
-istanbul check-coverage --lines 80
+npx hardhat test
+npx hardhat coverage
+npx istanbul check-coverage --lines 80
 ```
 
 ## Deployment
