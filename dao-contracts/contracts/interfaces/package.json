@@ -1,0 +1,13 @@
+{
+    "name": "@elimu-ai/dao-contracts",
+    "version": "1.0.1",
+    "description": "Utility smart contracts for the Ξlimu DAO",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elimu-ai/web3-smart-contracts.git"
+    },
+    "license": "MIT",
+    "author": "Ξlimu DAO",
+    "homepage": "https://sponsors.elimu.ai",
+    "keywords": [ "education", "edtech", "web3", "ethereum", "dao" ]
+}
