@@ -2,7 +2,6 @@
 
 Utility smart contracts for the Ξlimu DAO.
 
-Try running some of the following tasks:
 https://www.npmjs.com/package/@elimu-ai/dao-contracts
 
 ## Compiling
