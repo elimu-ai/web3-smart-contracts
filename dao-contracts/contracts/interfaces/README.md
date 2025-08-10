@@ -18,7 +18,7 @@ contract Languages {
     ILanguages public languages;
 
     constructor() {
-        languages = ILanguages("0x9A3033D2e237376a09d7e19A7479622F8Ae38557")
+        languages = ILanguages("0x9A3033D2e237376a09d7e19A7479622F8Ae38557");
     }
 
     ...
