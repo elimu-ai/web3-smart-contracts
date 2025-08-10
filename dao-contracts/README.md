@@ -28,13 +28,13 @@ istanbul check-coverage --lines 80
 npx hardhat node
 ```
 ```shell
-npx hardhat ignition deploy .\ignition\modules\Languages.ts --network hardhat
+npx hardhat ignition deploy ./ignition/modules/Languages.ts --network hardhat
 ```
 
 ### Sepolia
 
 ```shell
-npx hardhat ignition deploy .\ignition\modules\Languages.ts --network sepolia --verify
+npx hardhat ignition deploy ./ignition/modules/Languages.ts --network sepolia --verify
 ```
 
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
