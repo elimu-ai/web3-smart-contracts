@@ -15,3 +15,11 @@ node_modules
 
 # Hardhat Ignition default folder for deployments against a local node
 ignition/deployments/chain-31337
+
+# Sepolia testnet
+ignition/deployments/chain-11155111/artifacts/*.dbg.json
+ignition/deployments/chain-11155111/build-info
+ignition/deployments/chain-11155111/journal.jsonl
+
+# dotenv
+.env

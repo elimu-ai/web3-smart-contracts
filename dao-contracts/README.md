@@ -1,13 +1,41 @@
-# Sample Hardhat Project
+# DAO Contracts 📦
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+Utility smart contracts for the Ξlimu DAO.
 
 Try running some of the following tasks:
+https://www.npmjs.com/package/@elimu-ai/dao-contracts
+
+## Compiling
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+npm install
+npx hardhat clean
+hardhat compile
 ```
+
+## Testing
+
+```shell
+hardhat test
+hardhat coverage
+istanbul check-coverage --lines 80
+```
+
+## Deployment
+
+### Hardhat
+
+```shell
+npx hardhat node
+```
+```shell
+npx hardhat ignition deploy .\ignition\modules\Languages.ts --network hardhat
+```
+
+### Sepolia
+
+```shell
+npx hardhat ignition deploy .\ignition\modules\Languages.ts --network sepolia --verify
+```
+
+[`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
