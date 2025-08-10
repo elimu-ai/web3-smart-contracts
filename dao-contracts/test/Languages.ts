@@ -38,6 +38,14 @@ describe("Languages", function () {
       await languages.addSupportedLanguage("ENG");
       expect(await languages.isSupportedLanguage("ENG")).to.equal(true);
     });
+
+    it("Upper-case and lower-case values should be considered different", async function () {
+      const { languages } = await loadFixture(deployFixture);
+
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(false);
+      await languages.addSupportedLanguage("eng");
+      expect(await languages.isSupportedLanguage("ENG")).to.equal(false);
+    });
   });
 
   describe("Remove supported language", function () {
