@@ -2,7 +2,6 @@
   "name": "dao-contracts",
   "version": "1.0.1",
   "description": "Utility smart contracts for the Ξlimu DAO",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
