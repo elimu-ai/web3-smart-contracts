@@ -1,0 +1,13 @@
+{
+  "name": "dao-contracts",
+  "version": "1.0.1",
+  "description": "Utility smart contracts for the Ξlimu DAO",
+  "author": "Ξlimu DAO",
+  "license": "MIT",
+  "devDependencies": {
+    "@elimu-ai/dao-contracts": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "dotenv": "^17.2.1",
+    "hardhat": "^2.26.2"
+  }
+}

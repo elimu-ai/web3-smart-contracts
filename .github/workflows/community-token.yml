@@ -1,4 +1,4 @@
-name: Node.js CI (community-token/)
+name: DAO Token 💎
 
 on:
   push:

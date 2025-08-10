@@ -1,0 +1,35 @@
+name: DAO Utility Contracts 📦
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [18.x, 20.x, 22.x]
+
+    defaults:
+      run:
+        working-directory: dao-contracts
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: dao-contracts/package-lock.json
+    - run: npm install
+    - run: npx hardhat clean
+    - run: npx hardhat compile
+    - run: npx hardhat test
+    - run: npx hardhat coverage
+    - run: npx istanbul check-coverage --lines 80
