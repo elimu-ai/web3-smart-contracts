@@ -8,15 +8,15 @@ contract Languages is ILanguages {
     /// @notice The ISO 639-2 language code of each language supported by the DAO.
     mapping(string => bool) public languageCodes;
 
-    function addSupportedLanguage(string calldata languageCode) public {
+    function addSupportedLanguage(string calldata languageCode) external {
         languageCodes[languageCode] = true;
     }
 
-    function removeSupportedLanguage(string calldata languageCode) public {
+    function removeSupportedLanguage(string calldata languageCode) external {
         languageCodes[languageCode] = false;
     }
 
-    function isSupportedLanguage(string calldata languageCode) public view returns (bool) {
+    function isSupportedLanguage(string calldata languageCode) external view returns (bool) {
         return languageCodes[languageCode];
     }
 }
