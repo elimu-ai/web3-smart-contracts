@@ -6,6 +6,9 @@ require('dotenv').config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
 console.log("PRIVATE_KEY.length: " + PRIVATE_KEY.length);
 
+const PRIVATE_KEY_ARRAY = (PRIVATE_KEY.length == 0) ? [] : [PRIVATE_KEY]
+console.log("PRIVATE_KEY_ARRAY.length: " + PRIVATE_KEY_ARRAY.length);
+
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 console.log("ETHERSCAN_API_KEY.length: " + ETHERSCAN_API_KEY.length);
 
@@ -14,7 +17,7 @@ const config: HardhatUserConfig = {
     sepolia: {
       // chainId: 11155111,
       url: "https://sepolia.drpc.org",
-      accounts: [PRIVATE_KEY]
+      accounts: PRIVATE_KEY_ARRAY
     }
   },
   etherscan: {
