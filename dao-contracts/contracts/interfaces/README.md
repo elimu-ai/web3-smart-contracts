@@ -13,7 +13,7 @@ Then, instantiate the smart contract you want to interact with:
 ```solidity
 import {ILanguages} from "@elimu-ai/dao-contracts/ILanguages.sol";
 
-contract Languages {
+contract MyContract {
 
     ILanguages public languages;
 
