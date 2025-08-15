@@ -1,6 +1,6 @@
 # DAO Contracts
 
-> Utility smart contracts for the Ξlimu DAO
+Utility smart contracts for the Ξlimu DAO.
 
 If you want to integrate external smart contracts with the smart contracts deployed by the Ξlimu DAO, install this library:
 
@@ -8,17 +8,20 @@ If you want to integrate external smart contracts with the smart contracts deplo
 npm install @elimu-ai/dao-contracts
 ```
 
-Then, instantiate the smart contract you want to interact with:
+Then, instantiate the smart contract(s) you want to interact with:
 
 ```solidity
-import {ILanguages} from "@elimu-ai/dao-contracts/ILanguages.sol";
+import { ILanguages } from "@elimu-ai/dao-contracts/ILanguages.sol";
+import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
 
 contract MyContract {
 
     ILanguages public languages;
+    IRoles public roles;
 
     constructor() {
-        languages = ILanguages("0x9A3033D2e237376a09d7e19A7479622F8Ae38557");
+        languages = ILanguages("0x...");
+        roles = IRoles("0x...");
     }
 
     ...
@@ -27,6 +30,6 @@ contract MyContract {
 
 ---
 
-> The mission of elimu.ai is to build innovative learning software that empowers out-of-school children to teach themselves basic reading📖, writing✍🏽 and math🔢 **within 6 months**.
+The mission of elimu.ai is to build innovative learning software that empowers out-of-school children to teach themselves basic reading📖, writing✍🏽 and math🔢 **within 6 months**.
 
 To learn more about the Ξlimu DAO, see https://github.com/elimu-ai/web3-wiki
