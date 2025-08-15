@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-// import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
-import { IRoles } from "./interfaces/IRoles.sol";
+import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /// @notice This smart contract defines the contributor roles used in the Ξlimu DAO (see `TOKENOMICS.md` at https://github.com/elimu-ai/web3-wiki).
