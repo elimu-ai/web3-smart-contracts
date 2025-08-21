@@ -37,4 +37,8 @@ npx hardhat ignition deploy ./ignition/modules/Languages.ts --network hardhat
 npx hardhat ignition deploy ./ignition/modules/Languages.ts --network sepolia --verify
 ```
 
+```shell
+npx hardhat ignition deploy ./ignition/modules/Roles.ts --network sepolia --verify
+```
+
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
