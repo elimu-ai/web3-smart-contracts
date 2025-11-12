@@ -34,6 +34,6 @@
     "solhint": "^3.6.2",
     "solhint-plugin-prettier": "^0.0.5",
     "solidity-coverage": "^0.7.21",
-    "truffle-plugin-verify": "^0.5.28"
+    "truffle-plugin-verify": "^0.6.7"
   }
 }
