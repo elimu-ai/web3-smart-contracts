@@ -8,12 +8,17 @@ contract Languages is ILanguages {
     /// @notice The ISO 639-2 language code of each language, in upper-case letters. E.g. "ENG" for English.
     mapping(string => bool) private languageCodes;
 
+    event LanguageCodeAdded(string);
+    event LanguageCodeRemoved(string);
+
     function addSupportedLanguage(string calldata languageCode) external {
         languageCodes[languageCode] = true;
+        emit LanguageCodeAdded(languageCode);
     }
 
     function removeSupportedLanguage(string calldata languageCode) external {
         languageCodes[languageCode] = false;
+        emit LanguageCodeRemoved(languageCode);
     }
 
     function isSupportedLanguage(string calldata languageCode) external view returns (bool) {
