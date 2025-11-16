@@ -19,6 +19,12 @@ describe("Languages", function () {
   }
 
   describe("Deployment", function () {
+    it("Should set the right owner", async function () {
+      const { languages, owner } = await loadFixture(deployFixture);
+
+      expect(await languages.owner()).to.equal(owner.address);
+    });
+
     it("Should not set any supported languages", async function () {
       const { languages } = await loadFixture(deployFixture);
 
@@ -27,6 +33,16 @@ describe("Languages", function () {
       expect(await languages.isSupportedLanguage("TGL")).to.equal(false);
       expect(await languages.isSupportedLanguage("THA")).to.equal(false);
       expect(await languages.isSupportedLanguage("VIE")).to.equal(false);
+    });
+  });
+
+  describe("Update owner address", function () {
+    it("Should change the owner", async function () {
+      const { languages, owner, otherAccount } = await loadFixture(deployFixture);
+
+      expect(await languages.owner()).to.equal(owner.address);
+      await languages.updateOwner(otherAccount.address);
+      expect(await languages.owner()).to.equal(otherAccount.address);
     });
   });
 
