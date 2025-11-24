@@ -1,6 +1,6 @@
 {
     "name": "@elimu-ai/dao-contracts",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Utility smart contracts for the Ξlimu DAO",
     "repository": {
         "type": "git",

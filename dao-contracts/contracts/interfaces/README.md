@@ -20,8 +20,8 @@ contract MyContract {
     IRoles public roles;
 
     constructor() {
-        languages = ILanguages("0x...");
-        roles = IRoles("0x...");
+        languages = ILanguages("0xa9f1bD888112659Cd78803dbE2C8B3daedf0Eb1F");
+        roles = IRoles("0x9aAa9f6189cF070e1149E9C85c4d10526f430cE3");
     }
 
     ...
