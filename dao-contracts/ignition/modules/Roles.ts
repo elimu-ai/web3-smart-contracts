@@ -9,8 +9,7 @@ const RolesModule = buildModule("RolesModule", (m) => {
 
   let elimuAddress = ethers.ZeroAddress;
   if (network.name == "sepolia") {
-    // .../deployments/chain-11155111/deployed_addresses.json
-    elimuAddress = "0xf4B2e968d9715Fbc0CD57E306A71036D2023bAD0";
+    elimuAddress = require("../deployments/chain-11155111/deployed_addresses.json")["ELIMUModule#DummyERC20"];
   } else if (network.name == "mainnet") {
     elimuAddress = "0xe29797910D413281d2821D5d9a989262c8121CC2";
   }
@@ -18,8 +17,7 @@ const RolesModule = buildModule("RolesModule", (m) => {
 
   let gElimuAddress = ethers.ZeroAddress;
   if (network.name == "sepolia") {
-    // .../deployments/chain-11155111/deployed_addresses.json
-    gElimuAddress = "0x544096415caD910d528465503655AAcfAAf7deaA";
+    gElimuAddress = require("../deployments/chain-11155111/deployed_addresses.json")["gELIMUModule#DummyERC20"];
   } else if (network.name == "mainnet") {
     gElimuAddress = "0xBeC06361c9451C8C493e74D6a1Df8428cdce5D53";
   }
