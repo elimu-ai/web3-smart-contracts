@@ -4,11 +4,6 @@
 version: 2
 updates:
   - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/liquidity-rewards" # Location of package manifests
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "npm" # See documentation for possible values
     directory: "/dao-contracts" # Location of package manifests
     schedule:
       interval: "daily"
