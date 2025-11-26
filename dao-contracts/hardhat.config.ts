@@ -18,6 +18,11 @@ const config: HardhatUserConfig = {
       // chainId: 11155111,
       url: "https://sepolia.drpc.org",
       accounts: PRIVATE_KEY_ARRAY
+    },
+    mainnet: {
+      // chainId: 1,
+      url: "https://eth.drpc.org",
+      accounts: PRIVATE_KEY_ARRAY
     }
   },
   etherscan: {
@@ -27,7 +32,7 @@ const config: HardhatUserConfig = {
     enabled: true
   },
   solidity: {
-    version: "0.8.28",
+    version: "0.8.30",
     settings: {
       optimizer: {
         enabled: true

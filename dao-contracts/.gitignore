@@ -21,5 +21,10 @@ ignition/deployments/chain-11155111/artifacts/*.dbg.json
 ignition/deployments/chain-11155111/build-info
 ignition/deployments/chain-11155111/journal.jsonl
 
+# Mainnet
+ignition/deployments/chain-1/artifacts/*.dbg.json
+ignition/deployments/chain-1/build-info
+ignition/deployments/chain-1/journal.jsonl
+
 # dotenv
 .env

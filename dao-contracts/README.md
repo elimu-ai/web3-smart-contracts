@@ -44,3 +44,12 @@ npx hardhat ignition deploy ./ignition/modules/Roles.ts --network sepolia --veri
 ```
 
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
+
+### Mainnet (Chain ID `1`)
+
+```shell
+npx hardhat ignition deploy ./ignition/modules/Languages.ts --network mainnet --reset --verify
+npx hardhat ignition deploy ./ignition/modules/Roles.ts --network mainnet --verify
+```
+
+[`./ignition/deployments/chain-1/deployed_addresses.json`](./ignition/deployments/chain-1/deployed_addresses.json)
