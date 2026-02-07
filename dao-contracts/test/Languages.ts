@@ -41,24 +41,24 @@ describe("Languages", function () {
       const { languages, otherAccount } = await loadFixture(deployFixture);
       
       await expect(
-        languages.connect(otherAccount).updateOwner(otherAccount.address)
-      ).to.be.revertedWith("Only the current owner can set a new owner");
+        languages.connect(otherAccount).transferOwnership(otherAccount.address)
+      ).to.be.revertedWithCustomError(languages, "OwnableUnauthorizedAccount");
     });
     
     it("Should change the owner", async function () {
       const { languages, owner, otherAccount } = await loadFixture(deployFixture);
 
       expect(await languages.owner()).to.equal(owner.address);
-      await languages.updateOwner(otherAccount.address);
+      await languages.transferOwnership(otherAccount.address);
       expect(await languages.owner()).to.equal(otherAccount.address);
     });
 
-    it("Should emit OwnerUpdated event", async function () {
-      const { languages, otherAccount } = await loadFixture(deployFixture);
+    it("Should emit OwnershipTransferred event", async function () {
+      const { languages, owner, otherAccount } = await loadFixture(deployFixture);
       
-      await expect(languages.updateOwner(otherAccount.address))
-        .to.emit(languages, "OwnerUpdated")
-        .withArgs(otherAccount.address);
+      await expect(languages.transferOwnership(otherAccount.address))
+        .to.emit(languages, "OwnershipTransferred")
+        .withArgs(owner.address, otherAccount.address);
     });
   });
 
@@ -68,7 +68,7 @@ describe("Languages", function () {
       
       await expect(
         languages.connect(otherAccount).addSupportedLanguage("ENG")
-      ).to.be.revertedWith("Only the current owner can add a language");
+      ).to.be.revertedWithCustomError(languages, "OwnableUnauthorizedAccount");
     });
     
     it("Newly set supported language should return `true`", async function () {
@@ -95,7 +95,7 @@ describe("Languages", function () {
       await languages.addSupportedLanguage("ENG");
       await expect(
         languages.connect(otherAccount).removeSupportedLanguage("ENG")
-      ).to.be.revertedWith("Only the current owner can remove a language");
+      ).to.be.revertedWithCustomError(languages, "OwnableUnauthorizedAccount");
     });
 
     it("Newly removed supported language should return `false`", async function () {
