@@ -3,13 +3,14 @@ pragma solidity ^0.8.30;
 
 import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @notice This smart contract defines the contributor roles used in the Ξlimu DAO (see `TOKENOMICS.md` at https://github.com/elimu-ai/web3-wiki).
-contract Roles is IRoles {
+contract Roles is IRoles, Ownable {
     IERC20 public elimuToken;
     IERC20 public gElimuToken;
 
-    constructor(address _elimuToken, address _gElimuToken) {
+    constructor(address _elimuToken, address _gElimuToken) Ownable(msg.sender) {
         elimuToken = IERC20(_elimuToken);
         gElimuToken = IERC20(_gElimuToken);
     }
