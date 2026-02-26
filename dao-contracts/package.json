@@ -6,7 +6,7 @@
   "license": "MIT",
   "devDependencies": {
     "@elimu-ai/dao-contracts": "^1.0.3",
-    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
     "@openzeppelin/contracts": "^5.4.0",
     "dotenv": "^17.3.1",
     "hardhat": "^2.26.2"
