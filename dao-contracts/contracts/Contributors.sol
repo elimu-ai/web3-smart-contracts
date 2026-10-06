@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.30;
 
-import { IContributors } from "./interfaces/IContributors.sol";
+import { IContributors } from "@elimu-ai/dao-contracts/IContributors.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @notice This smart contract stores the amount of tokens collected by each Ξlimu DAO contributor (see `TOKENOMICS.md` at https://github.com/elimu-ai/web3-wiki).

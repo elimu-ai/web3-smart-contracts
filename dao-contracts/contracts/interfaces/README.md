@@ -11,15 +11,18 @@ npm install @elimu-ai/dao-contracts
 Then, instantiate the smart contract(s) you want to interact with:
 
 ```solidity
+import { IContributors } from "@elimu-ai/dao-contracts/IContributors.sol";
 import { ILanguages } from "@elimu-ai/dao-contracts/ILanguages.sol";
 import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
 
 contract MyContract {
 
+    IContributors public contributors;
     ILanguages public languages;
     IRoles public roles;
 
     constructor() {
+        contributors = IContributors("...");
         languages = ILanguages("0xa9f1bD888112659Cd78803dbE2C8B3daedf0Eb1F");
         roles = IRoles("0x9aAa9f6189cF070e1149E9C85c4d10526f430cE3");
     }
