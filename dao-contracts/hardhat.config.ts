@@ -16,12 +16,12 @@ const config: HardhatUserConfig = {
   networks: {
     sepolia: {
       // chainId: 11155111,
-      url: "https://sepolia.drpc.org",
+      url: "https://ethereum-sepolia-rpc.publicnode.com",
       accounts: PRIVATE_KEY_ARRAY
     },
     mainnet: {
       // chainId: 1,
-      url: "https://eth.drpc.org",
+      url: "https://ethereum-rpc.publicnode.com",
       accounts: PRIVATE_KEY_ARRAY
     }
   },

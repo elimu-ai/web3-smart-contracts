@@ -1,4 +1,5 @@
 {
   "LanguagesModule#Languages": "0xba9f3C5ED04a76B613137e7E795F27192C1FF3Be",
-  "RolesModule#Roles": "0x51baBDc198d6dC4A8D1144c02748D7E084f770Db"
+  "RolesModule#Roles": "0x51baBDc198d6dC4A8D1144c02748D7E084f770Db",
+  "ContributorsModule#Contributors": "0x091d2bcfdCBeb534209600304a9949D5663eDe3E"
 }
