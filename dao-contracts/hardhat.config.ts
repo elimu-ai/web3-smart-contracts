@@ -21,7 +21,7 @@ const config: HardhatUserConfig = {
     },
     mainnet: {
       // chainId: 1,
-      url: "https://eth.drpc.org",
+      url: "https://ethereum-rpc.publicnode.com",
       accounts: PRIVATE_KEY_ARRAY
     }
   },
