@@ -8,7 +8,7 @@
     "@elimu-ai/dao-contracts": "^1.0.4",
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@openzeppelin/contracts": "^5.4.0",
-    "dotenv": "^18.0.4",
+    "dotenv": "^18.0.5",
     "hardhat": "^2.26.2"
   }
 }
