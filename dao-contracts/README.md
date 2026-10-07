@@ -50,9 +50,9 @@ npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network sepolia
 ### Mainnet (Chain ID `1`)
 
 ```shell
-npx hardhat ignition deploy ./ignition/modules/Languages.ts --network mainnet --reset --verify
-npx hardhat ignition deploy ./ignition/modules/Roles.ts --network mainnet --verify
-npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network mainnet --verify
+npx hardhat ignition deploy ./ignition/modules/Languages.ts --network mainnet --deployment-id mainnet_v1-0-5 --verify
+npx hardhat ignition deploy ./ignition/modules/Roles.ts --network mainnet --deployment-id mainnet_v1-0-5 --verify
+npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network mainnet --deployment-id mainnet_v1-0-5 --verify
 ```
 
 [`./ignition/deployments/chain-1/deployed_addresses.json`](./ignition/deployments/chain-1/deployed_addresses.json)
