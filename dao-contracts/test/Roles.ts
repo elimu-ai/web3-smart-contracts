@@ -18,10 +18,14 @@ describe("Roles", function () {
     const GElimuToken = await hre.ethers.getContractFactory("DummyERC20");
     const gElimuToken = await GElimuToken.deploy("Governance elimu.ai", "gELIMU");
 
-    const Roles = await hre.ethers.getContractFactory("Roles");
-    const roles = await Roles.deploy(elimuToken.getAddress(), gElimuToken.getAddress());
+    const Contributors = await hre.ethers.getContractFactory("Contributors");
+    const contributors = await Contributors.deploy();
+    await contributors.updateAmount(otherAccount.address, ethers.parseEther("3870000"));
 
-    return { roles, elimuToken, gElimuToken, owner, otherAccount };
+    const Roles = await hre.ethers.getContractFactory("Roles");
+    const roles = await Roles.deploy(elimuToken.getAddress(), gElimuToken.getAddress(), contributors.getAddress());
+
+    return { roles, elimuToken, gElimuToken, contributors, owner, otherAccount };
   }
 
   describe("Deployment", function () {

@@ -21,10 +21,18 @@ ignition/deployments/chain-11155111/artifacts/*.dbg.json
 ignition/deployments/chain-11155111/build-info
 ignition/deployments/chain-11155111/journal.jsonl
 
+ignition/deployments/sepolia_v*/artifacts/*.dbg.json
+ignition/deployments/sepolia_v*/build-info
+ignition/deployments/sepolia_v*/journal.jsonl
+
 # Mainnet
 ignition/deployments/chain-1/artifacts/*.dbg.json
 ignition/deployments/chain-1/build-info
 ignition/deployments/chain-1/journal.jsonl
+
+ignition/deployments/mainnet_v*/artifacts/*.dbg.json
+ignition/deployments/mainnet_v*/build-info
+ignition/deployments/mainnet_v*/journal.jsonl
 
 # dotenv
 .env
