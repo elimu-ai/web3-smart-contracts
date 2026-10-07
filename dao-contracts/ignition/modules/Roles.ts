@@ -22,8 +22,16 @@ const RolesModule = buildModule("RolesModule", (m) => {
     gElimuAddress = "0xBeC06361c9451C8C493e74D6a1Df8428cdce5D53";
   }
   console.log("gElimuAddress:", gElimuAddress);
+
+  let contributorsAddress = ethers.ZeroAddress;
+  if (network.name == "sepolia") {
+    contributorsAddress = require("../deployments/chain-11155111/deployed_addresses.json")["ContributorsModule#Contributors"];
+  } else if (network.name == "mainnet") {
+    contributorsAddress = require("../deployments/chain-1/deployed_addresses.json")["ContributorsModule#Contributors"];
+  }
+  console.log("contributorsAddress:", contributorsAddress);
   
-  const roles = m.contract("Roles", [elimuAddress, gElimuAddress]);
+  const roles = m.contract("Roles", [elimuAddress, gElimuAddress, contributorsAddress]);
   return { roles };
 });
 
