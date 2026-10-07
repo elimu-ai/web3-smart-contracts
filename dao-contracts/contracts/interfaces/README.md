@@ -24,7 +24,7 @@ contract MyContract {
     constructor() {
         contributors = IContributors("0x091d2bcfdCBeb534209600304a9949D5663eDe3E");
         languages = ILanguages("0xa9f1bD888112659Cd78803dbE2C8B3daedf0Eb1F");
-        roles = IRoles("0x9aAa9f6189cF070e1149E9C85c4d10526f430cE3");
+        roles = IRoles("0xB4e1235568b40C03E9cA9F2B333FA68Ed59C73F7");
     }
 
     ...
