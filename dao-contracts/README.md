@@ -33,6 +33,7 @@ npx hardhat ignition deploy ./ignition/modules/gELIMU.ts --network hardhat
 npx hardhat ignition deploy ./ignition/modules/Languages.ts --network hardhat
 npx hardhat ignition deploy ./ignition/modules/Roles.ts --network hardhat
 npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network hardhat
+npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network hardhat
 ```
 
 ### Sepolia (Chain ID `11155111`)
@@ -43,6 +44,7 @@ npx hardhat ignition deploy ./ignition/modules/gELIMU.ts --network sepolia --dep
 npx hardhat ignition deploy ./ignition/modules/Languages.ts --network sepolia --deployment-id sepolia_v1-0-6 --verify
 npx hardhat ignition deploy ./ignition/modules/Roles.ts --network sepolia --deployment-id sepolia_v1-0-6 --verify
 npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network sepolia --deployment-id sepolia_v1-0-6 --verify
+npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network sepolia --deployment-id sepolia_v1-0-6 --verify
 ```
 
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
