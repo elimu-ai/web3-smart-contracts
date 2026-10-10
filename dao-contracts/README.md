@@ -49,12 +49,17 @@ npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network sepolia
 
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
 
+EAS schema using the `RoleResolver`: https://sepolia.easscan.org/schema/view/0x2228b949fb8b13a7d314bef8f9888c325d16d8f49f28a71a772ba16eb7942314
+
 ### Mainnet (Chain ID `1`)
 
 ```shell
 npx hardhat ignition deploy ./ignition/modules/Languages.ts --network mainnet --deployment-id mainnet_v1-0-6 --verify
 npx hardhat ignition deploy ./ignition/modules/Roles.ts --network mainnet --deployment-id mainnet_v1-0-6 --verify
 npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network mainnet --deployment-id mainnet_v1-0-6 --verify
+npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network mainnet --deployment-id mainnet_v1-0-6 --verify
 ```
 
 [`./ignition/deployments/chain-1/deployed_addresses.json`](./ignition/deployments/chain-1/deployed_addresses.json)
+
+EAS schema using the `RoleResolver`: https://easscan.org/schema/view/0x2228b949fb8b13a7d314bef8f9888c325d16d8f49f28a71a772ba16eb7942314
