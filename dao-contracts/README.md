@@ -46,6 +46,7 @@ npx hardhat ignition deploy ./ignition/modules/Languages.ts --network sepolia --
 npx hardhat ignition deploy ./ignition/modules/Roles.ts --network sepolia --deployment-id sepolia_v1-0-7 --verify
 npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network sepolia --deployment-id sepolia_v1-0-7 --verify
 npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network sepolia --deployment-id sepolia_v1-0-7 --verify
+npx hardhat ignition deploy ./ignition/modules/RoleCondition.ts --network sepolia --deployment-id sepolia_v1-0-7 --verify
 ```
 
 [`./ignition/deployments/chain-11155111/deployed_addresses.json`](./ignition/deployments/chain-11155111/deployed_addresses.json)
