@@ -3,13 +3,16 @@ pragma solidity ^0.8.30;
 
 import { IPermissionCondition } from "@aragon/osx-commons-contracts/src/permission/condition/IPermissionCondition.sol";
 import { PermissionCondition } from "@aragon/osx-commons-contracts/src/permission/condition/PermissionCondition.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { IRoles } from "@elimu-ai/dao-contracts/IRoles.sol";
 
-contract RoleCondition is PermissionCondition {
+/// @title RoleCondition
+/// @notice A custom Aragon OSx permission condition for the Ξlimu DAO (see `TOKENOMICS.md` at https://github.com/elimu-ai/web3-wiki).
+contract RoleCondition is PermissionCondition, Ownable {
     IPermissionCondition public immutable votingPowerCondition;
     IRoles public immutable roles;
 
-    constructor(address votingPowerCondition_, address roles_) {
+    constructor(address votingPowerCondition_, address roles_) Ownable(msg.sender) {
         votingPowerCondition = IPermissionCondition(votingPowerCondition_);
         roles = IRoles(roles_);
     }
