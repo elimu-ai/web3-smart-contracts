@@ -27,7 +27,7 @@ const RolesModule = buildModule("RolesModule", (m) => {
   if (network.name == "sepolia") {
     contributorsAddress = require("../deployments/chain-11155111/deployed_addresses.json")["ContributorsModule#Contributors"];
   } else if (network.name == "mainnet") {
-    contributorsAddress = require("../deployments/chain-1/deployed_addresses.json")["ContributorsModule#Contributors"];
+    contributorsAddress = require("../deployments/mainnet_v1-0-4/deployed_addresses.json")["ContributorsModule#Contributors"];
   }
   console.log("contributorsAddress:", contributorsAddress);
   
