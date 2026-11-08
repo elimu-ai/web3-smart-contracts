@@ -9,7 +9,7 @@ const RolesModule = buildModule("RolesModule", (m) => {
 
   let elimuAddress = ethers.ZeroAddress;
   if (network.name == "sepolia") {
-    elimuAddress = require("../deployments/chain-11155111/deployed_addresses.json")["ELIMUModule#DummyERC20"];
+    elimuAddress = require("../deployments/sepolia_v1-0-4/deployed_addresses.json")["ELIMUModule#DummyERC20"];
   } else if (network.name == "mainnet") {
     elimuAddress = "0xe29797910D413281d2821D5d9a989262c8121CC2";
   }
@@ -17,7 +17,7 @@ const RolesModule = buildModule("RolesModule", (m) => {
 
   let gElimuAddress = ethers.ZeroAddress;
   if (network.name == "sepolia") {
-    gElimuAddress = require("../deployments/chain-11155111/deployed_addresses.json")["gELIMUModule#DummyERC20"];
+    gElimuAddress = require("../deployments/sepolia_v1-0-4/deployed_addresses.json")["gELIMUModule#DummyERC20"];
   } else if (network.name == "mainnet") {
     gElimuAddress = "0xBeC06361c9451C8C493e74D6a1Df8428cdce5D53";
   }
@@ -25,9 +25,9 @@ const RolesModule = buildModule("RolesModule", (m) => {
 
   let contributorsAddress = ethers.ZeroAddress;
   if (network.name == "sepolia") {
-    contributorsAddress = require("../deployments/chain-11155111/deployed_addresses.json")["ContributorsModule#Contributors"];
+    contributorsAddress = require("../deployments/sepolia_v1-0-4/deployed_addresses.json")["ContributorsModule#Contributors"];
   } else if (network.name == "mainnet") {
-    contributorsAddress = require("../deployments/chain-1/deployed_addresses.json")["ContributorsModule#Contributors"];
+    contributorsAddress = require("../deployments/mainnet_v1-0-4/deployed_addresses.json")["ContributorsModule#Contributors"];
   }
   console.log("contributorsAddress:", contributorsAddress);
   
