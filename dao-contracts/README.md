@@ -49,8 +49,6 @@ npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network sepolia
 npx hardhat ignition deploy ./ignition/modules/RoleCondition.ts --network sepolia --deployment-id sepolia_v1-0-8 --verify
 ```
 
-[`./ignition/deployments/sepolia_v1-0-4/deployed_addresses.json`](./ignition/deployments/sepolia_v1-0-4/deployed_addresses.json)
-
 EAS schema using the `RoleResolver`: https://sepolia.easscan.org/schema/view/0x2228b949fb8b13a7d314bef8f9888c325d16d8f49f28a71a772ba16eb7942314
 
 ### Mainnet (Chain ID `1`)
@@ -62,7 +60,5 @@ npx hardhat ignition deploy ./ignition/modules/Contributors.ts --network mainnet
 npx hardhat ignition deploy ./ignition/modules/RoleResolver.ts --network mainnet --deployment-id mainnet_v1-0-8 --verify
 npx hardhat ignition deploy ./ignition/modules/RoleCondition.ts --network mainnet --deployment-id mainnet_v1-0-8 --verify
 ```
-
-[`./ignition/deployments/mainnet_v1-0-4/deployed_addresses.json`](./ignition/deployments/mainnet_v1-0-4/deployed_addresses.json)
 
 EAS schema using the `RoleResolver`: https://easscan.org/schema/view/0x2228b949fb8b13a7d314bef8f9888c325d16d8f49f28a71a772ba16eb7942314
